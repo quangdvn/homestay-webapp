@@ -1,0 +1,40 @@
+//* Main color
+$main-user: #f9495b;
+$main-host: #1b858a;
+
+//* Common color
+$purple: #f9f9;
+$white: #fff;
+$gray-lighter: #d3d3d3;
+$gray-medium: #b1b3b6;
+$gray-light: #777;
+$gray-dark: #636466;
+$gray-disabled: #6c757d;
+$gray-medium-light: #eaeaea;
+$gray-medium-lighter: #e8e8e8;
+$gray-lighter: rgba(255, 255, 255, 0.8);
+$gray-medium: #bbb;
+$gray: #555;
+$blue-medium-light: rgba(47, 103, 177, 0.6);
+$blue-lighter: #1e62d8;
+$light-blue: #79aedb;
+$sky-blue: #bcc8d7;
+$blue: rgb(11, 11, 235);
+$eco-green: #64af53;
+$complete-green: #00aa32;
+$business-blue: #4ebdec;
+$bottom-blue: #84d0f0;
+$dark-blue: #00305b;
+$dark-medium-blue: #00458f;
+$dark-light-blue: #33597c;
+$form-gray: rgba(62, 72, 92, 0.3);
+$gray-darker: #222;
+$dark-text: #212529;
+$state-danger-text: rgb(247, 12, 12);
+$shadow_black: rgba(0, 0, 0, 0.3);
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
