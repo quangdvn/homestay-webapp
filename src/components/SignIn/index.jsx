@@ -72,14 +72,14 @@ const SignIn = () => {
             <div className="remember-forget-pwd">
               <div className="remember-pwd">
                 <div className="toggle-btn">
-                  <label class="switch">
+                  <label className="switch">
                     <input
                       type="checkbox"
                       name="rememberPass"
                       value={formik.values.rememberPass}
                       onChange={formik.handleChange}
                     />
-                    <span class="slider round"></span>
+                    <span className="slider round"></span>
                   </label>
                 </div>
                 <span className="title">Remember Me</span>
