@@ -1,0 +1,96 @@
+@import '../../stylesheets/variables';
+
+.place-details {
+  p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .place-image {
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 600px;
+      object-fit: cover;
+    }
+    .view-photos {
+      position: absolute;
+      font-weight: 500;
+      border: 0px;
+      outline: none;
+      border-radius: 3px;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px;
+      padding: 0.4rem 0.9rem;
+      right: 25px;
+      bottom: 30px;
+    }
+  }
+
+  .place-details-navbar {
+    position: sticky;
+    background-color: white;
+    z-index: 99;
+    top: 0;
+    display: flex;
+    border-top: 1px solid rgb(230, 230, 230);
+    border-bottom: 1px solid rgb(230, 230, 230);
+
+    .details-nav-item {
+      text-decoration: none;
+      color: black;
+      padding: 1.5rem 1.3rem;
+      transition: color 0.1s ease-in-out, border-bottom 0.1s ease-in-out;
+    }
+    .details-nav-item:hover {
+      cursor: pointer;
+      color: $main-user;
+    }
+    .details-nav-item.active {
+      color: $main-user;
+      font-weight: 500;
+      padding: 1.5rem 1.28rem 1.3rem 1.28rem;
+      border-bottom: 3px solid $main-user;
+    }
+    .bookmark {
+      margin: 1.15em 1.3rem 1.15em auto;
+      padding: 0 0.8rem;
+      background: white;
+      border: 1px solid rgb(230, 230, 230);
+      font-weight: 500;
+      outline: none;
+      border-radius: 3px;
+      transition: background 0.2s ease-in-out;
+
+      .bookmark-icon {
+        position: relative;
+        bottom: 0.15rem;
+        font-size: 1.1rem;
+        margin-right: 0.5rem;
+      }
+      .bookmark-icon.bookmarked {
+        color: $main-user;
+      }
+    }
+    .bookmark:hover {
+      background: rgb(247, 247, 247);
+    }
+  }
+
+  .place-details-body {
+    display: flex;
+    margin: 40px 200px;
+    gap: 60px;
+
+    .place-details-content {
+      width: 65%;
+      display: flex;
+      flex-direction: column;
+      gap: 3.5rem;
+    }
+    .booking-container {
+      width: 33%;
+    }
+  }
+}
