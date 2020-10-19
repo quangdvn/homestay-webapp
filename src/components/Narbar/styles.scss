@@ -1,0 +1,60 @@
+@import '../../containers//Home//styles';
+@import '../../stylesheets//variables';
+header {
+  @include displayFlex(space-between);
+  position: absolute;
+  z-index: 2;
+  background: transparent;
+  max-width: 1223px;
+  width: 100%;
+  padding: 10px 20px 10px 20px;
+  background-color: transparent;
+  // box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 20px;
+  .left {
+    @include displayFlex(initial, center);
+    width: 100%;
+    max-width: 650px;
+    .logo {
+      font-size: 20px;
+      color: $main-user;
+      img {
+        @include img;
+      }
+    }
+    .search {
+      input {
+        @include input;
+        margin-left: 30px;
+        padding-left: 10px;
+      }
+    }
+  }
+  .right {
+    @include displayFlex(space-between, center);
+    width: 100%;
+    max-width: 500px;
+    .menu-nav {
+      @include displayFlex(space-around, initial);
+      max-width: 300px;
+      padding: 5px;
+      width: 100%;
+      a {
+        @include a($main-user);
+      }
+    }
+    .sign-in-up-btn {
+      @include displayFlex(initial, center);
+      .sign-in {
+        padding: 5px;
+        font-weight: 600;
+        color: white;
+      }
+      .sign-up {
+        padding: 4px;
+        background-color: $main-user;
+        border-radius: 5px;
+        @include text(600);
+      }
+    }
+  }
+}
