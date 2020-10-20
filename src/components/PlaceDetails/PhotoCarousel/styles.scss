@@ -1,0 +1,21 @@
+@media (min-width: 576px) {
+  #photo-modal {
+    max-width: 1200px;
+  }
+}
+
+#photo-modal {
+  background-color: white !important;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 10px;
+  top: 0.5rem;
+
+  .modal-content {
+    border: 0;
+  }
+
+  img {
+    width: 100%;
+    height: 720px;
+    object-fit: cover;
+  }
+}

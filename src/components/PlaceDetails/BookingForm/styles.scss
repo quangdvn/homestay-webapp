@@ -1,0 +1,215 @@
+@import '../../../stylesheets/variables';
+
+.booking-form {
+  position: sticky;
+  width: 100%;
+  top: 118px;
+  z-index: 99;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 20px;
+
+  .booking-form-header {
+    display: flex;
+    padding: 1.5rem 1.8rem;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(235, 235, 235);
+
+    .one-night-price {
+      color: black;
+
+      span {
+        font-size: 1rem;
+        font-weight: 400;
+      }
+    }
+    .contact-hotel {
+      text-decoration: none;
+      color: $main-user;
+      font-weight: 500;
+    }
+  }
+  .booking-form-main {
+    padding: 1.5rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+
+    .form-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-dates,
+    .DateRangePicker,
+    .DateRangePickerInput {
+      width: 100%;
+    }
+
+    .form-dates .DateRangePicker .DateRangePickerInput {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background-color: rgb(247, 247, 247);
+      border: 0px;
+      border-radius: 3px;
+
+      .DateInput {
+        background-color: rgb(247, 247, 247);
+
+        .DateInput_input {
+          padding-top: 0.9rem;
+          padding-bottom: 0.9rem;
+          text-align: center;
+          font-size: 1rem;
+          font-weight: 400;
+          color: black;
+          background-color: rgb(247, 247, 247);
+        }
+        .DateInput_input::placeholder {
+          text-align: center;
+          font-size: 1rem;
+          font-weight: 400;
+          color: black;
+        }
+        .DateInput_input__focused {
+          border-bottom: 2px solid $main-user;
+        }
+      }
+    }
+
+    .form-guests {
+      .with-popup {
+        position: relative;
+
+        .show-popup {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          padding-top: 0.9rem;
+          padding-bottom: 0.9rem;
+          width: 100%;
+          background-color: rgb(247, 247, 247);
+          border: 0px;
+          outline: none;
+          border-radius: 3px;
+        }
+        .popup-container {
+          position: absolute;
+          top: 3.4rem;
+          width: 103%;
+          border-radius: 3px;
+          background-color: white;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 6px,
+            rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
+
+          .popup {
+            padding: 2rem 2.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+
+            .counter {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+
+              .quantity {
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+
+                button {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  border-radius: 50%;
+                  color: $main-user;
+                  background: white;
+                  border: 2px solid $main-user;
+                  outline: none;
+                  width: 1.7rem;
+                  height: 1.7rem;
+                  transition: color 0.1s ease-in-out,
+                    background 0.1s ease-in-out;
+
+                  .icon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 1.3rem;
+                  }
+                }
+                button:hover {
+                  background: $main-user;
+                  color: white;
+                }
+              }
+            }
+          }
+        }
+        .popup-container::before {
+          content: '';
+          width: 14px;
+          height: 14px;
+          top: -8px;
+          left: 36px;
+          position: absolute;
+          border-radius: 2px;
+          transform: rotate(45deg);
+          background-color: white;
+          border-top: 1px solid rgb(230, 230, 230);
+          border-left: 1px solid rgb(230, 230, 230);
+        }
+      }
+    }
+
+    .reserve-button {
+      padding: 0.6rem 0;
+      border: none;
+      outline: none;
+      border-radius: 3px;
+      background: $main-user;
+      color: white;
+      font-weight: 500;
+      transition: background 0.15s ease-in-out;
+    }
+    .reserve-button:hover {
+      background: rgba($main-user, 0.8);
+    }
+
+    .not-charge {
+      font-size: 0.9rem;
+      align-self: center;
+      color: grey;
+    }
+
+    .price-cal {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgb(235, 235, 235);
+
+      .price-item {
+        display: flex;
+        justify-content: space-between;
+
+        .price-desc {
+          text-decoration: underline;
+        }
+        .number.offer {
+          font-weight: 600;
+          color: seagreen;
+        }
+      }
+    }
+    .total-price {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+  }
+}
