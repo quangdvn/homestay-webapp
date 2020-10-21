@@ -4,7 +4,11 @@ import './react_dates_overrides.scss';
 import OwlCarousel from 'react-owl-carousel';
 import moment from 'moment';
 import { DateRangePicker } from 'react-dates';
+<<<<<<< HEAD
 import Narbar from '../../components/Narbar';
+=======
+
+>>>>>>> 5b3f5d1b2749681bc7add8baf7bce62efeb792d9
 const Home = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -15,11 +19,40 @@ const Home = () => {
   };
   return (
     <div className="container">
+<<<<<<< HEAD
       {/* <Narbar /> */}
       <main>
         <article>
           <div className="intro-section">
             <Narbar />
+=======
+      <header>
+        <div className="left">
+          <div className="logo">
+            <img src={require('../../assets/images/user-logo.png')} alt="" />
+          </div>
+          <div className="search">
+            <input type="text" placeholder="Search" />
+            <img src="" alt="" />
+          </div>
+        </div>
+        <div className="right">
+          <div className="menu-nav">
+            <a href="#">Hotel</a>
+            <a href="#">Listing</a>
+            <a href="#">Agent</a>
+            <a href="#">Pricing</a>
+          </div>
+          <div className="sign-in-up-btn">
+            <div className="sign-in">Sign in</div>
+            <div className="sign-up">Sign up</div>
+          </div>
+        </div>
+      </header>
+      <main>
+        <article>
+          <section className="intro-section">
+>>>>>>> 5b3f5d1b2749681bc7add8baf7bce62efeb792d9
             <div className="slide-intro">
               <OwlCarousel
                 className="owl-theme"
@@ -35,6 +68,7 @@ const Home = () => {
                 <div class="single-slider slider-bg-3"></div>
               </OwlCarousel>
             </div>
+<<<<<<< HEAD
             <div>
               <div className="search-hotel">
                 <h3>Latest reviews. Lowest prices.</h3>
@@ -79,6 +113,50 @@ const Home = () => {
             </div>
           </div>
           <div className="explore-destination">
+=======
+            <div className="search-hotel">
+              <h3>Latest reviews. Lowest prices.</h3>
+              <div className="description">
+                compares prices from 200+ booking sites to help you find the
+                lowest price on the right hotel for you.
+              </div>
+              <div className="form-search">
+                <select>
+                  <option className="label-select">Select city</option>
+                  <option value="Hà Nội">Hà Nội </option>
+                  <option value="Đà Nẵng">Đà Nẵng</option>
+                  <option value="HCM">HCM</option>
+                </select>
+                <select>
+                  <option className="label-select">Select district</option>
+                  <option value="Hoàn Kiếm">Hoàn Kiếm</option>
+                  <option value="Thanh Xuân"> Thanh Xuân</option>
+                  <option value="Long Biên">Long Biên</option>
+                </select>
+                <div className="form-select-date">
+                  <DateRangePicker
+                    endDate={endDate}
+                    endDateId="endDate"
+                    focusedInput={focusedInput.focusedInput}
+                    isOutsideRange={() => null}
+                    onDatesChange={onDatesChange}
+                    onFocusChange={focusedInput =>
+                      setFocusedInput({ focusedInput })
+                    }
+                    startDate={startDate}
+                    startDateId="startDate"
+                  />
+                </div>
+                <div className="guest">
+                  <span>Guest:</span>
+                  <div> 9</div>
+                </div>
+                <div className="find-hotel-btn">Find hotels</div>
+              </div>
+            </div>
+          </section>
+          <section className="explore-destination">
+>>>>>>> 5b3f5d1b2749681bc7add8baf7bce62efeb792d9
             <div className="header">
               <h3 className="title">Explore Destinations</h3>
               <a href="#">Show all</a>
@@ -115,8 +193,13 @@ const Home = () => {
                 </div>
               </div>
             </div>
+<<<<<<< HEAD
           </div>
           <div className="top-hotel">
+=======
+          </section>
+          <section className="top-hotel">
+>>>>>>> 5b3f5d1b2749681bc7add8baf7bce62efeb792d9
             <div className="header">
               <h3 className="title">Travelers’ Choice: Top hotels</h3>
               <a href="#">Show all</a>
@@ -333,8 +416,13 @@ const Home = () => {
                 </div>
               </div>
             </div>
+<<<<<<< HEAD
           </div>
           <div className="luxary-hotel">
+=======
+          </section>
+          <section className="luxary-hotel">
+>>>>>>> 5b3f5d1b2749681bc7add8baf7bce62efeb792d9
             <div className="header">
               <h3 className="title">Best Rated: Luxary hotels</h3>
               <a href="#">Show all</a>
@@ -551,7 +639,11 @@ const Home = () => {
                 </div>
               </div>
             </div>
+<<<<<<< HEAD
           </div>
+=======
+          </section>
+>>>>>>> 5b3f5d1b2749681bc7add8baf7bce62efeb792d9
         </article>
       </main>
       <footer>
