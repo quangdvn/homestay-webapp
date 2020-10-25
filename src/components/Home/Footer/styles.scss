@@ -1,0 +1,32 @@
+@import '../../Home/styles.scss';
+@import '../../../stylesheets/variables';
+footer {
+  background-color: rgb(255, 255, 255);
+  background-image: url('../../../assets/svg//footer.svg');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 100%;
+  @include displayFlex(initial, center, column);
+  padding: 50px;
+  .logo {
+    @include text(0, $main-user, 20px);
+    img {
+      max-width: 150px;
+    }
+  }
+  .menu-nav {
+    @include displayFlex(space-around);
+    max-width: 500px;
+    padding: 20px;
+    width: 100%;
+    a {
+      @include a(black);
+    }
+    :hover {
+      color: $main-user;
+    }
+  }
+  .copy-right {
+    @include text(400, rgb(144, 144, 144), 15px, 18px);
+  }
+}

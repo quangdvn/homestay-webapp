@@ -1,0 +1,26 @@
+.slide-intro {
+  .owl-stage {
+    background-color: black;
+  }
+  .single-slider {
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    opacity: 0.8;
+  }
+  .slider-bg-1 {
+    background-image: url('../../../assets//images/slide-1.jpg');
+  }
+  .slider-bg-2 {
+    background-image: url('../../../assets//images/slide-2.jpg');
+  }
+  .slider-bg-3 {
+    background-image: url('../../../assets//images/slide-3.jpg');
+  }
+  .owl-dots {
+    position: absolute;
+    top: 94%;
+    left: 50%;
+  }
+}

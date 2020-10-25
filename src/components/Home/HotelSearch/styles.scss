@@ -1,0 +1,49 @@
+@import '../../Home/styles.scss';
+@import '../../../stylesheets/variables';
+.search-hotel {
+  max-width: 1012px;
+  width: 100%;
+  padding: 25px;
+  background-color: white;
+  position: absolute;
+  z-index: 1;
+  border-radius: 10px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 10%;
+  .description {
+    margin-bottom: 20px;
+  }
+  .form-search {
+    @include displayFlex;
+    select {
+      max-width: 200px;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background-color: rgb(247, 247, 247);
+      border-radius: 3px 0 0 0;
+      -webkit-appearance: none;
+      outline: none;
+    }
+
+    .label-select {
+      display: none;
+    }
+    .guest {
+      @include displayFlex;
+      margin-left: 20px;
+      padding: 10px;
+      border: none;
+      background-color: rgb(247, 247, 247);
+    }
+    .find-hotel-btn {
+      padding: 10px 30px 10px 30px;
+      border: none;
+      background-color: $main-user;
+      @include text(600, white, 15px);
+    }
+  }
+}

@@ -1,0 +1,45 @@
+@import '../../stylesheets//variables';
+@mixin a($color, $weight: 600, $size: 15px) {
+  outline: none;
+  color: $color;
+  text-decoration: none;
+  font-weight: $weight;
+  font-size: $size;
+}
+
+@mixin displayFlex($justify: initial, $align: initial, $direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+@mixin text($weight: 0, $color: white, $size: 15px, $height: 30px) {
+  color: $color;
+  font-size: $size;
+  @if $weight != 0 {
+    font-weight: $weight;
+  }
+  @if $height {
+    line-height: $height;
+  }
+}
+
+@mixin img($max-width: 200px, $height: auto){
+  max-width: $max-width;
+  width: 100%;
+  height: $height;
+}
+@mixin input($width: 300px, $height: 32px, $color: #f7f7f7) {
+  width: $width;
+  height: $height;
+  background: $color;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+}
+.container {
+  .intro-section {
+    position: relative;
+  }
+}

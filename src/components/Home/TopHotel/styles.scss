@@ -1,0 +1,40 @@
+@import '../../Home/styles.scss';
+@import '../../../stylesheets/variables';
+.top-hotel {
+  padding: 50px;
+  .header {
+    @include displayFlex(space-between, center);
+    a {
+      @include a($main-user);
+    }
+  }
+  .list-hotel {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-gap: 25px;
+    .hotel {
+      border: 2px solid rgb(230, 230, 230);
+      border-radius: 5px;
+      border-width: 0px 1px 1px;
+      img {
+        @include img(280px, 166px);
+      }
+      .info {
+        padding: 15px;
+        .address {
+          @include text(400, rgb(144, 144, 144), 12px);
+        }
+        .name {
+          @include text(600, black, 20px);
+        }
+        .price-status {
+          @include displayFlex;
+          @include text(400, rgb(44, 44, 44), 13px, 25px);
+        }
+        .star {
+          @include displayFlex;
+        }
+      }
+    }
+  }
+}
