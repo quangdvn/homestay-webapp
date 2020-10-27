@@ -1,0 +1,223 @@
+@import '../../stylesheets//variables';
+@mixin a($color, $weight: 600) {
+  outline: none;
+  color: $color;
+  text-decoration: none;
+  font-weight: $weight;
+}
+
+@mixin displayFlex($justify: initial, $align: initial, $direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+@mixin text($weight: 0, $color: white, $size: 17px, $height: 30px) {
+  color: $color;
+  font-size: $size;
+  @if $weight != 0 {
+    font-weight: $weight;
+  }
+  @if $height {
+    line-height: $height;
+  }
+}
+
+@mixin img($max-width: 200px, $height: auto) {
+  max-width: $max-width;
+  width: 100%;
+  height: $height;
+}
+@mixin input($width: 300px, $height: 32px, $color: #f7f7f7) {
+  width: $width;
+  height: $height;
+  background: $color;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+}
+.container {
+  main {
+    .intro-section {
+      position: relative;
+      .slide-intro {
+        .owl-stage {
+          background-color: black;
+        }
+        .single-slider {
+          height: 100vh;
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center center;
+          opacity: 0.6;
+        }
+        .slider-bg-1 {
+          background-image: url('https://imgscf.slidemembers.com/docs/1/1/297/hotel_service_powerpoint_presentation_slides_296597.jpg');
+        }
+        .slider-bg-2 {
+          background-image: url('https://asiaopentours.net/wp-content/uploads/2018/01/slide-hotel-2.jpg');
+        }
+        .slider-bg-3 {
+          background-image: url('https://bloximages.chicago2.vip.townnews.com/tucson.com/content/tncms/assets/v3/editorial/a/f7/af726c56-3a48-59f5-a7ae-4086605aae2c/5b479dc2a03e0.image.jpg?crop=1832%2C1031%2C0%2C50&resize=1832%2C1031&order=crop%2Cresize');
+        }
+        .owl-dots {
+          position: absolute;
+          top: 94%;
+          left: 50%;
+        }
+      }
+      .search-hotel {
+        max-width: 915px;
+        width: 100%;
+        padding: 25px;
+        background-color: white;
+        position: absolute;
+        z-index: 1;
+        border-radius: 10px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        bottom: 10%;
+        .description {
+          margin-bottom: 20px;
+        }
+        .form-search {
+          @include displayFlex;
+          select {
+            max-width: 200px;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: rgb(247, 247, 247);
+            border-radius: 3px 0 0 0;
+            -webkit-appearance: none;
+            outline: none;
+          }
+
+          .label-select {
+            display: none;
+          }
+          .guest {
+            @include displayFlex;
+            margin-left: 20px;
+            padding: 10px;
+            border: none;
+            background-color: rgb(247, 247, 247);
+          }
+          .find-hotel-btn {
+            padding: 10px 30px 10px 30px;
+            border: none;
+            background-color: $main-user;
+            @include text(600, white, 15px);
+          }
+        }
+      }
+    }
+
+    .explore-destination {
+      padding: 50px;
+      .header {
+        @include displayFlex(space-between, center);
+        a {
+          @include a($main-user);
+        }
+      }
+      .list-city {
+        @include displayFlex;
+        .city {
+          position: relative;
+          background-color: black;
+          border-radius: 10px;
+          height: 370px;
+          margin-right: 40px;
+          img {
+            @include img(280px, 370px);
+            opacity: 0.6;
+            border-radius: 10px;
+          }
+          .info {
+            position: absolute;
+            top: 30%;
+            left: 33%;
+            .name {
+              @include text(700);
+              text-transform: capitalize;
+              text-align: center;
+              text-shadow: rgba(0, 0, 0, 0.25) 0px 2px 2px;
+            }
+            .number-hotel {
+              @include text(600, white, 15px);
+            }
+          }
+        }
+      }
+    }
+    .top-hotel {
+      padding: 50px;
+      .header {
+        @include displayFlex(space-between, center);
+        a {
+          @include a($main-user);
+        }
+      }
+      .list-hotel {
+        display: grid;
+        grid-template-columns: auto auto auto auto auto;
+        grid-gap: 25px;
+        .hotel {
+          border: 2px solid rgb(230, 230, 230);
+          border-radius: 5px;
+          border-width: 0px 1px 1px;
+          img {
+            @include img(280px, 166px);
+          }
+          .info {
+            padding: 15px;
+            .address {
+              @include text(400, rgb(144, 144, 144), 12px);
+            }
+            .name {
+              @include text(600, black, 20px);
+            }
+            .price-status {
+              @include displayFlex;
+              @include text(400, rgb(44, 44, 44), 13px, 25px);
+            }
+            .star {
+              @include displayFlex;
+            }
+          }
+        }
+      }
+    }
+    .luxary-hotel {
+      @extend .top-hotel;
+    }
+  }
+  footer {
+    background-color: #f7f7f7;
+    border-top: 1px solid #dddddd;
+    @include displayFlex(initial, center, column);
+    padding: 30px;
+    .logo {
+      @include text(0, $main-user, 20px);
+      img {
+        @include img(120px);
+      }
+    }
+    .menu-nav {
+      @include displayFlex(space-around);
+      max-width: 300px;
+      padding: 5px;
+      width: 100%;
+      a {
+        @include a(black);
+      }
+    }
+    .copy-right {
+      @include text(400, rgb(144, 144, 144), 15px, 18px);
+    }
+  }
+}
