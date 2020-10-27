@@ -1,35 +1,52 @@
 import React, { useState } from 'react';
-import { DateRangePicker } from 'react-dates';
-import { FiPlus, FiMinus } from 'react-icons/fi';
 import './styles.scss';
-
-const BookingForm = () => {
+import { DateRangePicker } from 'react-dates';
+import { FiMinus, FiPlus } from 'react-icons/fi';
+import { useFormik } from 'formik';
+const HotelSearch = () => {
   const [focusedInput, setFocusedInput] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({
-    startDate: null,
-    endDate: null,
+    startDate: '',
+    endDate: '',
     adults: 0,
     children: 0,
   });
-
-  const handleSubmit = event => {
-    event.preventDefault();
-  };
-
+  const formik = useFormik({
+    initialValues: {
+      city: '',
+      district: ''
+    },
+    onSubmit: values => {
+      console.log(formData);
+      console.log(values);
+    },
+  });
   return (
-    <div className="booking-form">
-      <header className="booking-form-header">
-        <h4 className="one-night-price">
-          $16.5 <span>/ night</span>
-        </h4>
-        <a className="contact-hotel" href="/">
-          Contact Hotel
-        </a>
-      </header>
-      <form onSubmit={handleSubmit} className="booking-form-main">
-        <div className="form-item form-dates">
-          <span>Dates</span>
+    <div className="search-hotel">
+      <h3>Latest reviews. Lowest prices.</h3>
+      <div className="description">
+        compares prices from 200+ booking sites to help you find the lowest
+        price on the right hotel for you.
+      </div>
+      <form onSubmit={formik.handleSubmit} className="form-search">
+        <div className="city">
+          <select onChange={formik.handleChange} value={formik.values.city}>
+            <option className="label-select">Select city</option>
+            <option value="Hà Nội">Hà Nội </option>
+            <option value="Đà Nẵng">Đà Nẵng</option>
+            <option value="HCM">HCM</option>
+          </select>
+        </div>
+        <div className="district">
+          <select onChange={formik.handleChange} value={formik.values.district}>
+            <option className="label-select">Select district</option>
+            <option value="Hoàn Kiếm">Hoàn Kiếm</option>
+            <option value="Thanh Xuân"> Thanh Xuân</option>
+            <option value="Long Biên">Long Biên</option>
+          </select>
+        </div>
+        <div className="form-select-date">
           <DateRangePicker
             startDate={formData.startDate}
             startDateId="start-date-id"
@@ -46,7 +63,6 @@ const BookingForm = () => {
           />
         </div>
         <div className="form-item form-guests">
-          <span>Guests</span>
           <div className="with-popup">
             <button
               type="button"
@@ -133,32 +149,12 @@ const BookingForm = () => {
             )}
           </div>
         </div>
-        
-        <button type="submit" className="reserve-button">
-          Reserve
+        <button className="find-hotel-btn" type="submit">
+          Find hotels
         </button>
-        <span className="not-charge">You won&apos;t be charge yet</span>
-        <div className="price-cal">
-          <div className="price-item base-price">
-            <span className="price-desc">$16.5 x 2 nights</span>
-            <span className="number">$33.0</span>
-          </div>
-          <div className="price-item service-fee">
-            <span className="price-desc">Service fee</span>
-            <span className="number">$5.45</span>
-          </div>
-          <div className="price-item offer">
-            <span className="price-desc">Special offer: 8% off</span>
-            <span className="number offer">- $2.65</span>
-          </div>
-        </div>
-        <div className="total-price">
-          <span>Total</span>
-          <span className="number">$38.45</span>
-        </div>
       </form>
     </div>
   );
 };
 
-export default BookingForm;
+export default HotelSearch;

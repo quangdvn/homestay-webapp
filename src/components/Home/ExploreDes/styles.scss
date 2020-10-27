@@ -1,0 +1,34 @@
+@import '../../Home/styles.scss';
+@import '../../../stylesheets/variables';
+.explore-destination {
+  padding: 50px;
+  .list-city {
+    @include displayFlex;
+    .city {
+      position: relative;
+      background-color: black;
+      border-radius: 10px;
+      height: 370px;
+      margin-right: 40px;
+      img {
+        @include img(280px, 370px);
+        opacity: 0.6;
+        border-radius: 10px;
+      }
+      .info {
+        position: absolute;
+        top: 30%;
+        left: 33%;
+        .name {
+          @include text(700);
+          text-transform: capitalize;
+          text-align: center;
+          text-shadow: rgba(0, 0, 0, 0.25) 0px 2px 2px;
+        }
+        .number-hotel {
+          @include text(600, white, 15px);
+        }
+      }
+    }
+  }
+}

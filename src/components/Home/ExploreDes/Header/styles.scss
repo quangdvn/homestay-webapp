@@ -1,0 +1,8 @@
+@import '../../../Home/styles.scss';
+@import '../../../../stylesheets//variables';
+.header {
+  @include displayFlex(space-between, center);
+  a {
+    @include a($main-user);
+  }
+}
