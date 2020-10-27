@@ -8,15 +8,14 @@ import TopHotel from './TopHotel';
 import Footer from './Footer';
 const Home = () => {
   return (
-    <div className="container">
-          <div className="intro-section">
-            <Narbar />
-            <SlideIntro />
-            <HotelSearch />
-          </div>
-          <ExporeDes />
-          <TopHotel />
-          
+    <div className="home-layout">
+      <div className="intro-section">
+        <Narbar />
+        <SlideIntro />
+        <HotelSearch />
+      </div>
+      <ExporeDes />
+      <TopHotel />
       <Footer />
     </div>
   );

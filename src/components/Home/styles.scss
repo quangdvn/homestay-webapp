@@ -8,7 +8,7 @@
 }
 
 @mixin displayFlex($justify: initial, $align: initial, $direction: row) {
-  display: flex;
+  display: flex !important;
   flex-direction: $direction;
   justify-content: $justify;
   align-items: $align;
@@ -38,7 +38,7 @@
   border-radius: 5px;
   font-size: 15px;
 }
-.container {
+.home-layout {
   .intro-section {
     position: relative;
   }
