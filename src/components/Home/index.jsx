@@ -1,6 +1,5 @@
 import React from 'react';
 import './styles.scss';
-import './react_dates_overrides.scss';
 import Narbar from './Narbar';
 import SlideIntro from './SlideIntro';
 import HotelSearch from './HotelSearch';
