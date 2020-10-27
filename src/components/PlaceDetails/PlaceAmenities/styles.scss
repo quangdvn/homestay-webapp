@@ -1,0 +1,35 @@
+@import '../../../stylesheets/variables';
+
+.place-details-amenities {
+  .title {
+    margin-bottom: 1.9rem;
+  }
+  .amenities {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-column-gap: 15px;
+    grid-row-gap: 15px;
+    margin-bottom: 0.7rem;
+
+    .amenity {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      border-radius: 4px;
+      padding: 38px 36px 30px;
+      background: rgb(247, 247, 247);
+      margin-bottom: 20px;
+      align-items: center;
+
+      .amenity-icon {
+        color: $main-user;
+        font-size: 4.5rem;
+      }
+    }
+  }
+  .show-all {
+    cursor: pointer;
+    color: $main-user;
+    font-weight: 500;
+  }
+}
