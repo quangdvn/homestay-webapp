@@ -6,6 +6,7 @@ import HotelSearch from './HotelSearch';
 import ExporeDes from './ExploreDes';
 import TopHotel from './TopHotel';
 import Footer from './Footer';
+
 const Home = () => {
   return (
     <div className="home-layout">

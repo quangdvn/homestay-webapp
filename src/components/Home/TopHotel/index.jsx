@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles.scss';
 import Header from '../ExploreDes/Header';
+
 const TopHotel = () => {
   const listHotel = [
     {
@@ -17,7 +18,7 @@ const TopHotel = () => {
     <div className="top-hotel">
       <Header />
       <div className="list-hotel">
-        {listHotel.map((hotel, index) => (
+        {listHotel.map(hotel => (
           <div className="hotel">
             <img src={hotel.img} alt="" />
             <div className="info">
@@ -28,7 +29,6 @@ const TopHotel = () => {
                 <div className="status-cancel">/Night - Free Cancellation</div>
               </div>
               <div className="star">
-                {/* <img src="" alt="" /> */}
                 <strong className="status">Bad(12)</strong>
               </div>
             </div>
@@ -38,4 +38,5 @@ const TopHotel = () => {
     </div>
   );
 };
+
 export default TopHotel;

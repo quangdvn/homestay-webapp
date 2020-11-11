@@ -133,7 +133,7 @@ const BookingForm = () => {
             )}
           </div>
         </div>
-        
+
         <button type="submit" className="reserve-button">
           Reserve
         </button>

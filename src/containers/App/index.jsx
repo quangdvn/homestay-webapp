@@ -1,6 +1,6 @@
 import React from 'react';
-import Home from '../../components/Home';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from '../../components/Home';
 import PlaceDetails from '../../components/PlaceDetails';
 import './styles.scss';
 
@@ -14,9 +14,9 @@ function App() {
         <Route exact path="/places/:id/details">
           <PlaceDetails />
         </Route>
-        <Route exact path="/listing"></Route>
-        <Route exact path="/profile"></Route>
-        <Route exact path="/pricing-plan"></Route>
+        <Route exact path="/listing" />
+        <Route exact path="/profile" />
+        <Route exact path="/pricing-plan" />
       </Switch>
     </Router>
   );
