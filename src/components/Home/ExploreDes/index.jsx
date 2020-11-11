@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles.scss';
 import Header from './Header';
+
 const ExploreDes = () => {
   const destination = [
     {
@@ -14,11 +15,12 @@ const ExploreDes = () => {
       number_hotel: 522525,
     },
   ];
+
   return (
     <div className="explore-destination">
       <Header />
       <div className="list-city">
-        {destination.map((city, index) => (
+        {destination.map(city => (
           <div className="city">
             <img src={city.img} alt="" />
             <div className="info">
@@ -31,4 +33,5 @@ const ExploreDes = () => {
     </div>
   );
 };
+
 export default ExploreDes;

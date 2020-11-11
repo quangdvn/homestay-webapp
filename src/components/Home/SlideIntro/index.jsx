@@ -1,21 +1,22 @@
 import React from 'react';
 import OwlCarousel from 'react-owl-carousel';
 import './styles.scss';
+
 const SlideIntro = () => {
   return (
     <div className="slide-intro">
       <OwlCarousel
         className="owl-theme"
-        loop={true}
+        loop
         items={1}
-        autoplay={true}
+        autoplay
         autoplayTimeout={7000}
-        animateOut={'fadeOut'}
-        dots={true}
+        animateOut="fadeOut"
+        dots
       >
-        <div className="single-slider slider-bg-1"></div>
-        <div className="single-slider slider-bg-2"></div>
-        <div className="single-slider slider-bg-3"></div>
+        <div className="single-slider slider-bg-1" />
+        <div className="single-slider slider-bg-2" />
+        <div className="single-slider slider-bg-3" />
       </OwlCarousel>
     </div>
   );

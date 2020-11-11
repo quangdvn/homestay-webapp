@@ -3,6 +3,7 @@ import './styles.scss';
 import { DateRangePicker } from 'react-dates';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import { useFormik } from 'formik';
+
 const HotelSearch = () => {
   const [focusedInput, setFocusedInput] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
@@ -15,7 +16,7 @@ const HotelSearch = () => {
   const formik = useFormik({
     initialValues: {
       city: '',
-      district: ''
+      district: '',
     },
     onSubmit: values => {
       console.log(formData);

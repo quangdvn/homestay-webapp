@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import React, { useState, useEffect } from 'react';
 import './styles.scss';
 import { NavLink } from 'react-router-dom';
@@ -5,6 +6,7 @@ import { FiSearch } from 'react-icons/fi';
 
 const Narbar = () => {
   const [scrolled, setScrolled] = useState(false);
+
   const handleScroll = () => {
     const offset = window.scrollY;
     if (offset > 150) {
@@ -13,15 +15,18 @@ const Narbar = () => {
       setScrolled(false);
     }
   };
+
   const menu = [
     { name: 'Hotel', url: '/', exact: true },
     { name: 'Listing', url: '/listing' },
     { name: 'Agent', url: '/profile' },
     { name: 'Pricing', url: '/pricing-plan' },
   ];
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
   });
+
   return (
     <div className={scrolled ? 'scrolled' : 'narbar'}>
       <div className="left">
@@ -42,7 +47,7 @@ const Narbar = () => {
               placeholder='Search  "Đà Nẵng" '
               className="search-destination"
             />
-            <FiSearch size = "1em" />
+            <FiSearch size="1em" />
           </div>
         )}
       </div>
