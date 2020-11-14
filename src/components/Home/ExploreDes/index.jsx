@@ -4,19 +4,24 @@ import Header from './Header';
 const ExploreDes = () => {
   const destination = [
     {
-      img: 'https://khachsandanang.info/wp-content/uploads/2016/11/1-2.jpg',
-      name: 'Đà Nẵng',
-      number_hotel: 522525,
+      img: 'https://i.ibb.co/4PDZqq6/Th-p-R-a-6.jpg',
+      name: 'Hà Nội',
+      number_hotel: 525,
     },
     {
-      img: 'https://khachsandanang.info/wp-content/uploads/2016/11/1-2.jpg',
+      img: 'https://i.ibb.co/tJ7BMZT/da-nang.jpg',
       name: 'Đà Nẵng',
-      number_hotel: 522525,
+      number_hotel: 412,
+    },
+    {
+      img: 'https://i.ibb.co/84dQSpH/hcm.jpg',
+      name: 'HCM',
+      number_hotel: 636,
     },
   ];
   return (
     <div className="explore-destination">
-      <Header />
+      <Header title="Explore Destinations" />
       <div className="list-city">
         {destination.map((city, index) => (
           <div className="city">

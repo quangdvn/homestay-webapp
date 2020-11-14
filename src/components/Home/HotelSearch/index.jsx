@@ -3,23 +3,29 @@ import './styles.scss';
 import { DateRangePicker } from 'react-dates';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import { useFormik } from 'formik';
+import city from '../../../constants/city';
 const HotelSearch = () => {
   const [focusedInput, setFocusedInput] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({
     startDate: '',
     endDate: '',
-    adults: 0,
-    children: 0,
+    guests: 0,
   });
   const formik = useFormik({
     initialValues: {
-      city: '',
-      district: ''
+      city_id: null,
+      district_id: null,
     },
     onSubmit: values => {
-      console.log(formData);
-      console.log(values);
+      console.log({
+        ...values,
+        check_in_date: formData.startDate.format('MM-DD-YYYY'),
+        check_out_date: formData.endDate.format('MM-DD-YYYY'),
+        guests: formData.guests,
+        city_id: parseInt(values.city_id),
+        district_id: parseInt(values.district_id),
+      });
     },
   });
   return (
@@ -31,29 +37,48 @@ const HotelSearch = () => {
       </div>
       <form onSubmit={formik.handleSubmit} className="form-search">
         <div className="city">
-          <select onChange={formik.handleChange} value={formik.values.city}>
+          <select
+            onChange={formik.handleChange}
+            value={formik.values.city_id}
+            id="city_id"
+            name="city_id"
+          >
             <option className="label-select">Select city</option>
-            <option value="Hà Nội">Hà Nội </option>
-            <option value="Đà Nẵng">Đà Nẵng</option>
-            <option value="HCM">HCM</option>
+            {city.map(data => (
+              <option value={data.city_id}>{data.name}</option>
+            ))}
           </select>
         </div>
         <div className="district">
-          <select onChange={formik.handleChange} value={formik.values.district}>
+          <select
+            onChange={formik.handleChange}
+            value={formik.values.district_id}
+            id="district_id"
+            name="district_id"
+          >
             <option className="label-select">Select district</option>
-            <option value="Hoàn Kiếm">Hoàn Kiếm</option>
-            <option value="Thanh Xuân"> Thanh Xuân</option>
-            <option value="Long Biên">Long Biên</option>
+            {formik.values.city_id &&
+              city
+                .find(
+                  element => element.city_id === parseInt(formik.values.city_id)
+                )
+                .district.map(data => (
+                  <option value={data.district_id}>{data.name}</option>
+                ))}
           </select>
         </div>
-        <div className="form-select-date">
+        <div className="form-dates">
           <DateRangePicker
             startDate={formData.startDate}
             startDateId="start-date-id"
             endDate={formData.endDate}
             endDateId="end-date-id"
             onDatesChange={({ startDate, endDate }) =>
-              setFormData({ ...formData, startDate, endDate })
+              setFormData({
+                ...formData,
+                startDate,
+                endDate,
+              })
             }
             focusedInput={focusedInput}
             onFocusChange={input => setFocusedInput(input)}
@@ -70,25 +95,21 @@ const HotelSearch = () => {
               onClick={() => setShowPopup(!showPopup)}
             >
               <span>
-                Adults {formData.adults ? `: ${formData.adults}` : null}
-              </span>
-              <span>ー</span>
-              <span>
-                Children {formData.children ? `: ${formData.children}` : null}
+                Guests {formData.guests ? `: ${formData.guests}` : `: 0`}
               </span>
             </button>
             {showPopup && (
               <div className="popup-container">
                 <div className="popup">
                   <div className="counter adult">
-                    <span>Adult</span>
+                    <span>Guest</span>
                     <div className="quantity">
                       <button
                         type="button"
                         onClick={() =>
                           setFormData({
                             ...formData,
-                            adults: Math.max(0, formData.adults - 1),
+                            guests: Math.max(0, formData.guests - 1),
                           })
                         }
                       >
@@ -96,45 +117,13 @@ const HotelSearch = () => {
                           <FiMinus />
                         </span>
                       </button>
-                      <span className="number">{formData.adults}</span>
+                      <span className="number">{formData.guests}</span>
                       <button
                         type="button"
                         onClick={() =>
                           setFormData({
                             ...formData,
-                            adults: formData.adults + 1,
-                          })
-                        }
-                      >
-                        <span className="icon">
-                          <FiPlus />
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                  <div className="counter children">
-                    <span>Children</span>
-                    <div className="quantity">
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setFormData({
-                            ...formData,
-                            children: Math.max(0, formData.children - 1),
-                          })
-                        }
-                      >
-                        <span className="icon">
-                          <FiMinus />
-                        </span>
-                      </button>
-                      <span className="number">{formData.children}</span>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setFormData({
-                            ...formData,
-                            children: formData.children + 1,
+                            guests: formData.guests + 1,
                           })
                         }
                       >

@@ -13,26 +13,41 @@
     grid-template-columns: auto auto auto auto auto;
     grid-gap: 25px;
     .hotel {
-      border: 2px solid rgb(230, 230, 230);
-      border-radius: 5px;
-      border-width: 0px 1px 1px;
+      width: 225px;
       img {
-        @include img(280px, 166px);
+        @include img(100%, 170px);
+      }
+      li {
+        width: 225px;
       }
       .info {
         padding: 15px;
+        border-width: 0px 1px 1px;
+        border-style: solid;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        border-color: rgb(230, 230, 230);
+        transition: border-color 0.2s ease 0s;
         .address {
-          @include text(400, rgb(144, 144, 144), 12px);
+          @include text(400, rgb(144, 144, 144), 13px);
         }
-        .name {
-          @include text(600, black, 20px);
+        a {
+          @include a(black, 600);
+          font-size: 18px;
+        }
+        a:hover {
+          color: $main-user;
         }
         .price-status {
           @include displayFlex;
           @include text(400, rgb(44, 44, 44), 13px, 25px);
         }
-        .star {
-          @include displayFlex;
+        .rating {
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          color: rgb(44, 44, 44);
+          font-size: 13px;
         }
       }
     }
