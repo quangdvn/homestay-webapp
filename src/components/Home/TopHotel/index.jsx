@@ -207,4 +207,5 @@ const TopHotel = props => {
     </div>
   );
 };
+
 export default TopHotel;
