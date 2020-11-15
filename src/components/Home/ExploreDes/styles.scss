@@ -11,7 +11,7 @@
       height: 370px;
       margin-right: 40px;
       img {
-        @include img(280px, 370px);
+        @include img(260px, 370px);
         opacity: 0.6;
         border-radius: 10px;
       }
@@ -21,12 +21,21 @@
         left: 33%;
         .name {
           @include text(700);
+          font-size: 18px;
           text-transform: capitalize;
           text-align: center;
           text-shadow: rgba(0, 0, 0, 0.25) 0px 2px 2px;
+          cursor: pointer;
+        }
+        .name:hover {
+          font-size: 17px;
         }
         .number-hotel {
           @include text(600, white, 15px);
+          cursor: pointer;
+        }
+        .number-hotel:hover {
+          font-size: 13px;
         }
       }
     }

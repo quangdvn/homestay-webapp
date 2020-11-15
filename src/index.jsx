@@ -12,7 +12,9 @@ import * as serviceWorker from './serviceWorker';
 import App from './containers/App';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
+import 'react-multi-carousel/lib/styles.css';
 const store = configureStore();
 
 ReactDOM.render(
