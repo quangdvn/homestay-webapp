@@ -21,12 +21,21 @@
         left: 33%;
         .name {
           @include text(700);
+          font-size: 18px;
           text-transform: capitalize;
           text-align: center;
           text-shadow: rgba(0, 0, 0, 0.25) 0px 2px 2px;
+          cursor: pointer;
+        }
+        .name:hover {
+          font-size: 17px;
         }
         .number-hotel {
           @include text(600, white, 15px);
+          cursor: pointer;
+        }
+        .number-hotel:hover {
+          font-size: 13px;
         }
       }
     }

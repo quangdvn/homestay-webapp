@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './styles.scss';
 import Header from '../ExploreDes/Header';
 import { Link } from 'react-router-dom';
 import { IoIosStar, IoIosStarOutline } from 'react-icons/io';
+import { FiExternalLink } from 'react-icons/fi';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import Carousel from 'react-multi-carousel';
 
 const TopHotel = props => {
+  const [hover, setHover] = useState(false);
+  const [bookmark, setBookMark] = useState(false);
+  const [id, setId] = useState(-1);
   const listHotel = [
     {
       id: 1,
-      img:
-        'https://i.pinimg.com/originals/6e/bd/54/6ebd5405194190cc7dd885ca164cde20.jpg',
+      img: [
+        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-12_thumb.jpg',
+        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-13_thumb.jpg',
+        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-14_thumb.jpg',
+      ],
       address: '8424 Padberg Flats',
       name: 'Small Metal Ball',
       price: '316.00',
@@ -19,8 +27,11 @@ const TopHotel = props => {
     },
     {
       id: 2,
-      img:
-        'https://i.pinimg.com/originals/6e/bd/54/6ebd5405194190cc7dd885ca164cde20.jpg',
+      img: [
+        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-12_thumb.jpg',
+        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-13_thumb.jpg',
+        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-14_thumb.jpg',
+      ],
       address: '8424 Padberg Flats',
       name: 'Small Metal Ball',
       price: '316.00',
@@ -29,8 +40,11 @@ const TopHotel = props => {
     },
     {
       id: 3,
-      img:
-        'https://i.pinimg.com/originals/6e/bd/54/6ebd5405194190cc7dd885ca164cde20.jpg',
+      img: [
+        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-12_thumb.jpg',
+        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-13_thumb.jpg',
+        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-14_thumb.jpg',
+      ],
       address: '8424 Padberg Flats',
       name: 'Small Metal Ball',
       price: '316.00',
@@ -102,49 +116,42 @@ const TopHotel = props => {
       <Header title="Travelers’ Choice: Top hotels" />
       <div className="list-hotel">
         {listHotel.map(hotel => (
-          <div className="hotel">
-            <div className="img">
-              <Carousel
-                swipeable={true}
-                showDots={true}
-                responsive={responsive}
-                infinite={true}
-                autoPlay={false}
-                autoPlaySpeed={1000}
-                keyBoardControl={true}
-                customTransition="all .5"
-                transitionDuration={500}
-                containerClass="carousel-container"
-                removeArrowOnDeviceType={['tablet', 'mobile']}
-                deviceType="tablet"
-                dotListClass="custom-dot-list-style"
-                itemClass="test"
-                slidesToSlide={1}
-              >
-                <img
-                  src="http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-12_thumb.jpg"
-                  style={{
-                    height: 167,
-                    position: 'relative',
-                  }}
-                  alt=""
-                />
-                {/* <img
-                  src="http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-13_thumb.jpg"
-                  style={{
-                    height: 167,
-                    position: 'relative',
-                  }}
-                />
-                <img
-                  src="http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-14_thumb.jpg"
-                  style={{
-                    height: 167,
-                    position: 'relative',
-                  }}
-                /> */}
-              </Carousel>
-            </div>
+          <div
+            className="hotel"
+            onMouseEnter={() => {
+              setHover(true);
+              setId(hotel.id);
+            }}
+            onMouseLeave={() => {
+              setHover(!hover);
+              setId(-1);
+            }}
+            style={
+              hover && hotel.id === id
+                ? {
+                    boxShadow: 'rgba(0, 0, 0, 0.16) 0px 6px 12px',
+                    borderBottomLeftRadius: 6,
+                    borderBottomRightRadius: 6,
+                  }
+                : null
+            }
+          >
+            <Carousel
+              swipeable={true}
+              showDots={true}
+              responsive={responsive}
+              infinite={true}
+              autoPlaySpeed={3000}
+              keyBoardControl={true}
+              containerClass="carousel-container"
+              slidesToSlide={1}
+              renderButtonGroupOutside={false}
+              additionalTransfrom={0}
+            >
+              {hotel.img.map(data => (
+                <img src={data} alt="" />
+              ))}
+            </Carousel>
             <div className="info">
               <div className="address">{hotel.address}</div>
               <Link to={`/places/${hotel.id}/details`}>{hotel.name}</Link>
@@ -152,25 +159,48 @@ const TopHotel = props => {
                 <div className="price-status">
                   $316.00/Night - Free Cancellation
                 </div>
-                <div className="rating">
-                  <span>
-                    <IoIosStar />
-                    <IoIosStar />
-                    <IoIosStarOutline />
-                    <IoIosStarOutline />
-                    <IoIosStarOutline />
-                  </span>
-                  <strong
-                    className="status"
-                    style={{ marginLeft: 8, fontSize: 13, marginTop: 5 }}
+                {hover && hotel.id === id ? (
+                  <Link
+                    to={`/places/${hotel.id}/details`}
+                    className="view-details"
                   >
-                    Bad(12)
-                  </strong>
-                </div>
-                <div className="view-details"></div>
+                    <FiExternalLink
+                      size={'1.3rem'}
+                      style={{ marginRight: 10 }}
+                    />
+                    View Details
+                  </Link>
+                ) : (
+                  <div className="rating">
+                    <span>
+                      <IoIosStar className="rating-star " />
+                      <IoIosStar className="rating-star " />
+                      <IoIosStarOutline className="rating-star " />
+                      <IoIosStarOutline className="rating-star " />
+                      <IoIosStarOutline className="rating-star " />
+                    </span>
+                    <strong
+                      className="status"
+                      style={{ marginLeft: 8, fontSize: 13, marginTop: 5 }}
+                    >
+                      Bad(12)
+                    </strong>
+                  </div>
+                )}
               </div>
             </div>
-            <div className="bookmark"></div>
+            <div
+              className="bookmark"
+              onClick={() => {
+                setBookMark(!bookmark);
+              }}
+            >
+              {bookmark ? (
+                <FaHeart className="heart" />
+              ) : (
+                <FaRegHeart className="heart" />
+              )}
+            </div>
           </div>
         ))}
       </div>
