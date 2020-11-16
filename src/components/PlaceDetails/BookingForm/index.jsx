@@ -145,11 +145,7 @@ const BookingForm = () => {
           </div>
           <div className="price-item service-fee">
             <span className="price-desc">Service fee</span>
-            <span className="number">$5.45</span>
-          </div>
-          <div className="price-item offer">
-            <span className="price-desc">Special offer: 8% off</span>
-            <span className="number offer">- $2.65</span>
+            <span className="number service">+ $5.45</span>
           </div>
         </div>
         <div className="total-price">

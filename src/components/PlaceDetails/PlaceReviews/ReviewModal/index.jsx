@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import {
   Modal,
   ModalHeader,
@@ -77,11 +76,6 @@ const ReviewModal = ({ isOpen, toggle }) => {
       </Form>
     </Modal>
   );
-};
-
-ReviewModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  toggle: PropTypes.func.isRequired,
 };
 
 export default ReviewModal;
