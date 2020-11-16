@@ -4,6 +4,7 @@ import { Link } from 'react-scroll';
 import PlaceImage from '../../assets/images/place-image.jpg';
 import PlaceDesc from './PlaceDesc';
 import PlaceAmenities from './PlaceAmenities';
+import PlaceLocation from './PlaceLocation';
 import PlaceReviews from './PlaceReviews';
 import BookingForm from './BookingForm';
 import PhotoCarousel from './PhotoCarousel';
@@ -42,7 +43,7 @@ const PlaceDetails = () => {
               spy
               smooth
               duration={200}
-              offset={-100}
+              offset={-182}
             >
               {label}
             </Link>
@@ -64,6 +65,7 @@ const PlaceDetails = () => {
           <div className="place-details-content" name="overview">
             <PlaceDesc />
             <PlaceAmenities />
+            <PlaceLocation />
             <PlaceReviews />
           </div>
           <div className="booking-container">

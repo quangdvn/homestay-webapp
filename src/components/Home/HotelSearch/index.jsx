@@ -4,6 +4,7 @@ import { DateRangePicker } from 'react-dates';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import { useFormik } from 'formik';
 import city from '../../../constants/city';
+
 const HotelSearch = () => {
   const [focusedInput, setFocusedInput] = useState(null);
   const [showPopup, setShowPopup] = useState(false);

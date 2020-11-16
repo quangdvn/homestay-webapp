@@ -3,14 +3,14 @@
 .booking-form {
   position: sticky;
   width: 100%;
-  top: 118px;
+  top: 200px;
   z-index: 99;
   border-radius: 3px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 20px;
 
   .booking-form-header {
     display: flex;
-    padding: 1.5rem 1.8rem;
+    padding: 1.3rem 1.8rem;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid rgb(235, 235, 235);
@@ -30,7 +30,7 @@
     }
   }
   .booking-form-main {
-    padding: 1.5rem 1.8rem;
+    padding: 1.3rem 1.8rem;
     display: flex;
     flex-direction: column;
     gap: 1.3rem;
@@ -199,7 +199,7 @@
         .price-desc {
           text-decoration: underline;
         }
-        .number.offer {
+        .number.service {
           font-weight: 600;
           color: seagreen;
         }

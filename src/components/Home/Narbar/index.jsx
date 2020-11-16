@@ -1,11 +1,13 @@
 /* eslint-disable global-require */
 import React, { useState, useEffect } from 'react';
-import './styles.scss';
-import { NavLink } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
+import './styles.scss';
 
 const Narbar = () => {
-  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  console.log(location.pathname);
+  const [scrolled, setScrolled] = useState(location.pathname !== '/');
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -24,7 +26,9 @@ const Narbar = () => {
   ];
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    if (location.pathname === '/') {
+      window.addEventListener('scroll', handleScroll);
+    }
   });
 
   return (

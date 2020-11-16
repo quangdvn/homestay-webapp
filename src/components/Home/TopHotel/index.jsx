@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './styles.scss';
-import Header from '../ExploreDes/Header';
 import { Link } from 'react-router-dom';
 import { IoIosStar, IoIosStarOutline } from 'react-icons/io';
 import { FiExternalLink } from 'react-icons/fi';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import Carousel from 'react-multi-carousel';
+import Header from '../ExploreDes/Header';
 
 const TopHotel = props => {
   const [hover, setHover] = useState(false);
@@ -137,12 +137,12 @@ const TopHotel = props => {
             }
           >
             <Carousel
-              swipeable={true}
-              showDots={true}
+              swipeable
+              showDots
               responsive={responsive}
-              infinite={true}
+              infinite
               autoPlaySpeed={3000}
-              keyBoardControl={true}
+              keyBoardControl
               containerClass="carousel-container"
               slidesToSlide={1}
               renderButtonGroupOutside={false}
@@ -164,10 +164,7 @@ const TopHotel = props => {
                     to={`/places/${hotel.id}/details`}
                     className="view-details"
                   >
-                    <FiExternalLink
-                      size={'1.3rem'}
-                      style={{ marginRight: 10 }}
-                    />
+                    <FiExternalLink size="1.3rem" style={{ marginRight: 10 }} />
                     View Details
                   </Link>
                 ) : (
