@@ -6,7 +6,6 @@ import './styles.scss';
 
 const Narbar = () => {
   const location = useLocation();
-  console.log(location.pathname);
   const [scrolled, setScrolled] = useState(location.pathname !== '/');
 
   const handleScroll = () => {
@@ -59,6 +58,7 @@ const Narbar = () => {
         <div className="menu-nav">
           {menu.map(element => (
             <NavLink
+              key={element.name}
               to={element.url}
               activeClassName="current"
               exact={element.exact}

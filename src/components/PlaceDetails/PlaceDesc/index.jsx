@@ -3,19 +3,36 @@ import { Element } from 'react-scroll';
 import { ImStarFull, ImStarHalf } from 'react-icons/im';
 import './styles.scss';
 
-const PlaceDesc = () => {
+const PlaceDesc = ({ desc }) => {
   return (
     <Element name="overview" className="place-details-desc">
-      <span className="address">Cau Giay, Hanoi, Vietnam</span>
-      <h4 className="title">Awesome Hotel</h4>
+      <span className="address">{desc.location}</span>
+      <h4 className="title">{desc.name}</h4>
       <div className="rating">
-        <ImStarFull className="rating-star" />
-        <ImStarFull className="rating-star" />
-        <ImStarFull className="rating-star" />
-        <ImStarFull className="rating-star" />
-        <ImStarHalf className="rating-star" />
-        <span className="rating-verdict">Awesome (20)</span>
+        {[...Array(Math.floor(desc.rating)).keys()].map(item => (
+          <ImStarFull key={item} className="rating-star" />
+        ))}
+        {Math.round(desc.rating) > desc.rating && (
+          <ImStarHalf className="rating-star" />
+        )}
+        <span className="rating-verdict">
+          {desc.rating >= 4
+            ? 'Awesome'
+            : desc.rating >= 3
+            ? 'Good'
+            : desc.rating >= 2
+            ? 'Mediocre'
+            : 'Bad'}{' '}
+          ({desc.reviewCount})
+        </span>
       </div>
+      <p className="place-host">
+        <strong>Hosted by {desc.host}</strong>
+        <br />
+        <span>
+          {desc.guests} guests・{desc.bedroom} bedrooms・{desc.bathroom} baths
+        </span>
+      </p>
       <p>
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, eius
         architecto dolore veniam asperiores, obcaecati quaerat mollitia magni

@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
+import axios from 'axios';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { Link } from 'react-scroll';
 import PlaceImage from '../../assets/images/place-image.jpg';
 import PlaceDesc from './PlaceDesc';
 import PlaceAmenities from './PlaceAmenities';
+import PlaceRules from './PlaceRules';
 import PlaceLocation from './PlaceLocation';
 import PlaceReviews from './PlaceReviews';
 import BookingForm from './BookingForm';
 import PhotoCarousel from './PhotoCarousel';
+import LoadingIndicator from '../LoadingIndicator';
 import './styles.scss';
 
 const navItems = [
   { label: 'Overview', to: 'overview' },
-  { label: 'Amenities', to: 'amenities' },
   { label: 'Rules', to: 'rules' },
+  { label: 'Amenities', to: 'amenities' },
   { label: 'Location', to: 'location' },
   { label: 'Reviews', to: 'reviews' },
 ];
@@ -21,9 +25,56 @@ const navItems = [
 const PlaceDetails = () => {
   const [bookmarked, setBookmark] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [location, setLocation] = useState({});
+  const [desc, setDesc] = useState({});
+  const [amenities, setAmenities] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [rules, setRules] = useState([]);
+  const [prices, setPrices] = useState({});
   const toggle = () => setModalOpen(!modalOpen);
+  const { id } = useParams();
 
-  return (
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(
+        `https://homestayy.herokuapp.com/api/v1/travellers/places/${id}.json`
+      )
+      .then(({ data }) => {
+        setLocation({
+          latitude: data.data.latitude,
+          longitude: data.data.longitude,
+        });
+        setDesc({
+          location: `${data.data.address}, ${data.data.location}`,
+          name: data.data.name,
+          rating: data.data.rating,
+          reviewCount: data.data.review_count,
+          hostId: data.data.host_id,
+          host: data.data.host,
+          bedroom: data.data.bedroom_number,
+          bathroom: data.data.bathroom_number,
+          guests: data.data.max_guests,
+          amenitiesCount: data.data.amenity_count,
+        });
+        setPrices({
+          base: data.data.base_price,
+          extra: data.data.extra_fee,
+        });
+        setAmenities(data.data.amenities);
+        setReviews(data.data.reviews);
+        setRules(data.data.rules);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  }, []);
+
+  return loading ? (
+    <LoadingIndicator />
+  ) : (
     <>
       <PhotoCarousel isOpen={modalOpen} toggle={toggle} />
       <div className="place-details">
@@ -63,13 +114,17 @@ const PlaceDetails = () => {
         </nav>
         <div className="place-details-body">
           <div className="place-details-content" name="overview">
-            <PlaceDesc />
-            <PlaceAmenities />
-            <PlaceLocation />
-            <PlaceReviews />
+            <PlaceDesc desc={desc} />
+            <PlaceRules rules={rules} />
+            <PlaceAmenities
+              amenities={amenities}
+              amenitiesCount={desc.amenitiesCount}
+            />
+            <PlaceLocation location={location} />
+            <PlaceReviews reviews={reviews} desc={desc} />
           </div>
           <div className="booking-container">
-            <BookingForm />
+            <BookingForm prices={prices} />
           </div>
         </div>
       </div>

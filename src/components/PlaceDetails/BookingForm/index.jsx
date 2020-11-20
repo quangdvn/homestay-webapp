@@ -3,7 +3,7 @@ import { DateRangePicker } from 'react-dates';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 import './styles.scss';
 
-const BookingForm = () => {
+const BookingForm = ({ prices }) => {
   const [focusedInput, setFocusedInput] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({
@@ -13,6 +13,14 @@ const BookingForm = () => {
     children: 0,
   });
 
+  const pricePerNight =
+    prices.base * Math.max(formData.adults + formData.children, 1);
+
+  const nightCount =
+    formData.startDate && formData.endDate
+      ? formData.endDate.diff(formData.startDate, 'days')
+      : 1;
+
   const handleSubmit = event => {
     event.preventDefault();
   };
@@ -21,7 +29,7 @@ const BookingForm = () => {
     <div className="booking-form">
       <header className="booking-form-header">
         <h4 className="one-night-price">
-          $16.5 <span>/ night</span>
+          ${pricePerNight.toFixed(1)} <span>/ night</span>
         </h4>
         <a className="contact-hotel" href="/">
           Contact Hotel
@@ -140,17 +148,23 @@ const BookingForm = () => {
         <span className="not-charge">You won&apos;t be charge yet</span>
         <div className="price-cal">
           <div className="price-item base-price">
-            <span className="price-desc">$16.5 x 2 nights</span>
-            <span className="number">$33.0</span>
+            <span className="price-desc">
+              ${pricePerNight} x {nightCount} nights
+            </span>
+            <span className="number">
+              ${(pricePerNight * nightCount).toFixed(1)}
+            </span>
           </div>
           <div className="price-item service-fee">
             <span className="price-desc">Service fee</span>
-            <span className="number service">+ $5.45</span>
+            <span className="number service">+ ${prices.extra.toFixed(1)}</span>
           </div>
         </div>
         <div className="total-price">
           <span>Total</span>
-          <span className="number">$38.45</span>
+          <span className="number">
+            ${(pricePerNight * nightCount + prices.extra).toFixed(1)}
+          </span>
         </div>
       </form>
     </div>
