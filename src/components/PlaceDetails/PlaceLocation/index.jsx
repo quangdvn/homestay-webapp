@@ -16,8 +16,8 @@ L.Icon.Default.mergeOptions({
   shadowUrl: iconShadow,
 });
 
-const PlaceLocation = () => {
-  const position = [21.0278, 105.8342];
+const PlaceLocation = ({ location }) => {
+  const position = [location.latitude, location.longitude];
 
   return (
     <Element className="place-details-location" name="location">
