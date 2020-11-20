@@ -7,24 +7,11 @@ import {
   CarouselIndicators,
   CarouselControl,
 } from 'reactstrap';
-import PlaceImage from '../../../assets/images/place-image.jpg';
-import PlaceImage2 from '../../../assets/images/place-image-2.jpg';
 import './styles.scss';
 
-const PhotoCarousel = ({ isOpen, toggle }) => {
+const PhotoCarousel = ({ isOpen, toggle, photos }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
-
-  const photos = [
-    {
-      src: PlaceImage,
-      altText: 'Alt text 1',
-    },
-    {
-      src: PlaceImage2,
-      altText: 'Alt text 2',
-    },
-  ];
   const next = () => {
     if (animating) return;
     const nextIndex = activeIndex === photos.length - 1 ? 0 : activeIndex + 1;
@@ -66,14 +53,14 @@ const PhotoCarousel = ({ isOpen, toggle }) => {
           activeIndex={activeIndex}
           onClickHandler={goToIndex}
         />
-        {photos.map(item => {
+        {photos.map((item, index) => {
           return (
             <CarouselItem
               onExiting={() => setAnimating(true)}
               onExited={() => setAnimating(false)}
-              key={item.src}
+              key={item.url}
             >
-              <img src={item.src} alt={item.altText} />
+              <img src={item.url} alt={`Alt text ${index}`} />
             </CarouselItem>
           );
         })}

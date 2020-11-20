@@ -3,7 +3,6 @@ import { useParams } from 'react-router';
 import axios from 'axios';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { Link } from 'react-scroll';
-import PlaceImage from '../../assets/images/place-image.jpg';
 import PlaceDesc from './PlaceDesc';
 import PlaceAmenities from './PlaceAmenities';
 import PlaceRules from './PlaceRules';
@@ -29,6 +28,7 @@ const PlaceDetails = () => {
   const [location, setLocation] = useState({});
   const [desc, setDesc] = useState({});
   const [amenities, setAmenities] = useState([]);
+  const [photos, setPhotos] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [rules, setRules] = useState([]);
   const [prices, setPrices] = useState({});
@@ -62,6 +62,7 @@ const PlaceDetails = () => {
           base: data.data.base_price,
           extra: data.data.extra_fee,
         });
+        setPhotos(data.data.photos);
         setAmenities(data.data.amenities);
         setReviews(data.data.reviews);
         setRules(data.data.rules);
@@ -70,16 +71,16 @@ const PlaceDetails = () => {
       .catch(err => {
         console.log(err.response);
       });
-  }, []);
+  }, [id]);
 
   return loading ? (
     <LoadingIndicator />
   ) : (
     <>
-      <PhotoCarousel isOpen={modalOpen} toggle={toggle} />
+      <PhotoCarousel isOpen={modalOpen} toggle={toggle} photos={photos} />
       <div className="place-details">
         <div className="place-image">
-          <img className="place-image" src={PlaceImage} alt="place" />
+          <img className="place-image" src={photos[0].url} alt="place" />
           <button type="button" className="view-photos" onClick={toggle}>
             View photos
           </button>
