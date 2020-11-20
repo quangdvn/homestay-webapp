@@ -7,18 +7,20 @@
   .amenities {
     display: grid;
     grid-template-columns: auto auto auto auto;
-    grid-column-gap: 15px;
-    grid-row-gap: 15px;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
     margin-bottom: 0.7rem;
 
     .amenity {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1rem;
+      font-size: 0.9rem;
+      justify-content: center;
+      height: 170px;
+      width: 170px;
       border-radius: 4px;
-      padding: 38px 36px 30px;
       background: rgb(247, 247, 247);
-      margin-bottom: 20px;
       align-items: center;
 
       .amenity-icon {
@@ -29,6 +31,10 @@
   }
   .show-all {
     cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
     color: $main-user;
     font-weight: 500;
   }

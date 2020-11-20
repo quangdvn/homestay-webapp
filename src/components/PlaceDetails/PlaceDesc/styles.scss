@@ -7,7 +7,7 @@
   }
   .rating {
     font-size: 0.9rem;
-    margin-bottom: 1.8rem;
+    margin-bottom: 1rem;
 
     .rating-star {
       position: relative;
@@ -18,6 +18,9 @@
     .rating-verdict {
       margin-left: 0.4rem;
     }
+  }
+  .place-host {
+    margin-bottom: 1rem;
   }
   .read-more {
     cursor: pointer;
