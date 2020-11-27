@@ -1,0 +1,147 @@
+@import '../../containers/App//styles';
+@import '../../stylesheets//variables';
+// // Desktop
+.sign-up {
+  display: flex;
+  flex-direction: row;
+  .left {
+    width: 55%;
+    padding: 40px 60px 20px 60px;
+    .form-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      .icon {
+        .title {
+          @include title($main-user, 25px, 0px, 700);
+        }
+      }
+      .title1 {
+        @include title($dark-text, 45px, 54px, 700);
+        margin-top: 15px;
+      }
+      .title2 {
+        @include title(rgb(119, 119, 119), 25px, 30px, 0);
+        margin-top: 10px;
+      }
+      form {
+        width: 100%;
+        .form-input {
+          width: 100%;
+          .email {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            label {
+              color: $dark-text;
+              font-size: 15px;
+              line-height: 18px;
+              font-weight: 600;
+              margin-bottom: 10px;
+            }
+            input {
+              width: 98%;
+              min-height: 48px;
+              border-radius: 3px;
+              border: 1px solid #e6e6e6;
+              outline-width: 0;
+            }
+            .err-message {
+              color: red;
+              font-size: 15px;
+            }
+          }
+          .password {
+            margin-top: 10px;
+            @extend .email;
+          }
+          .phone_number {
+            margin-top: 10px;
+            @extend .email;
+          }
+          .full_name {
+            margin-top: 10px;
+            @extend .email;
+          }
+          .password_confirmation {
+            margin-top: 10px;
+            @extend .email;
+          }
+        }
+      }
+      .remember-forget-pwd {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 98%;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        a {
+          @include a($main-user);
+          font-weight: 600;
+        }
+        .title {
+          @include title($dark-text, 15px, 1, 700);
+          padding-top: 2px;
+        }
+      }
+      .login-btn {
+        width: 100%;
+        @include btn($main-user);
+        .title {
+          @include title(white, 18px, 1, 600);
+        }
+      }
+      .divider-inner-text {
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+        .title3 {
+          @include title(rgb(119, 119, 119), 15px, 0, 700);
+        }
+      }
+      .regis-btn {
+        width: 100%;
+        .fb {
+          @include btn(rgb(59, 89, 152));
+        }
+        .gg {
+          @include btn(rgb(221, 75, 57));
+          margin-top: 10px;
+        }
+      }
+      .title4 {
+        @include title(rgb(119, 119, 119), 15px, 1, 700);
+        text-align: center;
+        width: 100%;
+        a {
+          @include a($main-user);
+        }
+      }
+    }
+  }
+  .right {
+    width: 64%;
+    .bg-img {
+      position: fixed;
+      width: 55%;
+      top: 0px;
+      right: 0px;
+      background-image: url('https://kenhhomestay.com/wp-content/uploads/2019/07/Leng-keng-homestay-8.jpg');
+      background-position: center center;
+      height: 100vh;
+      background-size: cover;
+    }
+  }
+}
+
+// Mobile
+@media (max-width: 480px) {
+  .left {
+    padding: 30px;
+  }
+  .title1 {
+    font-size: 10px;
+  }
+}
