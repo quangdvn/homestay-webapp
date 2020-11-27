@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import './styles.scss';
 
@@ -29,7 +30,7 @@ const SignUp = () => {
   });
 
   return (
-    <div className="container">
+    <div className="sign-up">
       <div className="left">
         <div className="form-layout">
           <span className="title1">Welcome To TripFinder</span>
@@ -141,7 +142,7 @@ const SignUp = () => {
           </div>
           <p className="title4">
             Already Have an Account!
-            <a href="#"> Login</a>
+            <Link to="/sign-in"> Login</Link>
           </p>
         </div>
       </div>

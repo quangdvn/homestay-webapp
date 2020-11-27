@@ -1,12 +1,12 @@
 @import '../../containers/App//styles';
 @import '../../stylesheets//variables';
 // // Desktop
-.container {
+.sign-up {
   display: flex;
   flex-direction: row;
   .left {
-    width: 36%;
-    padding: 130px;
+    width: 55%;
+    padding: 40px 60px 20px 60px;
     .form-layout {
       display: flex;
       flex-direction: column;
@@ -78,6 +78,7 @@
         }
         .title {
           @include title($dark-text, 15px, 1, 700);
+          padding-top: 2px;
         }
       }
       .login-btn {
@@ -118,10 +119,16 @@
   }
   .right {
     width: 64%;
-    background-image: url('https://kenhhomestay.com/wp-content/uploads/2019/07/Leng-keng-homestay-8.jpg');
-    background-position: center center;
-    height: auto;
-    background-size: cover;
+    .bg-img {
+      position: fixed;
+      width: 55%;
+      top: 0px;
+      right: 0px;
+      background-image: url('https://kenhhomestay.com/wp-content/uploads/2019/07/Leng-keng-homestay-8.jpg');
+      background-position: center center;
+      height: 100vh;
+      background-size: cover;
+    }
   }
 }
 

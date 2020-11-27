@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './styles.scss';
-
+import { Link } from 'react-router-dom';
 const SignIn = () => {
   const formik = useFormik({
     initialValues: {
@@ -25,11 +25,18 @@ const SignIn = () => {
   });
 
   return (
-    <div className="container">
+    <div className="sign-in">
       <div className="left">
         <div className="form-layout">
           <div className="icon">
-            <div className="img"></div>
+            <div className="img">
+              <img
+                src={require('../../assets/images/user-logo.png')}
+                alt=""
+                width={100}
+                height={100}
+              />
+            </div>
             <h3 className="title">TripFinder.</h3>
           </div>
           <span className="title1">Welcome Back</span>
@@ -84,7 +91,7 @@ const SignIn = () => {
                 </div>
                 <span className="title">Remember Me</span>
               </div>
-              <a href="#">Forget Password ?</a>
+              <Link to="/forget-password">Forget Password ?</Link>
             </div>
             <button className="login-btn" type="submit">
               <div className="icon"></div>
@@ -100,7 +107,7 @@ const SignIn = () => {
           </div>
           <p className="title4">
             Don't Have an Account?
-            <a href="#"> Registration</a>
+            <Link to="/sign-up"> Registration</Link>
           </p>
         </div>
       </div>
