@@ -9,6 +9,7 @@ import SignUp from '../../components/SignUp';
 function App() {
   return (
     <Router>
+      {/* <Narbar /> */}
       <Switch>
         <Route exact path="/">
           <Home />
@@ -26,6 +27,7 @@ function App() {
         <Route exact path="/profile" />
         <Route exact path="/pricing-plan" />
       </Switch>
+      {/* <Footer /> */}
     </Router>
   );
 }

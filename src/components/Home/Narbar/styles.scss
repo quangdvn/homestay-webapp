@@ -1,5 +1,6 @@
 @import '../styles.scss';
 @import '../../../stylesheets//variables';
+
 .narbar {
   @include displayFlex(space-between);
   position: absolute;
@@ -44,6 +45,9 @@
         background-color: $main-user;
         border-radius: 5px;
         @include text(500);
+      }
+      a:hover {
+        text-decoration: none;
       }
     }
   }

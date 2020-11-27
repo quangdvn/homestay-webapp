@@ -2,7 +2,10 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './styles.scss';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logIn } from '../../store/actions/authAction';
+import { LOG_IN_SUCCESS } from '../../store/actions/types';
 const SignIn = () => {
   const formik = useFormik({
     initialValues: {
@@ -15,29 +18,26 @@ const SignIn = () => {
       password: Yup.string()
         .min(6, 'Minimum 6 characters')
         .required('This field is required!'),
-      // confirm_password: Yup.string()
-      //   .oneOf([Yup.ref("password")], "Password's not match")
-      //   .required("Required!")
     }),
     onSubmit: values => {
-      console.log(values);
+      handleLogIn(values);
     },
   });
-
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const handleLogIn = async logInData => {
+    const res = await dispatch(logIn(logInData));
+    if (res === LOG_IN_SUCCESS) {
+      history.push('/');
+    }
+  };
   return (
     <div className="sign-in">
       <div className="left">
         <div className="form-layout">
           <div className="icon">
-            <div className="img">
-              <img
-                src={require('../../assets/images/user-logo.png')}
-                alt=""
-                width={100}
-                height={100}
-              />
-            </div>
-            <h3 className="title">TripFinder.</h3>
+            <div className="img"></div>
+            <h3 className="title">HomeStay.</h3>
           </div>
           <span className="title1">Welcome Back</span>
           <p className="title2">Please log into your account</p>

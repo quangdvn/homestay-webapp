@@ -1,58 +1,56 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { signUp } from '../../store/actions/authAction';
+import { SIGN_UP_SUCCESS } from '../../store/actions/types';
+
 import './styles.scss';
 
 const SignUp = () => {
   const formik = useFormik({
     initialValues: {
-      username: '',
+      phone_number: '',
       email: '',
+      full_name: '',
       password: '',
-      repass: '',
+      password_confirmation: '',
       acceptTerms: false,
       rememberPass: false,
     },
     validationSchema: Yup.object({
-      username: Yup.string().required('This field is required!'),
+      phone_number: Yup.string().required('This field is required!'),
       email: Yup.string().required('This field is required!'),
+      full_name: Yup.string().required('This field is required!'),
       password: Yup.string()
         .min(6, 'Minimum 6 characters')
         .required('This field is required!'),
-      repass: Yup.string()
+      password_confirmation: Yup.string()
         .oneOf([Yup.ref('password')], "Password's not match")
         .required('This field is required!'),
     }),
     onSubmit: values => {
-      console.log(values);
+      handleSignUp(values);
     },
   });
-
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const handleSignUp = async signUpData => {
+    console.log(signUpData);
+    const res = await dispatch(signUp(signUpData));
+    if (res === SIGN_UP_SUCCESS) {
+      history.push('/');
+    }
+  };
   return (
     <div className="sign-up">
       <div className="left">
         <div className="form-layout">
-          <span className="title1">Welcome To TripFinder</span>
+          <span className="title1">Welcome To HomeStay</span>
           <p className="title2">Please Register for your account</p>
           <form onSubmit={formik.handleSubmit}>
             <div className="form-input">
-              <div className="username">
-                <label>Username</label>
-                <input
-                  type="text"
-                  name="username"
-                  onChange={formik.handleChange}
-                  value={formik.values.username}
-                  style={
-                    formik.errors.username &&
-                    formik.touched.username && { borderColor: 'red' }
-                  }
-                />
-                {formik.errors.username && formik.touched.username && (
-                  <p className="err-message">{formik.errors.username}</p>
-                )}
-              </div>
               <div className="email">
                 <label>Email</label>
                 <input
@@ -67,6 +65,38 @@ const SignUp = () => {
                 />
                 {formik.errors.email && formik.touched.email && (
                   <p className="err-message">{formik.errors.email}</p>
+                )}
+              </div>
+              <div className="phone_number">
+                <label>Phone Number</label>
+                <input
+                  type="text"
+                  name="phone_number"
+                  onChange={formik.handleChange}
+                  value={formik.values.phone_number}
+                  style={
+                    formik.errors.phone_number &&
+                    formik.touched.phone_number && { borderColor: 'red' }
+                  }
+                />
+                {formik.errors.phone_number && formik.touched.phone_number && (
+                  <p className="err-message">{formik.errors.phone_number}</p>
+                )}
+              </div>
+              <div className="full_name">
+                <label>full_name</label>
+                <input
+                  type="text"
+                  name="full_name"
+                  onChange={formik.handleChange}
+                  value={formik.values.full_name}
+                  style={
+                    formik.errors.full_name &&
+                    formik.touched.full_name && { borderColor: 'red' }
+                  }
+                />
+                {formik.errors.full_name && formik.touched.full_name && (
+                  <p className="err-message">{formik.errors.full_name}</p>
                 )}
               </div>
               <div className="password">
@@ -85,21 +115,26 @@ const SignUp = () => {
                   <p className="err-message">{formik.errors.password}</p>
                 )}
               </div>
-              <div className="repass">
+              <div className="password_confirmation">
                 <label> Confirm password</label>
                 <input
                   type="password"
-                  name="repass"
+                  name="password_confirmation"
                   onChange={formik.handleChange}
-                  value={formik.values.repass}
+                  value={formik.values.password_confirmation}
                   style={
-                    formik.errors.repass &&
-                    formik.touched.repass && { borderColor: 'red' }
+                    formik.errors.password_confirmation &&
+                    formik.touched.password_confirmation && {
+                      borderColor: 'red',
+                    }
                   }
                 />
-                {formik.errors.repass && formik.touched.repass && (
-                  <p className="err-message">{formik.errors.repass}</p>
-                )}
+                {formik.errors.password_confirmation &&
+                  formik.touched.password_confirmation && (
+                    <p className="err-message">
+                      {formik.errors.password_confirmation}
+                    </p>
+                  )}
               </div>
             </div>
             <div className="remember-forget-pwd">

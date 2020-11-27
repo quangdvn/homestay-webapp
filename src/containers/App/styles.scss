@@ -71,11 +71,11 @@
 }
 
 input:checked + .slider {
-  background-color: $main-host;
+  background-color: $main-user;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px $main-host;
+  box-shadow: 0 0 1px $main-user;
 }
 
 input:checked + .slider:before {
