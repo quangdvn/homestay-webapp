@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { DateRangePicker } from 'react-dates';
 import { FiPlus, FiMinus } from 'react-icons/fi';
+import moment from 'moment';
 import './styles.scss';
 
 const BookingForm = ({ prices }) => {
@@ -25,6 +26,19 @@ const BookingForm = ({ prices }) => {
     event.preventDefault();
   };
 
+  const bookings = [
+    {
+      check_in_date: '2020-11-30T00:00:00.000+07:00',
+      check_out_date: '2020-12-02T00:00:00.000+07:00',
+      total_price: 50.0,
+    },
+    {
+      check_in_date: '2020-12-05T00:00:00.000+07:00',
+      check_out_date: '2020-12-12T00:00:00.000+07:00',
+      total_price: 50.0,
+    },
+  ];
+
   return (
     <div className="booking-form">
       <header className="booking-form-header">
@@ -44,7 +58,31 @@ const BookingForm = ({ prices }) => {
             endDate={formData.endDate}
             endDateId="end-date-id"
             onDatesChange={({ startDate, endDate }) =>
-              setFormData({ ...formData, startDate, endDate })
+              bookings.filter(
+                item =>
+                  moment(item.check_in_date).isBetween(
+                    startDate,
+                    endDate,
+                    'day'
+                  ) &&
+                  moment(item.check_out_date).isBetween(
+                    startDate,
+                    endDate,
+                    'day'
+                  )
+              ).length > 0
+                ? setFormData({ ...formData, startDate, endDate: null })
+                : setFormData({ ...formData, startDate, endDate })
+            }
+            isDayBlocked={day =>
+              bookings.filter(item =>
+                day.isBetween(
+                  item.check_in_date,
+                  item.check_out_date,
+                  'day',
+                  '[]'
+                )
+              ).length > 0
             }
             focusedInput={focusedInput}
             onFocusChange={input => setFocusedInput(input)}
