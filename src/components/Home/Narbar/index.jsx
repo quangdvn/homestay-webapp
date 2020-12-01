@@ -26,6 +26,8 @@ const Narbar = () => {
   ];
 
   const { isLogin } = useSelector(state => state.auth);
+  const { user } = useSelector(state => state.auth);
+
   useEffect(() => {
     if (location.pathname === '/') {
       window.addEventListener('scroll', handleScroll);
@@ -80,7 +82,10 @@ const Narbar = () => {
               aria-expanded="false"
               style={{ backgroundColor: '#f9495b' }}
             >
-              Hello, Huy!
+              Hello
+              {typeof user.full_name === 'string'
+                ? ',' + user.full_name.split(' ')[2] + '!'
+                : ''}
             </div>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <Link className="dropdown-item" to="/">
