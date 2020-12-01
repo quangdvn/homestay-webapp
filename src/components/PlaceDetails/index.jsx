@@ -127,10 +127,15 @@ const PlaceDetails = () => {
               amenitiesCount={desc.amenitiesCount}
             />
             <PlaceLocation location={location} />
-            <PlaceReviews reviews={reviews} desc={desc} />
+            <PlaceReviews
+              reviews={reviews}
+              desc={desc}
+              placeId={id}
+              setReviews={setReviews}
+            />
           </div>
           <div className="booking-container">
-            <BookingForm prices={prices} bookings={bookings} />
+            <BookingForm prices={prices} bookings={bookings} placeId={id} />
           </div>
         </div>
         <Footer />

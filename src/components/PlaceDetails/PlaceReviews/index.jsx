@@ -1,17 +1,41 @@
 import React, { useState } from 'react';
 import { Element } from 'react-scroll';
 import { ImStarFull, ImStarHalf } from 'react-icons/im';
+import { useSelector } from 'react-redux';
 import Review from './Review';
 import ReviewModal from './ReviewModal';
 import './styles.scss';
 
-const PlaceReviews = ({ reviews, desc }) => {
+const PlaceReviews = ({ reviews, desc, placeId, setReviews }) => {
+  const userId = useSelector(state => state.user?.id);
   const [modalOpen, setModalOpen] = useState(false);
   const toggle = () => setModalOpen(!modalOpen);
 
+  const addReview = data => {
+    setReviews([data, ...reviews]);
+  };
+
+  const replaceReview = (reviewId, data) => {
+    setReviews(
+      reviews.map(item => {
+        if (item.id === reviewId) {
+          return data;
+        }
+        return item;
+      })
+    );
+  };
+
   return (
     <>
-      <ReviewModal isOpen={modalOpen} toggle={toggle} />
+      <ReviewModal
+        isOpen={modalOpen}
+        toggle={toggle}
+        placeId={placeId}
+        addReview={addReview}
+        replaceReview={replaceReview}
+        userReview={reviews.filter(item => item.user_id === userId).pop()}
+      />
       <Element className="place-details-reviews" name="reviews">
         <div className="head-section">
           <div className="title">

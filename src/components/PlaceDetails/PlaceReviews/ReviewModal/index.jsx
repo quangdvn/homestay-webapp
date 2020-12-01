@@ -9,14 +9,76 @@ import {
   Button,
 } from 'reactstrap';
 import { FaStar } from 'react-icons/fa';
+import axios from 'axios';
+import { reqConfig } from '../../../../utils/requestConfig';
+import { notifyError, notifySuccess } from '../../../../services/alertService';
 import './styles.scss';
 
-const ReviewModal = ({ isOpen, toggle }) => {
+const ReviewModal = ({
+  isOpen,
+  toggle,
+  placeId,
+  addReview,
+  replaceReview,
+  userReview,
+}) => {
   const [formData, setFormData] = useState({
-    rating: 0,
-    title: '',
-    content: '',
+    rating: userReview ? userReview.rating : 0,
+    content: userReview ? userReview.detail : '',
   });
+
+  const isDisabled = () => {
+    return !formData.rating || !formData.content;
+  };
+
+  const postReview = () => {
+    axios
+      .post(
+        'https://homestayy.herokuapp.com/api/v1/travellers/reviews',
+        {
+          place_id: placeId,
+          detail: formData.content,
+          rating: formData.rating,
+        },
+        reqConfig()
+      )
+      .then(({ data }) => {
+        notifySuccess('Review added!');
+        addReview(data.data);
+      })
+      .catch(err => {
+        notifyError(err.response.data.message);
+      });
+  };
+
+  const editReview = reviewId => {
+    axios
+      .post(
+        `https://homestayy.herokuapp.com/api/v1/travellers/reviews/${reviewId}`,
+        {
+          detail: formData.content,
+          rating: formData.rating,
+        },
+        reqConfig()
+      )
+      .then(({ data }) => {
+        notifySuccess('Review added!');
+        replaceReview(reviewId, data.data);
+      })
+      .catch(err => {
+        notifyError(err.response.data.message);
+      });
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    if (userReview) {
+      editReview(userReview.id);
+    } else {
+      postReview();
+    }
+  };
 
   return (
     <Modal
@@ -32,7 +94,7 @@ const ReviewModal = ({ isOpen, toggle }) => {
     >
       <ModalHeader toggle={toggle} />
       <h4 className="write-review">Write your review here</h4>
-      <Form className="review-form">
+      <Form className="review-form" onSubmit={handleSubmit}>
         <FormGroup>
           <Label className="review-label" for="rating">
             Overall Rating
@@ -48,18 +110,6 @@ const ReviewModal = ({ isOpen, toggle }) => {
           </div>
         </FormGroup>
         <FormGroup>
-          <Label className="review-label" for="title">
-            Title of your review
-          </Label>
-          <Input
-            className="review-input"
-            type="text"
-            name="title"
-            id="title"
-            placeholder="Summarize your visit or highlight an interesting detail"
-          />
-        </FormGroup>
-        <FormGroup>
           <Label className="review-label" for="content">
             Details of your review
           </Label>
@@ -69,10 +119,19 @@ const ReviewModal = ({ isOpen, toggle }) => {
             rows="5"
             name="content"
             id="content"
+            value={formData.content}
+            onChange={event =>
+              setFormData({ ...formData, content: event.target.value })
+            }
             placeholder="Tell people about your experience: your room, location, amenities?"
           />
         </FormGroup>
-        <Button className="submit-review">Submit your review</Button>
+        <Button
+          className={`submit-review ${isDisabled() ? 'disabled' : ''}`}
+          disabled={isDisabled()}
+        >
+          Submit your review
+        </Button>
       </Form>
     </Modal>
   );

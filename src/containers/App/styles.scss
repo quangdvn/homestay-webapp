@@ -92,3 +92,7 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.dropdown-menu {
+  z-index: 2000 !important;
+}

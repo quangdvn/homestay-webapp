@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { DateRangePicker } from 'react-dates';
 import { FiPlus, FiMinus } from 'react-icons/fi';
+import axios from 'axios';
 import moment from 'moment';
+import { useHistory } from 'react-router-dom';
+import { reqConfig } from '../../../utils/requestConfig';
+import { notifyError, notifySuccess } from '../../../services/alertService';
 import './styles.scss';
 
-const BookingForm = ({ prices }) => {
+const BookingForm = ({ prices, placeId, bookings }) => {
   const [focusedInput, setFocusedInput] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({
@@ -13,6 +17,7 @@ const BookingForm = ({ prices }) => {
     adults: 0,
     children: 0,
   });
+  const history = useHistory();
 
   const pricePerNight =
     prices.base * Math.max(formData.adults + formData.children, 1);
@@ -22,22 +27,51 @@ const BookingForm = ({ prices }) => {
       ? formData.endDate.diff(formData.startDate, 'days')
       : 1;
 
-  const handleSubmit = event => {
-    event.preventDefault();
+  const isDisabled = () => {
+    return (
+      formData.adults + formData.children <= 0 ||
+      !formData.startDate ||
+      !formData.endDate
+    );
   };
 
-  const bookings = [
-    {
-      check_in_date: '2020-11-30T00:00:00.000+07:00',
-      check_out_date: '2020-12-02T00:00:00.000+07:00',
-      total_price: 50.0,
-    },
-    {
-      check_in_date: '2020-12-05T00:00:00.000+07:00',
-      check_out_date: '2020-12-12T00:00:00.000+07:00',
-      total_price: 50.0,
-    },
-  ];
+  const handleSubmit = event => {
+    event.preventDefault();
+    if (isDisabled()) return;
+
+    axios
+      .post(
+        'https://homestayy.herokuapp.com/api/v1/travellers/bookings',
+        {
+          place_id: placeId,
+          check_in_date: formData.startDate.format('YYYY/MM/DD'),
+          check_out_date: formData.endDate.format('YYYY/MM/DD'),
+          guests: formData.adults + formData.children,
+        },
+        reqConfig()
+      )
+      .then(res => {
+        history.push('/');
+        notifySuccess('Booking success!');
+        console.log(res.data);
+      })
+      .catch(err => {
+        notifyError(err.response.data.message);
+      });
+  };
+
+  // const bookings = [
+  //   {
+  //     check_in_date: '2020-11-30T00:00:00.000+07:00',
+  //     check_out_date: '2020-12-02T00:00:00.000+07:00',
+  //     total_price: 50.0,
+  //   },
+  //   {
+  //     check_in_date: '2020-12-05T00:00:00.000+07:00',
+  //     check_out_date: '2020-12-12T00:00:00.000+07:00',
+  //     total_price: 50.0,
+  //   },
+  // ];
 
   return (
     <div className="booking-form">
@@ -181,13 +215,9 @@ const BookingForm = ({ prices }) => {
         </div>
 
         <button
-          disabled={
-            formData.adults + formData.children <= 0 ||
-            !formData.startDate ||
-            !formData.endDate
-          }
+          disabled={isDisabled()}
           type="submit"
-          className="reserve-button"
+          className={`reserve-button ${isDisabled() ? 'disabled' : ''}`}
         >
           Reserve
         </button>
