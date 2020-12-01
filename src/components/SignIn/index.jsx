@@ -6,6 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../store/actions/authAction';
 import { LOG_IN_SUCCESS } from '../../store/actions/types';
+
 const SignIn = () => {
   const formik = useFormik({
     initialValues: {

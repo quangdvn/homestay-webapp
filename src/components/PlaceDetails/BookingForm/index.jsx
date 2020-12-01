@@ -180,7 +180,15 @@ const BookingForm = ({ prices }) => {
           </div>
         </div>
 
-        <button type="submit" className="reserve-button">
+        <button
+          disabled={
+            formData.adults + formData.children <= 0 ||
+            !formData.startDate ||
+            !formData.endDate
+          }
+          type="submit"
+          className="reserve-button"
+        >
           Reserve
         </button>
         <span className="not-charge">You won&apos;t be charge yet</span>

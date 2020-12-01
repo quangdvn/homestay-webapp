@@ -1,4 +1,10 @@
-import { LOG_IN_SUCCESS, SIGN_UP_SUCCESS, LOG_OUT } from '../actions/types';
+import {
+  LOG_IN_SUCCESS,
+  SIGN_UP_SUCCESS,
+  LOG_OUT,
+  GET_INFO,
+} from '../actions/types';
+
 const initialState = {
   isLogin: false,
   user: {},
@@ -9,6 +15,11 @@ const initialState = {
 
 const authReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case GET_INFO:
+      return {
+        ...state,
+        user: payload,
+      };
     case LOG_IN_SUCCESS:
       return {
         ...state,
