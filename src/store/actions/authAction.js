@@ -1,37 +1,58 @@
+import axios from 'axios';
+import { reqConfig } from '../../utils/requestConfig';
+import { notifyError, notifySuccess } from '../../services/alertService';
 import {
   LOG_IN_SUCCESS,
   LOG_IN_ERROR,
   LOG_OUT,
   SIGN_UP_SUCCESS,
   SIGN_UP_ERROR,
+  GET_INFO,
 } from './types';
-import axios from 'axios';
+
+export const getUser = () => async dispatch => {
+  try {
+    const { data } = await axios.get(
+      'https://homestayy.herokuapp.com/api/v1/auth/me',
+      reqConfig()
+    );
+    const token = localStorage.getItem('token');
+    dispatch({ type: GET_INFO, payload: data.data });
+    dispatch({ type: LOG_IN_SUCCESS, payload: { token, success: true } });
+  } catch (err) {
+    notifyError(err.message);
+  }
+};
+
 export const logIn = logInData => async dispatch => {
   try {
     const { data } = await axios.post(
-      `https://homestayy.herokuapp.com//api/v1/auth/login`,
+      `https://homestayy.herokuapp.com/api/v1/auth/login`,
       logInData
     );
     localStorage.setItem('token', data.token);
+    notifySuccess('Log in success!');
     dispatch({ type: LOG_IN_SUCCESS, payload: data });
     return LOG_IN_SUCCESS;
   } catch (err) {
-    alert(err.message);
+    notifyError(err.message);
     return LOG_IN_ERROR;
   }
 };
+
 export const signUp = signUpData => async dispatch => {
   try {
     const { data } = await axios.post(
-      `https://homestayy.herokuapp.com//api/v1/signup`,
+      `https://homestayy.herokuapp.com/api/v1/signup`,
       signUpData
     );
     console.log(data);
     localStorage.setItem('token', data.token);
     dispatch({ type: SIGN_UP_SUCCESS, payload: data });
+    notifySuccess('Sign up success! Check your email for account activation');
     return SIGN_UP_SUCCESS;
   } catch (err) {
-    alert(err.message);
+    notifyError(err.message);
     return SIGN_UP_ERROR;
   }
 };

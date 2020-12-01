@@ -3,8 +3,8 @@ import { useParams } from 'react-router';
 import axios from 'axios';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { Link } from 'react-scroll';
-import Narbar from '../../components/Home/Narbar';
-import Footer from '../../components/Home/Footer';
+import Narbar from '../Home/Narbar';
+import Footer from '../Home/Footer';
 import PlaceDesc from './PlaceDesc';
 import PlaceAmenities from './PlaceAmenities';
 import PlaceRules from './PlaceRules';
@@ -30,6 +30,7 @@ const PlaceDetails = () => {
   const [location, setLocation] = useState({});
   const [desc, setDesc] = useState({});
   const [amenities, setAmenities] = useState([]);
+  const [bookings, setBookings] = useState([]);
   const [photos, setPhotos] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [rules, setRules] = useState([]);
@@ -66,6 +67,7 @@ const PlaceDetails = () => {
         });
         setPhotos(data.data.photos);
         setAmenities(data.data.amenities);
+        setBookings(data.data.bookings);
         setReviews(data.data.reviews);
         setRules(data.data.rules);
         setLoading(false);
@@ -128,7 +130,7 @@ const PlaceDetails = () => {
             <PlaceReviews reviews={reviews} desc={desc} />
           </div>
           <div className="booking-container">
-            <BookingForm prices={prices} />
+            <BookingForm prices={prices} bookings={bookings} />
           </div>
         </div>
         <Footer />

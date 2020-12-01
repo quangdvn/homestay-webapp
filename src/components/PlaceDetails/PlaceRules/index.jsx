@@ -8,7 +8,9 @@ const PlaceRules = ({ rules }) => {
       <h4 className="title">Rules</h4>
       <ul className="rules">
         {rules.map(item => (
-          <li className="rule">{item.name}.</li>
+          <li key={item.name} className="rule">
+            {item.name}.
+          </li>
         ))}
       </ul>
     </Element>

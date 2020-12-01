@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { signUp } from '../../store/actions/authAction';
-import { SIGN_UP_SUCCESS } from '../../store/actions/types';
-
+import city from '../../constants/city';
+import { RingLoader } from 'react-spinners';
 import './styles.scss';
 
 const SignUp = () => {
@@ -14,6 +14,7 @@ const SignUp = () => {
       phone_number: '',
       email: '',
       full_name: '',
+      city_id: '',
       password: '',
       password_confirmation: '',
       acceptTerms: false,
@@ -34,14 +35,13 @@ const SignUp = () => {
       handleSignUp(values);
     },
   });
-  const history = useHistory();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const handleSignUp = async signUpData => {
     console.log(signUpData);
-    const res = await dispatch(signUp(signUpData));
-    if (res === SIGN_UP_SUCCESS) {
-      history.push('/');
-    }
+    setLoading(true);
+    await dispatch(signUp(signUpData));
+    setLoading(false);
   };
   return (
     <div className="sign-up">
@@ -84,7 +84,7 @@ const SignUp = () => {
                 )}
               </div>
               <div className="full_name">
-                <label>full_name</label>
+                <label>Full Name</label>
                 <input
                   type="text"
                   name="full_name"
@@ -98,6 +98,20 @@ const SignUp = () => {
                 {formik.errors.full_name && formik.touched.full_name && (
                   <p className="err-message">{formik.errors.full_name}</p>
                 )}
+              </div>
+              <div className="city">
+                <label>City</label>
+                <select
+                  onChange={formik.handleChange}
+                  value={formik.values.city_id}
+                  id="city_id"
+                  name="city_id"
+                >
+                  <option className="label-select">Select city</option>
+                  {city.map(data => (
+                    <option value={data.city_id}>{data.name}</option>
+                  ))}
+                </select>
               </div>
               <div className="password">
                 <label> Password</label>
@@ -163,10 +177,14 @@ const SignUp = () => {
               </div>
               <span className="title">I agree with terms and conditions</span>
             </div>
-            <button className="login-btn" type="submit">
-              <div className="icon"></div>
-              <div className="title">Register</div>
-            </button>
+            {loading ? (
+              <RingLoader size={30} color={'#f9495b'} css=" margin: 0 auto;" />
+            ) : (
+              <button className="login-btn" type="submit">
+                <div className="icon"></div>
+                <div className="title">Register</div>
+              </button>
+            )}
           </form>
           <div className="divider-inner-text">
             <span className="title3">--Or Register Up With--</span>

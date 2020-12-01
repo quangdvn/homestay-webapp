@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { ToastAlert } from '../../components/Alert';
+import { getUser } from '../../store/actions/authAction';
 import Home from '../../components/Home';
 import PlaceDetails from '../../components/PlaceDetails';
-import './styles.scss';
 import SignIn from '../../components/SignIn';
 import SignUp from '../../components/SignUp';
+import './styles.scss';
 
 function App() {
+  const userToken = localStorage.getItem('token');
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (userToken) {
+      dispatch(getUser());
+    }
+  }, [userToken, dispatch]);
+
   return (
     <Router>
       {/* <Narbar /> */}
+      <ToastAlert />
       <Switch>
         <Route exact path="/">
           <Home />
