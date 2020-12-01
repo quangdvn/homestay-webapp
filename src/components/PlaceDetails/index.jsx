@@ -3,6 +3,8 @@ import { useParams } from 'react-router';
 import axios from 'axios';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { Link } from 'react-scroll';
+import Narbar from '../../components/Home/Narbar';
+import Footer from '../../components/Home/Footer';
 import PlaceDesc from './PlaceDesc';
 import PlaceAmenities from './PlaceAmenities';
 import PlaceRules from './PlaceRules';
@@ -81,6 +83,7 @@ const PlaceDetails = () => {
     <>
       <PhotoCarousel isOpen={modalOpen} toggle={toggle} photos={photos} />
       <div className="place-details">
+        <Narbar />
         <div className="place-image">
           <img className="place-image" src={photos[0].url} alt="place" />
           <button type="button" className="view-photos" onClick={toggle}>
@@ -130,6 +133,7 @@ const PlaceDetails = () => {
             <BookingForm prices={prices} bookings={bookings} />
           </div>
         </div>
+        <Footer />
       </div>
     </>
   );

@@ -1,13 +1,14 @@
 /* eslint-disable global-require */
 import React, { useState, useEffect } from 'react';
-import { useLocation, NavLink } from 'react-router-dom';
+import { useLocation, NavLink, Link } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
 import './styles.scss';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { logOut } from '../../../store/actions/authAction';
 const Narbar = () => {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(location.pathname !== '/');
-
+  const dispatch = useDispatch();
   const handleScroll = () => {
     const offset = window.scrollY;
     if (offset > 150) {
@@ -24,6 +25,7 @@ const Narbar = () => {
     { name: 'Pricing', url: '/pricing-plan' },
   ];
 
+  const { isLogin } = useSelector(state => state.auth);
   useEffect(() => {
     if (location.pathname === '/') {
       window.addEventListener('scroll', handleScroll);
@@ -33,7 +35,7 @@ const Narbar = () => {
   return (
     <div className={scrolled ? 'scrolled' : 'narbar'}>
       <div className="left">
-        <div className="logo">
+        <Link className="logo" to="/">
           <img
             src={
               scrolled
@@ -42,7 +44,7 @@ const Narbar = () => {
             }
             alt=""
           />
-        </div>
+        </Link>
         {scrolled && (
           <div className="search">
             <input
@@ -67,10 +69,50 @@ const Narbar = () => {
             </NavLink>
           ))}
         </div>
-        <div className="sign-in-up-btn">
-          <div className="sign-in">Sign in</div>
-          <div className="sign-up">Sign up</div>
-        </div>
+        {isLogin || localStorage.getItem('token') ? (
+          <div className="dropdown">
+            <div
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              style={{ backgroundColor: '#f9495b' }}
+            >
+              Hello, Huy!
+            </div>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <Link className="dropdown-item" to="/">
+                View Profile
+              </Link>
+              <Link className="dropdown-item" to="/">
+                Add Hotel
+              </Link>
+              <Link className="dropdown-item" to="/">
+                Account Settings
+              </Link>
+              <Link
+                className="dropdown-item"
+                to="/sign-in"
+                onClick={() => {
+                  dispatch(logOut());
+                }}
+              >
+                Logout
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div className="sign-in-up-btn">
+            <Link className="sign-in" to="/sign-in">
+              Sign in
+            </Link>
+            <Link className="sign-up" to="/sign-up">
+              Sign up
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
