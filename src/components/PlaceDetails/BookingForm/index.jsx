@@ -39,6 +39,9 @@ const BookingForm = ({ prices, placeId, bookings }) => {
     event.preventDefault();
     if (isDisabled()) return;
 
+    if (!localStorage.getItem('token')) {
+      history.push('/sign-in');
+    }
     axios
       .post(
         'https://homestayy.herokuapp.com/api/v1/travellers/bookings',

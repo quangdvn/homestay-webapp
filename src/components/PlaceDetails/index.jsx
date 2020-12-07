@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useParams, useHistory } from 'react-router';
 import axios from 'axios';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { Link } from 'react-scroll';
@@ -37,6 +37,7 @@ const PlaceDetails = () => {
   const [prices, setPrices] = useState({});
   const toggle = () => setModalOpen(!modalOpen);
   const { id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     setLoading(true);
@@ -77,6 +78,14 @@ const PlaceDetails = () => {
       });
   }, [id]);
 
+  const addBookmark = () => {
+    if (!localStorage.getItem('token')) {
+      history.push('/sign-in');
+    } else {
+      setBookmark(!bookmarked);
+    }
+  };
+
   return loading ? (
     <LoadingIndicator />
   ) : (
@@ -105,11 +114,7 @@ const PlaceDetails = () => {
               {label}
             </Link>
           ))}
-          <button
-            type="button"
-            className="bookmark"
-            onClick={() => setBookmark(!bookmarked)}
-          >
+          <button type="button" className="bookmark" onClick={addBookmark}>
             {bookmarked ? (
               <FaStar className="bookmark-icon bookmarked" />
             ) : (

@@ -8,6 +8,15 @@ import { logIn } from '../../store/actions/authAction';
 import { LOG_IN_SUCCESS } from '../../store/actions/types';
 
 const SignIn = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const handleLogIn = async logInData => {
+    const res = await dispatch(logIn(logInData));
+    if (res === LOG_IN_SUCCESS) {
+      history.push('/');
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -24,14 +33,7 @@ const SignIn = () => {
       handleLogIn(values);
     },
   });
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const handleLogIn = async logInData => {
-    const res = await dispatch(logIn(logInData));
-    if (res === LOG_IN_SUCCESS) {
-      history.push('/');
-    }
-  };
+
   return (
     <div className="sign-in">
       <div className="left">

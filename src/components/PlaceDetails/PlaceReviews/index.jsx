@@ -1,25 +1,34 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Element } from 'react-scroll';
 import { ImStarFull, ImStarHalf } from 'react-icons/im';
-import { useSelector } from 'react-redux';
 import Review from './Review';
 import ReviewModal from './ReviewModal';
 import './styles.scss';
 
 const PlaceReviews = ({ reviews, desc, placeId, setReviews }) => {
-  const userId = useSelector(state => state.user?.id);
+  const user = useSelector(state => state.auth?.user);
   const [modalOpen, setModalOpen] = useState(false);
-  const toggle = () => setModalOpen(!modalOpen);
+  const history = useHistory();
+
+  const toggle = () => {
+    if (!localStorage.getItem('token')) {
+      history.push('/sign-in');
+    } else {
+      setModalOpen(!modalOpen);
+    }
+  };
 
   const addReview = data => {
-    setReviews([data, ...reviews]);
+    setReviews([{ ...data, user_name: user?.user_name }, ...reviews]);
   };
 
   const replaceReview = (reviewId, data) => {
     setReviews(
       reviews.map(item => {
         if (item.id === reviewId) {
-          return data;
+          return { ...data, user_name: user?.user_name };
         }
         return item;
       })
@@ -34,7 +43,7 @@ const PlaceReviews = ({ reviews, desc, placeId, setReviews }) => {
         placeId={placeId}
         addReview={addReview}
         replaceReview={replaceReview}
-        userReview={reviews.filter(item => item.user_id === userId).pop()}
+        userReview={reviews.filter(item => item.user_id === user?.id).pop()}
       />
       <Element className="place-details-reviews" name="reviews">
         <div className="head-section">
@@ -54,15 +63,17 @@ const PlaceReviews = ({ reviews, desc, placeId, setReviews }) => {
             Write a review
           </button>
         </div>
-        {reviews.map(item => (
-          <Review
-            key={item.user_name}
-            userName={item.user_name}
-            detail={item.detail}
-            rating={item.rating}
-            createdAt={item.created_at}
-          />
-        ))}
+        {reviews
+          .sort((a, b) => (a.created_at > b.created_at ? -1 : 1))
+          .map(item => (
+            <Review
+              key={item.user_name}
+              userName={item.user_name}
+              detail={item.detail}
+              rating={item.rating}
+              createdAt={item.created_at}
+            />
+          ))}
       </Element>
     </>
   );

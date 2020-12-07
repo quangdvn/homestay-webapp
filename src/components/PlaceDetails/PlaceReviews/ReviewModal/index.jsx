@@ -53,7 +53,7 @@ const ReviewModal = ({
 
   const editReview = reviewId => {
     axios
-      .post(
+      .patch(
         `https://homestayy.herokuapp.com/api/v1/travellers/reviews/${reviewId}`,
         {
           detail: formData.content,
@@ -62,7 +62,7 @@ const ReviewModal = ({
         reqConfig()
       )
       .then(({ data }) => {
-        notifySuccess('Review added!');
+        notifySuccess('Review updated!');
         replaceReview(reviewId, data.data);
       })
       .catch(err => {

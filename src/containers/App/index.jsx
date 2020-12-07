@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ToastAlert } from '../../components/Alert';
 import { getUser } from '../../store/actions/authAction';
 import Home from '../../components/Home';
@@ -10,7 +10,7 @@ import SignUp from '../../components/SignUp';
 import './styles.scss';
 
 function App() {
-  const userToken = useSelector(state => state.auth.token);
+  const userToken = localStorage.getItem('token');
   const dispatch = useDispatch();
 
   useEffect(() => {
