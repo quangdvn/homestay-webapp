@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { RingLoader } from 'react-spinners';
@@ -10,9 +10,12 @@ import './styles.scss';
 
 const SignIn = () => {
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const handleLogIn = async logInData => {
+    setLoading(true);
     const res = await dispatch(logIn(logInData));
+    setLoading(false);
     if (res === LOG_IN_SUCCESS) {
       history.push('/');
     }
