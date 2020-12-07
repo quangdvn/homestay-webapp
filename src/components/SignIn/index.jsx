@@ -1,11 +1,12 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import './styles.scss';
+import { RingLoader } from 'react-spinners';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../store/actions/authAction';
 import { LOG_IN_SUCCESS } from '../../store/actions/types';
+import './styles.scss';
 
 const SignIn = () => {
   const history = useHistory();
@@ -96,10 +97,14 @@ const SignIn = () => {
               </div>
               <Link to="/forget-password">Forget Password ?</Link>
             </div>
-            <button className="login-btn" type="submit">
-              <div className="icon"></div>
-              <div className="title">Login</div>
-            </button>
+            {loading ? (
+              <RingLoader size={30} color={'#f9495b'} css=" margin: 0 auto;" />
+            ) : (
+              <button className="login-btn" type="submit">
+                <div className="icon"></div>
+                <div className="title">Login</div>
+              </button>
+            )}
           </form>
           <div className="divider-inner-text">
             <span className="title3">--Or log in with--</span>

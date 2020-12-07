@@ -59,6 +59,34 @@
             margin-top: 10px;
             @extend .email;
           }
+          .city {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+            label {
+              color: $dark-text;
+              font-size: 15px;
+              line-height: 18px;
+              font-weight: 600;
+              margin-bottom: 10px;
+            }
+            select {
+              max-width: 465px;
+              width: 100%;
+              padding: 15px 80px 15px 10px;
+              border: none;
+              border-radius: 3px 0 0 0;
+              -webkit-appearance: none;
+              outline: none;
+              border: 1px solid #e6e6e6;
+              option {
+                background-color: white;
+              }
+            }
+          }
+          .label-select {
+            display: none;
+          }
           .full_name {
             margin-top: 10px;
             @extend .email;
