@@ -1,7 +1,7 @@
 @import '../../Home/styles.scss';
 @import '../../../stylesheets/variables';
 .top-hotel {
-  padding: 50px;
+  padding: 20px;
   .header {
     @include displayFlex(space-between, center);
     a {
@@ -15,6 +15,10 @@
     .hotel {
       position: relative;
       width: 225px;
+      .react-multi-carousel-list {
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+      }
       .react-multi-carousel-item {
         width: 225px !important;
       }

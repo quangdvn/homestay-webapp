@@ -8,6 +8,7 @@ import {
   SIGN_UP_SUCCESS,
   SIGN_UP_ERROR,
   GET_INFO,
+  FIND_HOTEL,
 } from './types';
 
 export const getUser = () => async dispatch => {
@@ -24,6 +25,19 @@ export const getUser = () => async dispatch => {
   }
 };
 
+export const getSearchHotel = reqData => async dispatch => {
+  try {
+    console.log(reqData);
+    const data = await axios.get(
+      'https://homestayy.herokuapp.com/api/v1/travellers/places',
+      reqData
+    );
+    console.log(data);
+    dispatch({ type: FIND_HOTEL, payload: data });
+  } catch (err) {
+    notifyError(err.message);
+  }
+};
 export const logIn = logInData => async dispatch => {
   try {
     const { data } = await axios.post(
@@ -61,25 +75,3 @@ export const logOut = () => dispatch => {
   dispatch({ type: LOG_OUT });
   localStorage.clear();
 };
-// export const signUp = signUpData => async dispatch => {
-//   try {
-//     const { data } = await goFoodApi.post('/auth/signup', signUpData);
-//     await AsyncStorage.setItem('token', data.token);
-
-//     dispatch({ type: SIGN_UP_SUCCESS, payload: data.token });
-
-//     navigateTo('GetInfo');
-//   } catch (err) {
-//     if (err.response.status === 400) {
-//       dispatch({
-//         type: SIGN_UP_ERROR,
-//         payload: err.response.data.error,
-//       });
-//     } else {
-//       dispatch({
-//         type: SIGN_UP_ERROR,
-//         payload: 'Something went wrong ..',
-//       });
-//     }
-//   }
-// };

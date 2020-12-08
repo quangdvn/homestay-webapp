@@ -14,11 +14,8 @@ const TopHotel = props => {
   const listHotel = [
     {
       id: 1,
-      img: [
+      img:
         'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-12_thumb.jpg',
-        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-13_thumb.jpg',
-        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-14_thumb.jpg',
-      ],
       address: '8424 Padberg Flats',
       name: 'Small Metal Ball',
       price: '316.00',
@@ -27,11 +24,8 @@ const TopHotel = props => {
     },
     {
       id: 2,
-      img: [
+      img:
         'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-12_thumb.jpg',
-        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-13_thumb.jpg',
-        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-14_thumb.jpg',
-      ],
       address: '8424 Padberg Flats',
       name: 'Small Metal Ball',
       price: '316.00',
@@ -40,57 +34,89 @@ const TopHotel = props => {
     },
     {
       id: 3,
-      img: [
+      img:
         'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-12_thumb.jpg',
-        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-13_thumb.jpg',
-        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-14_thumb.jpg',
-      ],
       address: '8424 Padberg Flats',
       name: 'Small Metal Ball',
       price: '316.00',
       status: false,
       numberStar: 4,
     },
-    // {
-    //   id: 4,
-    //   img:
-    //     'https://i.pinimg.com/originals/6e/bd/54/6ebd5405194190cc7dd885ca164cde20.jpg',
-    //   address: '8424 Padberg Flats',
-    //   name: 'Small Metal Ball',
-    //   price: '316.00',
-    //   status: false,
-    //   numberStar: 4,
-    // },
-    // {
-    //   id: 5,
-    //   img:
-    //     'https://i.pinimg.com/originals/6e/bd/54/6ebd5405194190cc7dd885ca164cde20.jpg',
-    //   address: '8424 Padberg Flats',
-    //   name: 'Small Metal Ball',
-    //   price: '316.00',
-    //   status: false,
-    //   numberStar: 4,
-    // },
-    // {
-    //   id: 6,
-    //   img:
-    //     'https://i.pinimg.com/originals/6e/bd/54/6ebd5405194190cc7dd885ca164cde20.jpg',
-    //   address: '8424 Padberg Flats',
-    //   name: 'Small Metal Ball',
-    //   price: '316.00',
-    //   status: false,
-    //   numberStar: 4,
-    // },
-    // {
-    //   id: 7,
-    //   img:
-    //     'https://i.pinimg.com/originals/6e/bd/54/6ebd5405194190cc7dd885ca164cde20.jpg',
-    //   address: '8424 Padberg Flats',
-    //   name: 'Small Metal Ball',
-    //   price: '316.00',
-    //   status: false,
-    //   numberStar: 4,
-    // },
+    {
+      id: 4,
+      img:
+        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-12_thumb.jpg',
+      address: '8424 Padberg Flats',
+      name: 'Small Metal Ball',
+      price: '316.00',
+      status: false,
+      numberStar: 4,
+    },
+    {
+      id: 5,
+      img:
+        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-12_thumb.jpg',
+      address: '8424 Padberg Flats',
+      name: 'Small Metal Ball',
+      price: '316.00',
+      status: false,
+      numberStar: 4,
+    },
+    ,
+    {
+      id: 6,
+      img:
+        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-12_thumb.jpg',
+      address: '8424 Padberg Flats',
+      name: 'Small Metal Ball',
+      price: '316.00',
+      status: false,
+      numberStar: 4,
+    },
+    ,
+    {
+      id: 7,
+      img:
+        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-12_thumb.jpg',
+      address: '8424 Padberg Flats',
+      name: 'Small Metal Ball',
+      price: '316.00',
+      status: false,
+      numberStar: 4,
+    },
+    ,
+    {
+      id: 8,
+      img:
+        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-12_thumb.jpg',
+      address: '8424 Padberg Flats',
+      name: 'Small Metal Ball',
+      price: '316.00',
+      status: false,
+      numberStar: 4,
+    },
+    ,
+    {
+      id: 9,
+      img:
+        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-12_thumb.jpg',
+      address: '8424 Padberg Flats',
+      name: 'Small Metal Ball',
+      price: '316.00',
+      status: false,
+      numberStar: 4,
+    },
+    ,
+    {
+      id: 10,
+      img:
+        'http://s3.amazonaws.com/redqteam.com/tripfinder-images/hotel-12_thumb.jpg',
+      address: '8424 Padberg Flats',
+      name: 'Small Metal Ball',
+      price: '316.00',
+      status: false,
+      numberStar: 4,
+    },
   ];
   const responsive = {
     superLargeDesktop: {
@@ -138,7 +164,6 @@ const TopHotel = props => {
           >
             <Carousel
               swipeable
-              showDots
               responsive={responsive}
               infinite
               autoPlaySpeed={3000}
@@ -148,9 +173,7 @@ const TopHotel = props => {
               renderButtonGroupOutside={false}
               additionalTransfrom={0}
             >
-              {hotel.img.map(data => (
-                <img src={data} alt="" />
-              ))}
+              <img src={hotel.img} alt="" />
             </Carousel>
             <div className="info">
               <div className="address">{hotel.address}</div>
@@ -192,7 +215,7 @@ const TopHotel = props => {
                 setBookMark(!bookmark);
               }}
             >
-              {bookmark ? (
+              {bookmark && hotel.id === id ? (
                 <FaHeart className="heart" />
               ) : (
                 <FaRegHeart className="heart" />

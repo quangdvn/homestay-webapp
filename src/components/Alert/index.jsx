@@ -6,7 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import './styles.scss';
 
 const Message = ({ text, type }) => {
-  console.log('lol');
   return (
     <Row className="toastMessage">
       <Col xs="2">

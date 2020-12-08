@@ -2,6 +2,8 @@
 @import '../../../../stylesheets//variables';
 .header {
   @include displayFlex(space-between, center);
+  margin-bottom: 10px;
+  margin-top: 40px;
   a {
     @include a($main-user);
   }

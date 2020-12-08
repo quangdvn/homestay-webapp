@@ -3,6 +3,7 @@ import {
   SIGN_UP_SUCCESS,
   LOG_OUT,
   GET_INFO,
+  FIND_HOTEL,
 } from '../actions/types';
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   token: null,
   error: '',
   isLoading: false,
+  listHotel: {},
 };
 
 const authReducer = (state = initialState, { type, payload }) => {
@@ -19,6 +21,11 @@ const authReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         user: payload,
+      };
+    case FIND_HOTEL:
+      return {
+        ...state,
+        listHotel: payload,
       };
     case LOG_IN_SUCCESS:
       return {

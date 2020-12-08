@@ -7,6 +7,8 @@ import Home from '../../components/Home';
 import PlaceDetails from '../../components/PlaceDetails';
 import SignIn from '../../components/SignIn';
 import SignUp from '../../components/SignUp';
+import Listing from '../../components/Listing';
+
 import './styles.scss';
 
 function App() {
@@ -36,9 +38,10 @@ function App() {
         <Route exact path="/sign-up">
           <SignUp />
         </Route>
-        <Route exact path="/listing" />
+        <Route exact path="/listing">
+          <Listing />
+        </Route>
         <Route exact path="/profile" />
-        <Route exact path="/pricing-plan" />
       </Switch>
       {/* <Footer /> */}
     </Router>
