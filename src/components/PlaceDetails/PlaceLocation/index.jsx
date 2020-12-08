@@ -26,7 +26,7 @@ const PlaceLocation = ({ location }) => {
         <MapContainer
           className="map-container"
           center={position}
-          zoom={13}
+          zoom={16}
           scrollWheelZoom={false}
         >
           <TileLayer

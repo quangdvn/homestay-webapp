@@ -1,0 +1,52 @@
+@import '../../../../stylesheets/variables';
+
+.choose-photos {
+  .label {
+    font-weight: 500;
+    margin-bottom: 0.9rem;
+  }
+  .image-list {
+    margin-top: 1rem;
+
+    .image-item {
+      padding: 0.5rem 0.2rem;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: white;
+      transition: background 0.2s ease-in-out;
+
+      .filename {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        .paper-clip-icon {
+          font-size: 1.1rem;
+          color: rgba(0, 0, 0, 0.45);
+        }
+        span {
+          color: $main-host;
+          font-weight: 500;
+        }
+      }
+      .remove {
+        border: none;
+        outline: none;
+        display: flex;
+        align-items: center;
+        color: white;
+        background: transparent;
+        transition: color 0.2s ease-in-out;
+      }
+    }
+    .image-item:hover {
+      background: rgb(247, 247, 247);
+
+      .remove {
+        color: rgba(0, 0, 0, 0.45);
+      }
+    }
+  }
+}

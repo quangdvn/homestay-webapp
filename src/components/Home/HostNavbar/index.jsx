@@ -1,12 +1,11 @@
 /* eslint-disable global-require */
 import React, { useState, useEffect } from 'react';
 import { useLocation, NavLink, Link } from 'react-router-dom';
-import { FiSearch } from 'react-icons/fi';
-import './styles.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../../../store/actions/authAction';
+import './styles.scss';
 
-const Narbar = () => {
+const HostNavbar = ({ isFixed }) => {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(location.pathname !== '/');
   const dispatch = useDispatch();
@@ -36,28 +35,18 @@ const Narbar = () => {
   });
 
   return (
-    <div className={scrolled ? 'scrolled' : 'narbar'}>
+    <div className={`hostNavbar ${isFixed ? 'fixed' : ''}`}>
       <div className="left">
         <Link className="logo" to="/">
           <img
             src={
               scrolled
-                ? require('../../../assets/images/user-logo.png')
+                ? require('../../../assets/images/host-logo.png')
                 : require('../../../assets/images/narbar-logo.png')
             }
             alt=""
           />
         </Link>
-        {scrolled && (
-          <div className="search">
-            <input
-              type="text"
-              placeholder='Search  "Đà Nẵng" '
-              className="search-destination"
-            />
-            <FiSearch size="1em" />
-          </div>
-        )}
       </div>
       <div className="right">
         <div className="menu-nav">
@@ -81,11 +70,10 @@ const Narbar = () => {
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              style={{ backgroundColor: '#f9495b' }}
             >
               Hello
               {typeof user.full_name === 'string'
-                ? ',' + user.full_name.split(' ')[2] + '!'
+                ? ', ' + user.full_name.split(' ')[2] + '!'
                 : ''}
             </div>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -124,4 +112,4 @@ const Narbar = () => {
   );
 };
 
-export default Narbar;
+export default HostNavbar;
