@@ -44,6 +44,7 @@
     .sign-in-up-btn {
       @include displayFlex(initial, center);
       .sign-in {
+        color: black;
         padding: 5px;
         font-weight: 400;
         font-size: 15px;
