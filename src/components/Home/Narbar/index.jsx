@@ -1,13 +1,15 @@
 /* eslint-disable global-require */
 import React, { useState, useEffect } from 'react';
-import { useLocation, NavLink, Link } from 'react-router-dom';
+import { useLocation, NavLink, Link, useHistory } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
-import './styles.scss';
 import { useSelector, useDispatch } from 'react-redux';
-import { logOut } from '../../../store/actions/authAction';
+import { logOut, switchToHost } from '../../../store/actions/authAction';
+import { SWITCH_SUCCESS } from '../../../store/actions/types';
+import './styles.scss';
 
 const Narbar = () => {
   const location = useLocation();
+  const history = useHistory();
   const [scrolled, setScrolled] = useState(location.pathname !== '/');
   const dispatch = useDispatch();
   const handleScroll = () => {
@@ -19,14 +21,21 @@ const Narbar = () => {
     }
   };
 
+  const handleSwitchToHost = async () => {
+    const res = await dispatch(switchToHost());
+    if (res === SWITCH_SUCCESS) {
+      history.push('/hosting');
+    }
+  };
+
   const menu = [
     { name: 'Hotel', url: '/', exact: true },
     { name: 'Listing', url: '/listing' },
-    { name: 'Hosting', url: '/hosting' },
-    { name: 'Profile', url: '/profile' },
   ];
   const { user, isLogin } = useSelector(state => state.auth);
-
+  if (user.is_host) {
+    menu.push({ name: 'Hosting', url: '/hosting' });
+  }
   useEffect(() => {
     if (location.pathname === '/') {
       window.addEventListener('scroll', handleScroll);
@@ -89,9 +98,15 @@ const Narbar = () => {
               <Link className="dropdown-item" to="/">
                 View Profile
               </Link>
-              <Link className="dropdown-item" to="/host/homes">
-                Become a host
-              </Link>
+              {user.is_host ? null : (
+                <button
+                  type="button"
+                  className="dropdown-item"
+                  onClick={handleSwitchToHost}
+                >
+                  Become a host
+                </button>
+              )}
               <Link
                 className="dropdown-item"
                 to="/"

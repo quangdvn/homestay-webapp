@@ -1,13 +1,20 @@
 import React from 'react';
-import './styles.scss';
+import { useSelector } from 'react-redux';
 import SlideIntro from './SlideIntro';
 import HotelSearch from './HotelSearch';
 import ExporeDes from './ExploreDes';
 import TopHotel from './TopHotel';
-import Narbar from '../../components/Home/Narbar';
-import Footer from '../../components/Home/Footer';
+import Narbar from './Narbar';
+import Footer from './Footer';
+import LoadingIndicator from '../LoadingIndicator';
+import './styles.scss';
+
 const Home = () => {
-  return (
+  const { isLoading } = useSelector(state => state.auth);
+
+  return isLoading ? (
+    <LoadingIndicator />
+  ) : (
     <div className="home-layout">
       <Narbar />
       <div className="intro-section">

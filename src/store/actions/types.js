@@ -11,3 +11,9 @@ export const LOG_OUT = 'LOG_OUT';
 export const GET_INFO = 'GET_INFO';
 
 export const FIND_HOTEL = 'FIND_HOTEL';
+
+export const SWITCH_SUCCESS = 'SWITCH_SUCCESS';
+
+export const SWITCH_ERROR = 'SWITCH_ERROR';
+
+export const IS_LOADING = 'IS_LOADING';

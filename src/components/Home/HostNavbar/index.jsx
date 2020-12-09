@@ -22,7 +22,6 @@ const HostNavbar = ({ isFixed }) => {
     { name: 'Hotel', url: '/', exact: true },
     { name: 'Listing', url: '/listing' },
     { name: 'Hosting', url: '/hosting' },
-    { name: 'Pricing', url: '/pricing-plan' },
   ];
 
   const { isLogin } = useSelector(state => state.auth);
@@ -71,17 +70,11 @@ const HostNavbar = ({ isFixed }) => {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Hello
-              {typeof user.full_name === 'string'
-                ? ', ' + user.full_name.split(' ')[2] + '!'
-                : ''}
+              Hello, {user.full_name}
             </div>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <Link className="dropdown-item" to="/">
                 View Profile
-              </Link>
-              <Link className="dropdown-item" to="/">
-                Add Hotel
               </Link>
               <Link className="dropdown-item" to="/">
                 Account Settings

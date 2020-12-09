@@ -4,6 +4,8 @@ import {
   LOG_OUT,
   GET_INFO,
   FIND_HOTEL,
+  SWITCH_SUCCESS,
+  IS_LOADING,
 } from '../actions/types';
 
 const initialState = {
@@ -17,6 +19,11 @@ const initialState = {
 
 const authReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case IS_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+      };
     case GET_INFO:
       return {
         ...state,
@@ -44,6 +51,13 @@ const authReducer = (state = initialState, { type, payload }) => {
         ...state,
         token: null,
         isLogin: false,
+      };
+    case SWITCH_SUCCESS:
+      return {
+        ...state,
+        token: payload.token,
+        user: payload.data,
+        isLoading: false,
       };
     default:
       return state;
