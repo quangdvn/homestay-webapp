@@ -109,13 +109,14 @@ const SignIn = () => {
               </button>
             )}
           </form>
-          <div className="divider-inner-text">
+          {/* <div className="divider-inner-text">
             <span className="title3">--Or log in with--</span>
           </div>
           <div className="regis-btn">
             <div className="fb">Facebook</div>
             <div className="gg">Google+</div>
           </div>
+           */}
           <p className="title4">
             Don't Have an Account?
             <Link to="/sign-up"> Registration</Link>

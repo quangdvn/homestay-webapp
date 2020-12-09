@@ -40,7 +40,7 @@ const Narbar = () => {
     if (location.pathname === '/') {
       window.addEventListener('scroll', handleScroll);
     }
-  }, [user.full_name]);
+  }, [user.full_name, location.pathname]);
   return (
     <div className={scrolled ? 'scrolled' : 'narbar'}>
       <div className="left">
@@ -96,7 +96,7 @@ const Narbar = () => {
 
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <Link className="dropdown-item" to="/">
-                View Profile
+                Bookmark
               </Link>
               {user.is_host ? null : (
                 <button

@@ -1,8 +1,7 @@
 @import '../../Home/styles.scss';
 @import '../../../stylesheets/variables';
 .search-hotel {
-  max-width: 1012px;
-  width: 100%;
+  width: 81%;
   padding: 25px;
   background-color: white;
   position: absolute;
@@ -24,7 +23,9 @@
       flex-direction: column;
       gap: 0.5rem;
     }
-
+    .DateRangePicker {
+      width: 368px;
+    }
     .form-dates .DateRangePicker .DateRangePickerInput {
       display: flex;
       justify-content: space-around;
