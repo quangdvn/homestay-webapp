@@ -19,18 +19,21 @@
     }
   }
   .right {
-    @include displayFlex(space-between, center);
+    @include displayFlex(flex-end, center);
     width: 100%;
     padding-right: 20px;
     max-width: 600px;
     .menu-nav {
-      @include displayFlex(space-around, initial);
+      @include displayFlex(initial, center);
       max-width: 425px;
-      width: 100%;
+      padding: 0 30px;
       a {
         @include a(white, 400);
         padding: 30px;
       }
+    }
+    button.dropdown-item {
+      outline: none;
     }
     .sign-in-up-btn {
       @include displayFlex(initial, center);

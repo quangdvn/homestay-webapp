@@ -26,9 +26,6 @@ const Review = ({ userName, detail, rating, createdAt }) => {
           ))}
         </div>
       </div>
-      <div className="review-title">
-        Qui unde exercitationem quis nulla ut earum qui ea sit.
-      </div>
       <p className="review-content">{detail}</p>
     </div>
   );

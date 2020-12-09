@@ -1,0 +1,63 @@
+@import '../../../../stylesheets/variables';
+
+.listing-item {
+  border-radius: 6px;
+  border: 1px solid rgb(230, 230, 230);
+
+  .thumbnail {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    width: 100%;
+    object-fit: cover;
+  }
+  .listing-info {
+    padding: 1rem 1rem 0.3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+
+    .address {
+      font-size: 0.9rem;
+      color: rgb(144, 144, 144);
+    }
+    .title {
+      font-weight: 600;
+    }
+    .price {
+      font-size: 0.95rem;
+    }
+    .rating {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+
+      .rating-star {
+        position: relative;
+        bottom: 0.15rem;
+        color: $main-host;
+        font-size: 0.9rem;
+      }
+      .rating-verdict {
+        margin-left: 0.4rem;
+        font-weight: 500;
+      }
+    }
+    .to-edit {
+      display: flex;
+      align-items: center;
+      color: $main-host;
+      font-weight: 500;
+      text-decoration: none;
+
+      span {
+        margin-left: 0.4rem;
+      }
+    }
+    .to-edit:hover {
+      color: rgb(57, 156, 159);
+    }
+  }
+}
+
+.listing-item:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 6px 12px;
+}

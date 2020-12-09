@@ -9,6 +9,9 @@ import {
   SIGN_UP_ERROR,
   GET_INFO,
   FIND_HOTEL,
+  SWITCH_SUCCESS,
+  SWITCH_ERROR,
+  IS_LOADING,
 } from './types';
 
 export const getUser = () => async dispatch => {
@@ -37,6 +40,7 @@ export const getSearchHotel = reqData => async dispatch => {
     notifyError(err.message);
   }
 };
+
 export const logIn = logInData => async dispatch => {
   try {
     const { data } = await axios.post(
@@ -73,4 +77,22 @@ export const signUp = signUpData => async dispatch => {
 export const logOut = () => dispatch => {
   dispatch({ type: LOG_OUT });
   localStorage.clear();
+};
+
+export const switchToHost = () => async dispatch => {
+  dispatch({ type: IS_LOADING });
+  try {
+    const { data } = await axios.put(
+      `https://homestayy.herokuapp.com/api/v1/hosts/switching`,
+      null,
+      reqConfig()
+    );
+    localStorage.setItem('token', data.token);
+    notifySuccess("You've become a host!");
+    dispatch({ type: SWITCH_SUCCESS, payload: data });
+    return SWITCH_SUCCESS;
+  } catch (err) {
+    notifyError(err.message);
+    return SWITCH_ERROR;
+  }
 };

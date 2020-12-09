@@ -1,0 +1,69 @@
+@import '../styles.scss';
+@import '../../../stylesheets/variables';
+
+.hostNavbar {
+  background: white;
+  @include displayFlex(space-between);
+  width: 100%;
+  .left {
+    @include displayFlex(initial, center);
+    width: 100%;
+    max-width: 650px;
+    padding-left: 20px;
+    .logo {
+      img {
+        max-width: 137px;
+      }
+    }
+  }
+  .right {
+    @include displayFlex(flex-end, center);
+    width: 100%;
+    padding-right: 20px;
+    max-width: 600px;
+    .menu-nav {
+      @include displayFlex(initial, center);
+      max-width: 425px;
+      padding: 0 30px;
+      a {
+        @include a(black, 400);
+        padding: 30px;
+      }
+      a:hover {
+        color: $main-host;
+      }
+      .current {
+        border-bottom: 3px solid $main-host;
+      }
+    }
+    .dropdown {
+      #dropdownMenuButton {
+        background-color: $main-host;
+      }
+    }
+    .sign-in-up-btn {
+      @include displayFlex(initial, center);
+      .sign-in {
+        color: black;
+        padding: 5px;
+        font-weight: 400;
+        font-size: 15px;
+      }
+      .sign-up {
+        padding: 3px;
+        background-color: $main-host;
+        border-radius: 5px;
+        @include text(500);
+      }
+      a:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.hostNavbar.fixed {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}

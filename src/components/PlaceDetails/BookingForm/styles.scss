@@ -175,7 +175,12 @@
       font-weight: 500;
       transition: background 0.15s ease-in-out;
     }
+
     .reserve-button:hover {
+      background: rgba($main-user, 0.8);
+    }
+
+    .reserve-button.disabled {
       background: rgba($main-user, 0.8);
     }
 

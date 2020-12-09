@@ -1,0 +1,12 @@
+.my-listing {
+  h4 {
+    color: black;
+    margin-bottom: 2.5rem;
+  }
+  .my-listing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 1.5rem;
+    grid-row-gap: 1.5rem;
+  }
+}

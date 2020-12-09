@@ -18,7 +18,7 @@
 #review-modal {
   background-color: white !important;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 10px;
-  top: 4rem;
+  top: 6rem;
 
   .modal-content {
     padding: 2.5rem 3rem;
@@ -90,6 +90,9 @@
         transition: background 0.1s ease-in-out;
       }
       .submit-review:hover {
+        background: rgba($main-user, 0.8);
+      }
+      .submit-review.disabled {
         background: rgba($main-user, 0.8);
       }
     }

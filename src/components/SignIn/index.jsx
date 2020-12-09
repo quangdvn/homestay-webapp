@@ -1,13 +1,26 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import './styles.scss';
+import { RingLoader } from 'react-spinners';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../store/actions/authAction';
 import { LOG_IN_SUCCESS } from '../../store/actions/types';
-import { RingLoader } from 'react-spinners';
+import './styles.scss';
+
 const SignIn = () => {
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const handleLogIn = async logInData => {
+    setLoading(true);
+    const res = await dispatch(logIn(logInData));
+    setLoading(false);
+    if (res === LOG_IN_SUCCESS) {
+      history.push('/');
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -24,17 +37,6 @@ const SignIn = () => {
       handleLogIn(values);
     },
   });
-  const history = useHistory();
-  const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
-  const handleLogIn = async logInData => {
-    setLoading(true);
-    const res = await dispatch(logIn(logInData));
-    setLoading(false);
-    if (res === LOG_IN_SUCCESS) {
-      history.push('/');
-    }
-  };
 
   return (
     <div className="sign-in">

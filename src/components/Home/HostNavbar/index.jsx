@@ -1,15 +1,12 @@
 /* eslint-disable global-require */
 import React, { useState, useEffect } from 'react';
-import { useLocation, NavLink, Link, useHistory } from 'react-router-dom';
-import { FiSearch } from 'react-icons/fi';
+import { useLocation, NavLink, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logOut, switchToHost } from '../../../store/actions/authAction';
-import { SWITCH_SUCCESS } from '../../../store/actions/types';
+import { logOut } from '../../../store/actions/authAction';
 import './styles.scss';
 
-const Narbar = () => {
+const HostNavbar = ({ isFixed }) => {
   const location = useLocation();
-  const history = useHistory();
   const [scrolled, setScrolled] = useState(location.pathname !== '/');
   const dispatch = useDispatch();
   const handleScroll = () => {
@@ -21,53 +18,34 @@ const Narbar = () => {
     }
   };
 
-  const handleSwitchToHost = async () => {
-    const res = await dispatch(switchToHost());
-    if (res === SWITCH_SUCCESS) {
-      history.push('/hosting');
-    }
-  };
-
   const menu = [
     { name: 'Hotel', url: '/', exact: true },
     { name: 'Listing', url: '/listing' },
-<<<<<<< HEAD
-    { name: 'Bookmark', url: '/bookmark' },
-=======
->>>>>>> main
+    { name: 'Hosting', url: '/hosting' },
   ];
-  const { user, isLogin } = useSelector(state => state.auth);
-  if (user.is_host) {
-    menu.push({ name: 'Hosting', url: '/hosting' });
-  }
+
+  const { isLogin } = useSelector(state => state.auth);
+  const { user } = useSelector(state => state.auth);
+
   useEffect(() => {
     if (location.pathname === '/') {
       window.addEventListener('scroll', handleScroll);
     }
-  }, [user.full_name]);
+  });
+
   return (
-    <div className={scrolled ? 'scrolled' : 'narbar'}>
+    <div className={`hostNavbar ${isFixed ? 'fixed' : ''}`}>
       <div className="left">
         <Link className="logo" to="/">
           <img
             src={
               scrolled
-                ? require('../../../assets/images/user-logo.png')
+                ? require('../../../assets/images/host-logo.png')
                 : require('../../../assets/images/narbar-logo.png')
             }
             alt=""
           />
         </Link>
-        {scrolled && (
-          <div className="search" style={{ display: 'none' }}>
-            <input
-              type="text"
-              placeholder='Search  "Đà Nẵng" '
-              className="search-destination"
-            />
-            <FiSearch size="1em" />
-          </div>
-        )}
       </div>
       <div className="right">
         <div className="menu-nav">
@@ -84,36 +62,26 @@ const Narbar = () => {
         </div>
         {isLogin || localStorage.getItem('token') ? (
           <div className="dropdown">
-            {user.full_name && (
-              <div
-                className="btn btn-secondary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                style={{ backgroundColor: '#f9495b' }}
-              >
-                Hello, {user.full_name}!
-              </div>
-            )}
-
+            <div
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Hello, {user.full_name}
+            </div>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <Link className="dropdown-item" to="/">
-                Bookmark
+                View Profile
               </Link>
-              {user.is_host ? null : (
-                <button
-                  type="button"
-                  className="dropdown-item"
-                  onClick={handleSwitchToHost}
-                >
-                  Become a host
-                </button>
-              )}
+              <Link className="dropdown-item" to="/">
+                Account Settings
+              </Link>
               <Link
                 className="dropdown-item"
-                to="/"
+                to="/sign-in"
                 onClick={() => {
                   dispatch(logOut());
                 }}
@@ -137,4 +105,4 @@ const Narbar = () => {
   );
 };
 
-export default Narbar;
+export default HostNavbar;

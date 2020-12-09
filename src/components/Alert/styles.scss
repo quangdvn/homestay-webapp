@@ -17,12 +17,7 @@
 }
 
 .Toastify__toast-container {
-  opacity: 0.85;
   transition: all 0.2s ease-in-out;
-
-  &:hover {
-    opacity: 1;
-  }
 }
 
 .Toastify__toast {

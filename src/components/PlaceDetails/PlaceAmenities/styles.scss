@@ -6,7 +6,7 @@
   }
   .amenities {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-column-gap: 10px;
     grid-row-gap: 10px;
     margin-bottom: 0.7rem;
@@ -17,9 +17,8 @@
       gap: 1rem;
       font-size: 0.9rem;
       justify-content: center;
-      height: 170px;
-      width: 170px;
       border-radius: 4px;
+      padding: 1.25rem 0;
       background: rgb(247, 247, 247);
       align-items: center;
 

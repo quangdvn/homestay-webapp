@@ -1,0 +1,61 @@
+@import '../../../stylesheets/variables';
+
+.basic-info {
+  h4 {
+    font-size: 1.6rem;
+    margin-bottom: 2.5rem;
+  }
+  .review-label {
+    font-weight: 500;
+    margin-bottom: 0.9rem;
+  }
+  .review-input {
+    font-size: 0.95rem;
+    border-color: rgb(230, 230, 230);
+  }
+  .review-input:focus {
+    box-shadow: rgba($main-host, 0.5) 0px 0px 0px 1px;
+  }
+  .review-input::placeholder {
+    font-size: 0.95rem;
+    color: rgba(grey, 0.6);
+  }
+  .text-input {
+    height: 3rem;
+  }
+
+  .counter {
+    margin-top: 2.5rem;
+
+    .quantity {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+
+      button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        color: $main-host;
+        background: white;
+        border: 2px solid $main-host;
+        outline: none;
+        width: 1.7rem;
+        height: 1.7rem;
+        transition: color 0.1s ease-in-out, background 0.1s ease-in-out;
+
+        .icon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 1.3rem;
+        }
+      }
+      button:hover {
+        background: $main-host;
+        color: white;
+      }
+    }
+  }
+}

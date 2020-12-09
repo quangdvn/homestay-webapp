@@ -1,0 +1,71 @@
+@import '../../stylesheets/variables';
+
+.new-hosting {
+  .progress-bar {
+    position: fixed;
+    background-color: white;
+    top: 5rem;
+    right: 0.2rem;
+    z-index: 1010;
+  }
+  .form-container {
+    border-top: 1px solid rgb(230, 230, 230);
+    padding: 10rem 14.5rem;
+  }
+  .footer-nav {
+    position: fixed;
+    padding: 0 14.5rem;
+    width: 100%;
+    bottom: 0;
+    z-index: 1000;
+    background: white;
+
+    .inner-wrapper {
+      padding: 1.9rem 0;
+      border-top: 1px solid rgb(230, 230, 230);
+
+      .next-step {
+        padding: 0.7rem 1.8rem;
+        font-weight: 500;
+        border: none;
+        outline: none;
+        border-radius: 2px;
+        background: $main-host;
+        color: white;
+        transition: background 0.2s ease-in-out;
+      }
+      .next-step:hover {
+        background: rgb(57, 156, 159);
+      }
+      .next-step:disabled {
+        background: rgba($main-host, 0.4);
+      }
+      .prev-step {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        border: none;
+        outline: none;
+        background: white;
+        color: black;
+        transition: color 0.2s ease-in-out;
+
+        .arrow {
+          font-size: 1.4rem;
+        }
+
+        span {
+          font-weight: 500;
+          margin-left: 0.3rem;
+        }
+      }
+      .prev-step:hover {
+        color: $main-host;
+      }
+    }
+    .inner-wrapper.flex {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
