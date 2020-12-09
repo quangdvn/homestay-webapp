@@ -70,14 +70,14 @@
         }
         a {
           @include a(black, 600);
-          font-size: 18px;
+          font-size: 13px;
         }
         a:hover {
           color: $main-user;
         }
         .price-status {
           @include displayFlex;
-          @include text(400, rgb(44, 44, 44), 13px, 25px);
+          @include text(400, rgb(44, 44, 44), 12px, 25px);
         }
         .rating {
           display: flex;
