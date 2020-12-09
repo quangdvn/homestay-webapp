@@ -9,6 +9,7 @@ import SignIn from '../../components/SignIn';
 import SignUp from '../../components/SignUp';
 import Hosting from '../../components/Hosting';
 import NewHosting from '../../components/NewHosting';
+import Listing from '../../components/Listing';
 import './styles.scss';
 
 function App() {
@@ -43,6 +44,9 @@ function App() {
         </Route>
         <Route exact path="/new-hosting">
           <NewHosting />
+        </Route>
+        <Route exact path="/listing">
+          <Listing />
         </Route>
         <Route exact path="/profile" />
       </Switch>

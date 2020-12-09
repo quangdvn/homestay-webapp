@@ -23,18 +23,15 @@ const Narbar = () => {
     { name: 'Hotel', url: '/', exact: true },
     { name: 'Listing', url: '/listing' },
     { name: 'Hosting', url: '/hosting' },
-    { name: 'Pricing', url: '/pricing-plan' },
+    { name: 'Profile', url: '/profile' },
   ];
-
-  const { isLogin } = useSelector(state => state.auth);
-  const { user } = useSelector(state => state.auth);
+  const { user, isLogin } = useSelector(state => state.auth);
 
   useEffect(() => {
     if (location.pathname === '/') {
       window.addEventListener('scroll', handleScroll);
     }
-  });
-
+  }, [user.full_name]);
   return (
     <div className={scrolled ? 'scrolled' : 'narbar'}>
       <div className="left">
@@ -49,7 +46,7 @@ const Narbar = () => {
           />
         </Link>
         {scrolled && (
-          <div className="search">
+          <div className="search" style={{ display: 'none' }}>
             <input
               type="text"
               placeholder='Search  "Đà Nẵng" '
@@ -74,33 +71,30 @@ const Narbar = () => {
         </div>
         {isLogin || localStorage.getItem('token') ? (
           <div className="dropdown">
-            <div
-              className="btn btn-secondary dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-              style={{ backgroundColor: '#f9495b' }}
-            >
-              Hello
-              {typeof user.full_name === 'string'
-                ? ',' + user.full_name.split(' ')[2] + '!'
-                : ''}
-            </div>
+            {user.full_name && (
+              <div
+                className="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                style={{ backgroundColor: '#f9495b' }}
+              >
+                Hello, {user.full_name}!
+              </div>
+            )}
+
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <Link className="dropdown-item" to="/">
                 View Profile
               </Link>
-              <Link className="dropdown-item" to="/">
-                Add Hotel
-              </Link>
-              <Link className="dropdown-item" to="/">
-                Account Settings
+              <Link className="dropdown-item" to="/host/homes">
+                Become a host
               </Link>
               <Link
                 className="dropdown-item"
-                to="/sign-in"
+                to="/"
                 onClick={() => {
                   dispatch(logOut());
                 }}
