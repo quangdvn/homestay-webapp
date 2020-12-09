@@ -17,3 +17,5 @@ export const SWITCH_SUCCESS = 'SWITCH_SUCCESS';
 export const SWITCH_ERROR = 'SWITCH_ERROR';
 
 export const IS_LOADING = 'IS_LOADING';
+
+export const DONE_LOADING = 'DONE_LOADING';

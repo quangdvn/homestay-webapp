@@ -1,28 +1,38 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Line } from 'rc-progress';
 import { Form } from 'reactstrap';
 import { RiArrowLeftSLine } from 'react-icons/ri';
+import { reqConfig } from '../../utils/requestConfig';
+import { notifyError, notifySuccess } from '../../services/alertService';
 import HostNavbar from '../Home/HostNavbar';
 import BasicInfo from './BasicInfo';
 import ChooseImage from './ChooseImage';
 import ChooseLocation from './ChooseLocation';
+import LoadingIndicator from '../LoadingIndicator';
 import cities from '../../constants/city';
-import './styles.scss';
 import AmenityRule from './AmenityRule';
+import './styles.scss';
+import { DONE_LOADING, IS_LOADING } from '../../store/actions/types';
 
 const NewHosting = () => {
   let formComponent;
   let footerNav;
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { isLoading } = useSelector(state => state.auth);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    base_price: 1.0,
-    extra_fee: 1.0,
+    base_price: '10.0',
+    extra_fee: '1.0',
     max_guests: 1,
     bedroom_number: 1,
     bathroom_number: 1,
-    photos: [],
+    homestay_photos: [],
     address: '',
     city_id: 1,
     location_id: 1,
@@ -35,7 +45,41 @@ const NewHosting = () => {
   const handleSubmit = event => {
     event.preventDefault();
     if (step === 4) {
-      console.log(formData);
+      const submitData = new FormData();
+      submitData.append('name', formData.name);
+      submitData.append('description', formData.description);
+      submitData.append('base_price', formData.base_price);
+      submitData.append('extra_fee', formData.extra_fee);
+      submitData.append('max_guests', formData.max_guests);
+      submitData.append('bedroom_number', formData.bedroom_number);
+      submitData.append('bathroom_number', formData.bathroom_number);
+      submitData.append('location_id', formData.location_id);
+      submitData.append('address', formData.address);
+      submitData.append('latitude', formData.latitude);
+      submitData.append('longitude', formData.longitude);
+      submitData.append('thumbnail', formData.thumbnail);
+      formData.homestay_photos.forEach(item =>
+        submitData.append('homestay_photos[]', item)
+      );
+      formData.amenities.forEach(item =>
+        submitData.append('amenities[]', item)
+      );
+      formData.rules.forEach(item => submitData.append('rules[]', item));
+      dispatch({ type: IS_LOADING });
+      axios
+        .post(
+          'https://homestayy.herokuapp.com/api/v1/hosts/places',
+          submitData,
+          reqConfig(true)
+        )
+        .then(({ data }) => {
+          history.push('/hosting');
+          notifySuccess('Hotel created!');
+          dispatch({ type: DONE_LOADING });
+        })
+        .catch(err => {
+          notifyError(err.response);
+        });
     } else {
       setStep(step + 1);
     }
@@ -59,6 +103,7 @@ const NewHosting = () => {
         <button
           type="button"
           className="prev-step"
+          key="notSubmit"
           onClick={() => setStep(step - 1)}
         >
           <RiArrowLeftSLine className="arrow" />
@@ -67,7 +112,8 @@ const NewHosting = () => {
         <button
           type="submit"
           className="next-step"
-          disabled={!formData.thumbnail || !formData.photos.length}
+          key="toSubmit"
+          disabled={!formData.thumbnail || !formData.homestay_photos.length}
         >
           Next
         </button>
@@ -81,13 +127,14 @@ const NewHosting = () => {
       <div className="inner-wrapper flex">
         <button
           type="button"
+          key="notSubmit"
           className="prev-step"
           onClick={() => setStep(step - 1)}
         >
           <RiArrowLeftSLine className="arrow" />
           <span>Back</span>
         </button>
-        <button type="submit" className="next-step">
+        <button type="submit" key="toSubmit" className="next-step">
           Next
         </button>
       </div>
@@ -100,20 +147,23 @@ const NewHosting = () => {
       <div className="inner-wrapper flex">
         <button
           type="button"
+          key="notSubmit"
           className="prev-step"
           onClick={() => setStep(step - 1)}
         >
           <RiArrowLeftSLine className="arrow" />
           <span>Back</span>
         </button>
-        <button type="submit" className="next-step">
+        <button type="submit" key="toSubmit" className="next-step">
           Submit
         </button>
       </div>
     );
   }
 
-  return (
+  return isLoading ? (
+    <LoadingIndicator />
+  ) : (
     <div className="new-hosting">
       <HostNavbar isFixed />
       <Line

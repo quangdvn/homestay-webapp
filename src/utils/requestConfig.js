@@ -1,9 +1,9 @@
-export const reqConfig = () => {
+export const reqConfig = (isFormData = false) => {
   const token = localStorage.getItem('token');
 
   const config = {
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': isFormData ? 'multipart/form-data' : 'application/json',
     },
   };
 

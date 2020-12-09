@@ -1,6 +1,6 @@
 import React from 'react';
 import { Element } from 'react-scroll';
-import { ImStarFull, ImStarHalf } from 'react-icons/im';
+import { ImStarFull, ImStarHalf, ImStarEmpty } from 'react-icons/im';
 import './styles.scss';
 
 const PlaceDesc = ({ desc }) => {
@@ -15,6 +15,9 @@ const PlaceDesc = ({ desc }) => {
         {Math.round(desc.rating) > desc.rating && (
           <ImStarHalf className="rating-star" />
         )}
+        {[...Array(5 - Math.ceil(desc.rating)).keys()].map(item => (
+          <ImStarEmpty key={item} className="rating-star" />
+        ))}
         <span className="rating-verdict">
           {desc.rating >= 4
             ? 'Awesome'
@@ -22,8 +25,10 @@ const PlaceDesc = ({ desc }) => {
             ? 'Good'
             : desc.rating >= 2
             ? 'Mediocre'
-            : 'Bad'}{' '}
-          ({desc.reviewCount})
+            : desc.rating >= 1
+            ? 'Bad'
+            : 'No reviews'}{' '}
+          {desc.reviewCount ? `(${desc.reviewCount})` : null}
         </span>
       </div>
       <p className="place-host">

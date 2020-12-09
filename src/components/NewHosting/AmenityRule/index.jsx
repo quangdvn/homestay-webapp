@@ -18,17 +18,18 @@ const AmenityRule = ({ formData, setFormData }) => {
               <Label check className="check-label">
                 <Input
                   type="checkbox"
+                  checked={formData.amenities.includes(item.id)}
                   onChange={event => {
                     if (event.target.checked) {
                       setFormData({
                         ...formData,
-                        amenities: [...formData.amenities, { id: item.id }],
+                        amenities: [...formData.amenities, item.id],
                       });
                     } else {
                       setFormData({
                         ...formData,
                         amenities: formData.amenities.filter(
-                          amenity => amenity.id !== item.id
+                          amenity => amenity !== item.id
                         ),
                       });
                     }
@@ -48,18 +49,17 @@ const AmenityRule = ({ formData, setFormData }) => {
               <Label check className="check-label">
                 <Input
                   type="checkbox"
+                  checked={formData.rules.includes(item.id)}
                   onChange={event => {
                     if (event.target.checked) {
                       setFormData({
                         ...formData,
-                        rules: [...formData.rules, { id: item.id }],
+                        rules: [...formData.rules, item.id],
                       });
                     } else {
                       setFormData({
                         ...formData,
-                        rules: formData.rules.filter(
-                          rule => rule.id !== item.id
-                        ),
+                        rules: formData.rules.filter(rule => rule !== item.id),
                       });
                     }
                   }}
