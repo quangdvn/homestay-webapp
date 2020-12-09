@@ -40,7 +40,7 @@ const Narbar = () => {
     if (location.pathname === '/') {
       window.addEventListener('scroll', handleScroll);
     }
-  }, [user.full_name]);
+  }, [user.full_name, location.pathname]);
   return (
     <div className={scrolled ? 'scrolled' : 'narbar'}>
       <div className="left">
