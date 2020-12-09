@@ -31,10 +31,6 @@ const Narbar = () => {
   const menu = [
     { name: 'Hotel', url: '/', exact: true },
     { name: 'Listing', url: '/listing' },
-<<<<<<< HEAD
-    { name: 'Bookmark', url: '/bookmark' },
-=======
->>>>>>> main
   ];
   const { user, isLogin } = useSelector(state => state.auth);
   if (user.is_host) {
