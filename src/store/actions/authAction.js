@@ -14,7 +14,7 @@ import {
 export const getUser = () => async dispatch => {
   try {
     const { data } = await axios.get(
-      'https://homestayy.herokuapp.com/api/v1/auth/me',
+      'https://homestayy.herokuapp.com/api/v1/auth/me.json',
       reqConfig()
     );
     const token = localStorage.getItem('token');
@@ -27,21 +27,20 @@ export const getUser = () => async dispatch => {
 
 export const getSearchHotel = reqData => async dispatch => {
   try {
-    console.log(reqData);
-    const data = await axios.get(
-      'https://homestayy.herokuapp.com/api/v1/travellers/places',
+    const { data } = await axios.post(
+      'https://homestayy.herokuapp.com/api/v1/travellers/places.json',
       reqData
     );
-    console.log(data);
-    dispatch({ type: FIND_HOTEL, payload: data });
+    dispatch({ type: FIND_HOTEL, payload: data.data.places });
   } catch (err) {
+    // console.log(err.response.data);
     notifyError(err.message);
   }
 };
 export const logIn = logInData => async dispatch => {
   try {
     const { data } = await axios.post(
-      `https://homestayy.herokuapp.com/api/v1/auth/login`,
+      `https://homestayy.herokuapp.com/api/v1/auth/login.json'`,
       logInData
     );
     localStorage.setItem('token', data.token);
@@ -57,7 +56,7 @@ export const logIn = logInData => async dispatch => {
 export const signUp = signUpData => async dispatch => {
   try {
     const { data } = await axios.post(
-      `https://homestayy.herokuapp.com/api/v1/signup`,
+      `https://homestayy.herokuapp.com/api/v1/signup.json'`,
       signUpData
     );
     console.log(data);

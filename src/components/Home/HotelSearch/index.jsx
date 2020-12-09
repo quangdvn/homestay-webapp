@@ -3,14 +3,14 @@ import './styles.scss';
 import { DateRangePicker } from 'react-dates';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import { useFormik } from 'formik';
-import axios from 'axios';
 import city from '../../../constants/city';
 import { useDispatch } from 'react-redux';
 import { getSearchHotel } from '../../../store/actions/authAction';
+import { useHistory } from 'react-router-dom';
 const HotelSearch = () => {
   const [focusedInput, setFocusedInput] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
-
+  const history = useHistory();
   const [formData, setFormData] = useState({
     startDate: '',
     endDate: '',
@@ -31,26 +31,12 @@ const HotelSearch = () => {
         district_id: parseInt(values.district_id),
       };
       handleSearchHotel(data);
+      history.push('/listing');
     },
   });
   const dispatch = useDispatch();
-  const handleSearchHotel = data => {
-    console.log(data);
-    axios
-
-      .get(
-        'https://homestayy.herokuapp.com/api/v1/travellers/places',
-        {
-          'Content-Type': 'application/json',
-        },
-        data
-      )
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => console.log(err.response.data));
-
-    //await dispatch(getSearchHotel(data));
+  const handleSearchHotel = async data => {
+    await dispatch(getSearchHotel(data));
   };
   return (
     <div className="search-hotel">
@@ -66,7 +52,6 @@ const HotelSearch = () => {
             value={formik.values.city_id}
             id="city_id"
             name="city_id"
-            className="mdb-select md-form colorful-select dropdown-primary"
           >
             <option className="label-select">Select city</option>
             {city.map(data => (
@@ -80,7 +65,6 @@ const HotelSearch = () => {
             value={formik.values.district_id}
             id="district_id"
             name="district_id"
-            className="mdb-select md-form colorful-select dropdown-primary"
           >
             <option className="label-select">Select district</option>
             {formik.values.city_id &&

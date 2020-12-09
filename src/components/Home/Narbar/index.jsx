@@ -21,7 +21,7 @@ const Narbar = () => {
   const menu = [
     { name: 'Hotel', url: '/', exact: true },
     { name: 'Listing', url: '/listing' },
-    { name: 'Profile', url: '/profile' },
+    { name: 'Bookmark', url: '/bookmark' },
   ];
   const { user, isLogin } = useSelector(state => state.auth);
 
@@ -85,7 +85,7 @@ const Narbar = () => {
 
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <Link className="dropdown-item" to="/">
-                View Profile
+                Bookmark
               </Link>
               <Link className="dropdown-item" to="/host/homes">
                 Become a host

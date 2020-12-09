@@ -12,7 +12,7 @@ const initialState = {
   token: null,
   error: '',
   isLoading: false,
-  listHotel: {},
+  listHotel: null,
 };
 
 const authReducer = (state = initialState, { type, payload }) => {

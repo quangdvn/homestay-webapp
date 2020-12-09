@@ -45,6 +45,7 @@
               border-radius: 3px;
               border: 1px solid #e6e6e6;
               outline-width: 0;
+              padding-left: 10px;
             }
             .err-message {
               color: red;
@@ -52,7 +53,7 @@
             }
           }
           .password {
-            margin-top: 10px;
+            margin-top: 30px;
             @extend .email;
           }
         }
@@ -64,6 +65,7 @@
         width: 98%;
         padding-top: 15px;
         padding-bottom: 15px;
+        margin-top: 20px;
         .remember-pwd {
           display: flex;
           flex-direction: row;
@@ -81,6 +83,7 @@
       }
       .login-btn {
         width: 100%;
+        margin-top: 36px;
         @include btn($main-user);
         .title {
           @include title(white, 18px, 1, 600);
@@ -109,6 +112,7 @@
         @include title(rgb(119, 119, 119), 15px, 1, 700);
         text-align: center;
         width: 100%;
+        margin-top: 20px;
         a {
           @include a($main-user);
         }

@@ -186,13 +186,14 @@ const SignUp = () => {
               </button>
             )}
           </form>
-          <div className="divider-inner-text">
+          {/* <div className="divider-inner-text">
             <span className="title3">--Or Register Up With--</span>
-          </div>
-          <div className="regis-btn">
+          </div> */}
+          {/* <div className="regis-btn">
             <div className="fb">Facebook</div>
             <div className="gg">Google+</div>
-          </div>
+          </div> */}
+
           <p className="title4">
             Already Have an Account!
             <Link to="/sign-in"> Login</Link>
