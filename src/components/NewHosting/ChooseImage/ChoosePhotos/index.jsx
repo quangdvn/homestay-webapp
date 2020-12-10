@@ -10,7 +10,10 @@ const ChoosePhotos = ({ formData, setFormData }) => {
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
     onDrop: files =>
-      setFormData({ ...formData, photos: [...formData.photos, ...files] }),
+      setFormData({
+        ...formData,
+        homestay_photos: [...formData.homestay_photos, ...files],
+      }),
   });
 
   return (
@@ -22,7 +25,7 @@ const ChoosePhotos = ({ formData, setFormData }) => {
         <span>Drag & drop your images here or click to select</span>
       </div>
       <div className="image-list">
-        {formData.photos.map(file => (
+        {formData.homestay_photos.map(file => (
           <div className="image-item" key={file.lastModified}>
             <div className="filename">
               <AiOutlinePaperClip className="paper-clip-icon" />
@@ -34,7 +37,7 @@ const ChoosePhotos = ({ formData, setFormData }) => {
               onClick={() =>
                 setFormData({
                   ...formData,
-                  photos: formData.photos.filter(
+                  homestay_photos: formData.homestay_photos.filter(
                     item => item.lastModified !== file.lastModified
                   ),
                 })

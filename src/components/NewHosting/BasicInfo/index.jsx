@@ -35,16 +35,16 @@ const BasicInfo = ({ formData, setFormData }) => {
             <Input
               className="review-input text-input"
               type="number"
-              step="0.01"
-              min="0.01"
+              step="0.1"
+              min="10"
               name="basePrice"
               id="basePrice"
-              placeholder="00.00"
-              value={formData.base_price.toFixed(2)}
+              placeholder="00.0"
+              value={formData.base_price}
               onChange={event =>
                 setFormData({
                   ...formData,
-                  base_price: parseFloat(event.target.value),
+                  base_price: event.target.value,
                 })
               }
             />
@@ -60,14 +60,14 @@ const BasicInfo = ({ formData, setFormData }) => {
               type="number"
               name="extraFee"
               id="extraFee"
-              step="0.01"
-              min="0.01"
-              placeholder="00.00"
-              value={formData.extra_fee.toFixed(2)}
+              step="0.1"
+              min="0"
+              placeholder="00.0"
+              value={formData.extra_fee}
               onChange={event =>
                 setFormData({
                   ...formData,
-                  extra_fee: parseFloat(event.target.value),
+                  extra_fee: event.target.value,
                 })
               }
             />
@@ -116,7 +116,7 @@ const BasicInfo = ({ formData, setFormData }) => {
             onClick={() =>
               setFormData({
                 ...formData,
-                max_guests: formData.max_guests + 1,
+                max_guests: Math.min(20, formData.max_guests + 1),
               })
             }
           >
@@ -150,7 +150,7 @@ const BasicInfo = ({ formData, setFormData }) => {
             onClick={() =>
               setFormData({
                 ...formData,
-                bedroom_number: formData.bedroom_number + 1,
+                bedroom_number: Math.min(10, formData.bedroom_number + 1),
               })
             }
           >
@@ -184,7 +184,7 @@ const BasicInfo = ({ formData, setFormData }) => {
             onClick={() =>
               setFormData({
                 ...formData,
-                bathroom_number: formData.bathroom_number + 1,
+                bathroom_number: Math.min(5, formData.bathroom_number + 1),
               })
             }
           >

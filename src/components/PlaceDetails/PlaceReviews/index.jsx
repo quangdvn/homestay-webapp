@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Element } from 'react-scroll';
-import { ImStarFull, ImStarHalf } from 'react-icons/im';
+import { ImStarFull, ImStarHalf, ImStarEmpty } from 'react-icons/im';
 import Review from './Review';
 import ReviewModal from './ReviewModal';
 import './styles.scss';
@@ -56,7 +56,12 @@ const PlaceReviews = ({ reviews, desc, placeId, setReviews }) => {
               {Math.round(desc.rating) > desc.rating && (
                 <ImStarHalf className="rating-star" />
               )}
-              <span className="number">{desc.rating}</span>
+              {[...Array(5 - Math.ceil(desc.rating)).keys()].map(item => (
+                <ImStarEmpty key={item} className="rating-star" />
+              ))}
+              {desc.rating ? (
+                <span className="number">{desc.rating}</span>
+              ) : null}
             </div>
           </div>
           <button type="button" className="write-review" onClick={toggle}>
