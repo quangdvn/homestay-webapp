@@ -1,36 +1,58 @@
 import React from 'react';
 import './styles.scss';
 import Header from './Header';
-
-const ExploreDes = () => {
-  const destination = [
-    {
-      img: 'https://i.ibb.co/4PDZqq6/Th-p-R-a-6.jpg',
-      name: 'Hà Nội',
-      number_hotel: 525,
-    },
-    {
-      img: 'https://i.ibb.co/tJ7BMZT/da-nang.jpg',
-      name: 'Đà Nẵng',
-      number_hotel: 412,
-    },
-    {
-      img: 'https://i.ibb.co/84dQSpH/hcm.jpg',
-      name: 'HCM',
-      number_hotel: 636,
-    },
-  ];
-
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import {
+  getListHotelByCity,
+  clearListHotel,
+} from '../../../store/actions/authAction';
+import ContentLoader from 'react-content-loader';
+const ExploreDes = ({ listCity, loading }) => {
+  const renderImage = name => {
+    if (name === 'Ha Noi') {
+      return <img src="https://i.ibb.co/4PDZqq6/Th-p-R-a-6.jpg" alt="" />;
+    } else if (name === 'Da Nang') {
+      return <img src="https://i.ibb.co/tJ7BMZT/da-nang.jpg" alt="" />;
+    } else {
+      return <img src="https://i.ibb.co/84dQSpH/hcm.jpg" alt="" />;
+    }
+  };
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const handleGetListHotelByCity = async id => {
+    dispatch(clearListHotel());
+    await dispatch(getListHotelByCity(id));
+  };
   return (
     <div className="explore-destination">
       <Header title="Explore Destinations" />
       <div className="list-city">
-        {destination.map(city => (
+        {loading ? (
           <div className="city">
-            <img src={city.img} alt="" />
-            <div className="info">
+            <ContentLoader viewBox="0 0 380 70">
+              <rect x="80" y="17" rx="4" ry="4" width="260" height="370" />
+            </ContentLoader>
+            <ContentLoader viewBox="0 0 380 70">
+              <rect x="80" y="17" rx="4" ry="4" width="260" height="370" />
+            </ContentLoader>
+            <ContentLoader viewBox="0 0 380 70">
+              <rect x="80" y="17" rx="4" ry="4" width="260" height="370" />
+            </ContentLoader>
+          </div>
+        ) : undefined}
+        {listCity &&listCity.map(city => (
+          <div className="city">
+            {renderImage(city.name)}
+            <div
+              className="info"
+              onClick={() => {
+                handleGetListHotelByCity(city.id);
+                history.push('/listing');
+              }}
+            >
               <h3 className="name">{city.name}</h3>
-              <span className="number-hotel">{city.number_hotel} Hotels</span>
+              <span className="number-hotel">{city.total} Hotels</span>
             </div>
           </div>
         ))}

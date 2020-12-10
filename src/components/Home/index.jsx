@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import SlideIntro from './SlideIntro';
 import HotelSearch from './HotelSearch';
@@ -8,65 +8,31 @@ import Narbar from './Narbar';
 import Footer from './Footer';
 import LoadingIndicator from '../LoadingIndicator';
 import './styles.scss';
-
+import axios from 'axios';
 const Home = () => {
-  const listHotel = [
-    {
-      address: '372 Corwin Harbors',
-      host: 'Shane Runolfsdottir LLD',
-      id: 196,
-      is_verified: true,
-      location: 'Tay Ho',
-      name: 'Anderson-Jenkins',
-      rating: 5,
-      thumbnail:
-        'https://homestayy.herokuapp.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBa29DIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--da8d9b0a59e6631d9a6eec6c1447cf108191bb83/thumbnail',
-    },
-    {
-      address: '372 Corwin Harbors',
-      host: 'Shane Runolfsdottir LLD',
-      id: 1,
-      is_verified: true,
-      location: 'Tay Ho',
-      name: 'Anderson-Jenkins',
-      rating: 5,
-      thumbnail:
-        'https://homestayy.herokuapp.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBa29DIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--da8d9b0a59e6631d9a6eec6c1447cf108191bb83/thumbnail',
-    },
-    {
-      address: '372 Corwin Harbors',
-      host: 'Shane Runolfsdottir LLD',
-      id: 2,
-      is_verified: true,
-      location: 'Tay Ho',
-      name: 'Anderson-Jenkins',
-      rating: 5,
-      thumbnail:
-        'https://homestayy.herokuapp.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBa29DIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--da8d9b0a59e6631d9a6eec6c1447cf108191bb83/thumbnail',
-    },
-    {
-      address: '372 Corwin Harbors',
-      host: 'Shane Runolfsdottir LLD',
-      id: 3,
-      is_verified: true,
-      location: 'Tay Ho',
-      name: 'Anderson-Jenkins',
-      rating: 5,
-      thumbnail:
-        'https://homestayy.herokuapp.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBa29DIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--da8d9b0a59e6631d9a6eec6c1447cf108191bb83/thumbnail',
-    },
-    {
-      address: '372 Corwin Harbors',
-      host: 'Shane Runolfsdottir LLD',
-      id: 4,
-      is_verified: true,
-      location: 'Tay Ho',
-      name: 'Anderson-Jenkins',
-      rating: 5,
-      thumbnail:
-        'https://homestayy.herokuapp.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBa29DIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--da8d9b0a59e6631d9a6eec6c1447cf108191bb83/thumbnail',
-    },
-  ];
+  const [listHotel, setListHotel] = useState(null);
+  const [listCity, setListCity] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get('https://homestayy.herokuapp.com/api/v1/location/recommended/5.json')
+      .then(res => {
+        setListHotel(res.data.data.places);
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+    axios
+      .get('https://homestayy.herokuapp.com/api/v1/location/cities')
+      .then(res => {
+        setListCity(res.data.data);
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+    setLoading(false);
+  }, []);
   const { isLoading } = useSelector(state => state.auth);
   return isLoading ? (
     <LoadingIndicator />
@@ -77,8 +43,9 @@ const Home = () => {
         <SlideIntro />
         <HotelSearch />
       </div>
-      <ExporeDes />
-      <TopHotel listHotel={listHotel} />
+
+      <ExporeDes listCity={listCity} loading={loading} />
+      {listHotel && <TopHotel listHotel={listHotel} />}
       <Footer />
     </div>
   );
