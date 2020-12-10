@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ToastAlert } from '../../components/Alert';
 import { getUser } from '../../store/actions/authAction';
 import Home from '../../components/Home';
