@@ -6,6 +6,8 @@ import {
   FIND_HOTEL,
   SWITCH_SUCCESS,
   IS_LOADING,
+  GET_HOTEL,
+  CLEAR_LIST_HOTEL,
 } from '../actions/types';
 
 const initialState = {
@@ -28,6 +30,16 @@ const authReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         user: payload,
+      };
+    case GET_HOTEL:
+      return {
+        ...state,
+        listHotel: payload,
+      };
+    case CLEAR_LIST_HOTEL:
+      return {
+        ...state,
+        listHotel: null,
       };
     case FIND_HOTEL:
       return {

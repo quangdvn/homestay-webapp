@@ -5,11 +5,17 @@ import { FiMinus, FiPlus } from 'react-icons/fi';
 import { useFormik } from 'formik';
 import city from '../../../constants/city';
 import { useDispatch } from 'react-redux';
-import { getSearchHotel } from '../../../store/actions/authAction';
+import { RingLoader } from 'react-spinners';
+import {
+  getSearchHotel,
+  clearListHotel,
+} from '../../../store/actions/authAction';
 import { useHistory } from 'react-router-dom';
+import { SEARCH_SUCCESS } from '../../../store/actions/types';
 const HotelSearch = () => {
   const [focusedInput, setFocusedInput] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const [formData, setFormData] = useState({
     startDate: '',
@@ -31,12 +37,17 @@ const HotelSearch = () => {
         district_id: parseInt(values.district_id),
       };
       handleSearchHotel(data);
-      history.push('/listing');
     },
   });
   const dispatch = useDispatch();
   const handleSearchHotel = async data => {
-    await dispatch(getSearchHotel(data));
+    dispatch(clearListHotel());
+    setLoading(true);
+    let res = await dispatch(getSearchHotel(data));
+    setLoading(false);
+    if (res === SEARCH_SUCCESS) {
+      history.push('/listing');
+    }
   };
   return (
     <div className="search-hotel">
@@ -148,9 +159,18 @@ const HotelSearch = () => {
             )}
           </div>
         </div>
-        <button className="find-hotel-btn" type="submit">
-          Find hotels
-        </button>
+
+        {loading ? (
+          <RingLoader
+            size={30}
+            color={'#f9495b'}
+            css="margin-left: 20px;margin-top: 10px;"
+          />
+        ) : (
+          <button className="find-hotel-btn" type="submit">
+            Find hotels
+          </button>
+        )}
       </form>
     </div>
   );

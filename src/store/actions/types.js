@@ -17,3 +17,11 @@ export const SWITCH_SUCCESS = 'SWITCH_SUCCESS';
 export const SWITCH_ERROR = 'SWITCH_ERROR';
 
 export const IS_LOADING = 'IS_LOADING';
+
+export const GET_HOTEL = 'GET_HOTEL';
+
+export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
+
+export const SEARCH_ERROR = 'SEARCH_ERROR';
+
+export const CLEAR_LIST_HOTEL = 'CLEAR_LIST_HOTEL';
