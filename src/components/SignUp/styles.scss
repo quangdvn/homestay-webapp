@@ -45,6 +45,7 @@
               border-radius: 3px;
               border: 1px solid #e6e6e6;
               outline-width: 0;
+              padding-left: 10px;
             }
             .err-message {
               color: red;
@@ -52,7 +53,6 @@
             }
           }
           .password {
-            margin-top: 10px;
             @extend .email;
           }
           .phone_number {
@@ -143,6 +143,7 @@
         @include title(rgb(119, 119, 119), 15px, 1, 700);
         text-align: center;
         width: 100%;
+        margin-top: 20px;
         a {
           @include a($main-user);
         }
