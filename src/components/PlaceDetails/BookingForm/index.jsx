@@ -17,6 +17,7 @@ const BookingForm = ({ prices, placeId, bookings }) => {
     adults: 0,
     children: 0,
   });
+  const [isBooking, setIsBooking] = useState(false);
   const history = useHistory();
 
   const pricePerNight =
@@ -42,6 +43,7 @@ const BookingForm = ({ prices, placeId, bookings }) => {
     if (!localStorage.getItem('token')) {
       history.push('/sign-in');
     }
+    setIsBooking(true);
     axios
       .post(
         'https://homestayy.herokuapp.com/api/v1/travellers/bookings',
@@ -60,21 +62,9 @@ const BookingForm = ({ prices, placeId, bookings }) => {
       })
       .catch(err => {
         notifyError(err.response.data.message);
+        setIsBooking(false);
       });
   };
-
-  // const bookings = [
-  //   {
-  //     check_in_date: '2020-11-30T00:00:00.000+07:00',
-  //     check_out_date: '2020-12-02T00:00:00.000+07:00',
-  //     total_price: 50.0,
-  //   },
-  //   {
-  //     check_in_date: '2020-12-05T00:00:00.000+07:00',
-  //     check_out_date: '2020-12-12T00:00:00.000+07:00',
-  //     total_price: 50.0,
-  //   },
-  // ];
 
   return (
     <div className="booking-form">
@@ -218,11 +208,13 @@ const BookingForm = ({ prices, placeId, bookings }) => {
         </div>
 
         <button
-          disabled={isDisabled()}
+          disabled={isBooking || isDisabled()}
           type="submit"
-          className={`reserve-button ${isDisabled() ? 'disabled' : ''}`}
+          className={`reserve-button ${
+            isBooking || isDisabled() ? 'disabled' : ''
+          }`}
         >
-          Reserve
+          {isBooking ? 'Booking...' : 'Reserve'}
         </button>
         <span className="not-charge">You won&apos;t be charge yet</span>
         <div className="price-cal">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { Link } from 'react-scroll';
@@ -13,6 +14,7 @@ import PlaceReviews from './PlaceReviews';
 import BookingForm from './BookingForm';
 import PhotoCarousel from './PhotoCarousel';
 import LoadingIndicator from '../LoadingIndicator';
+import { notifyError } from '../../services/alertService';
 import './styles.scss';
 
 const navItems = [
@@ -38,6 +40,7 @@ const PlaceDetails = () => {
   const toggle = () => setModalOpen(!modalOpen);
   const { id } = useParams();
   const history = useHistory();
+  const { hosted } = useSelector(state => state.auth.user);
 
   useEffect(() => {
     setLoading(true);
@@ -74,7 +77,9 @@ const PlaceDetails = () => {
         setLoading(false);
       })
       .catch(err => {
+        notifyError('Server error');
         console.log(err.response);
+        setLoading(false);
       });
   }, [id]);
 
@@ -114,14 +119,16 @@ const PlaceDetails = () => {
               {label}
             </Link>
           ))}
-          <button type="button" className="bookmark" onClick={addBookmark}>
-            {bookmarked ? (
-              <FaStar className="bookmark-icon bookmarked" />
-            ) : (
-              <FaRegStar className="bookmark-icon" />
-            )}
-            <span>Bookmark</span>
-          </button>
+          {hosted.includes(parseInt(id, 10)) ? null : (
+            <button type="button" className="bookmark" onClick={addBookmark}>
+              {bookmarked ? (
+                <FaStar className="bookmark-icon bookmarked" />
+              ) : (
+                <FaRegStar className="bookmark-icon" />
+              )}
+              <span>Bookmark</span>
+            </button>
+          )}
         </nav>
         <div className="place-details-body">
           <div className="place-details-content" name="overview">
@@ -137,6 +144,7 @@ const PlaceDetails = () => {
               desc={desc}
               placeId={id}
               setReviews={setReviews}
+              isHosted={hosted.includes(parseInt(id, 10))}
             />
           </div>
           <div className="booking-container">

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Line } from 'rc-progress';
 import { Form } from 'reactstrap';
 import { RiArrowLeftSLine } from 'react-icons/ri';
@@ -14,12 +14,17 @@ import ChooseLocation from './ChooseLocation';
 import LoadingIndicator from '../LoadingIndicator';
 import cities from '../../constants/city';
 import AmenityRule from './AmenityRule';
+import {
+  DONE_LOADING,
+  IS_LOADING,
+  ADD_HOSTED,
+} from '../../store/actions/types';
 import './styles.scss';
-import { DONE_LOADING, IS_LOADING } from '../../store/actions/types';
 
 const NewHosting = () => {
   let formComponent;
   let footerNav;
+  const { id: hostingId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
   const { isLoading } = useSelector(state => state.auth);
@@ -42,6 +47,40 @@ const NewHosting = () => {
     rules: [],
   });
 
+  useEffect(() => {
+    if (hostingId) {
+      dispatch({ type: IS_LOADING });
+      axios
+        .get(
+          `https://homestayy.herokuapp.com/api/v1/travellers/places/${hostingId}.json`
+        )
+        .then(({ data }) => {
+          dispatch({ type: DONE_LOADING });
+          setFormData({
+            name: data.data.name,
+            base_price: data.data.base_price,
+            extra_fee: data.data.extra_fee,
+            max_guests: data.data.max_guests,
+            bedroom_number: data.data.bedroom_number,
+            bathroom_number: data.data.bathroom_number,
+            city_id: data.data.city_id,
+            location_id: data.data.location_id,
+            address: data.data.address,
+            latitude: data.data.latitude,
+            longitude: data.data.longitude,
+            amenities: data.data.amenities.map(item => item.id),
+            rules: data.data.rules.map(item => item.id),
+          });
+        })
+        .catch(err => {
+          dispatch({ type: DONE_LOADING });
+          console.log(err.response);
+          notifyError('Server error');
+          history.push('/hosting');
+        });
+    }
+  }, [hostingId, dispatch, history]);
+
   const handleSubmit = event => {
     event.preventDefault();
     if (step === 4) {
@@ -58,13 +97,15 @@ const NewHosting = () => {
       submitData.append('latitude', formData.latitude);
       submitData.append('longitude', formData.longitude);
       submitData.append('thumbnail', formData.thumbnail);
-      formData.homestay_photos.forEach(item =>
-        submitData.append('homestay_photos[]', item)
-      );
-      formData.amenities.forEach(item =>
-        submitData.append('amenities[]', item)
-      );
-      formData.rules.forEach(item => submitData.append('rules[]', item));
+      if (!hostingId) {
+        formData.homestay_photos.forEach(item =>
+          submitData.append('homestay_photos[]', item)
+        );
+        formData.amenities.forEach(item =>
+          submitData.append('amenities[]', item)
+        );
+        formData.rules.forEach(item => submitData.append('rules[]', item));
+      }
       dispatch({ type: IS_LOADING });
       axios
         .post(
@@ -75,11 +116,15 @@ const NewHosting = () => {
         .then(({ data }) => {
           history.push('/hosting');
           notifySuccess('Hotel created!');
+          dispatch({ type: ADD_HOSTED, payload: data.data.id });
           dispatch({ type: DONE_LOADING });
         })
         .catch(err => {
-          notifyError(err.response);
+          notifyError(err.response.data.messages[0]);
+          dispatch({ type: DONE_LOADING });
         });
+    } else if (hostingId && step === 1) {
+      setStep(step + 2);
     } else {
       setStep(step + 1);
     }

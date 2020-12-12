@@ -7,6 +7,7 @@ import {
   SWITCH_SUCCESS,
   IS_LOADING,
   DONE_LOADING,
+  ADD_HOSTED,
 } from '../actions/types';
 
 const initialState = {
@@ -65,6 +66,14 @@ const authReducer = (state = initialState, { type, payload }) => {
         token: payload.token,
         user: payload.data,
         isLoading: false,
+      };
+    case ADD_HOSTED:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          hosted: [...state.user.hosted, payload],
+        },
       };
     default:
       return state;

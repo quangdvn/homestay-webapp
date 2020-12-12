@@ -19,6 +19,8 @@ const BasicInfo = ({ formData, setFormData }) => {
               name="hotelName"
               id="hotelName"
               required
+              minLength={10}
+              maxLength={100}
               value={formData.name}
               onChange={event =>
                 setFormData({ ...formData, name: event.target.value })

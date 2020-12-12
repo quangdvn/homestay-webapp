@@ -19,3 +19,5 @@ export const SWITCH_ERROR = 'SWITCH_ERROR';
 export const IS_LOADING = 'IS_LOADING';
 
 export const DONE_LOADING = 'DONE_LOADING';
+
+export const ADD_HOSTED = 'ADD_HOSTED';

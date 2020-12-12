@@ -10,17 +10,19 @@ import SignUp from '../../components/SignUp';
 import Hosting from '../../components/Hosting';
 import NewHosting from '../../components/NewHosting';
 import Listing from '../../components/Listing';
+import PrivateRoute from '../../components/PrivateRoute';
 import './styles.scss';
 
 function App() {
   const userToken = localStorage.getItem('token');
+  const token = useSelector(state => state.auth.token);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (userToken) {
       dispatch(getUser());
     }
-  }, [userToken, dispatch]);
+  }, [token, userToken, dispatch]);
 
   return (
     <Router>
@@ -42,9 +44,8 @@ function App() {
         <Route exact path="/hosting">
           <Hosting />
         </Route>
-        <Route exact path="/new-hosting">
-          <NewHosting />
-        </Route>
+        <PrivateRoute exact path="/new-hosting" component={NewHosting} />
+        <PrivateRoute exact path="/places/:id/edit" component={NewHosting} />
         <Route exact path="/listing">
           <Listing />
         </Route>

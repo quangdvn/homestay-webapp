@@ -7,7 +7,7 @@ import Review from './Review';
 import ReviewModal from './ReviewModal';
 import './styles.scss';
 
-const PlaceReviews = ({ reviews, desc, placeId, setReviews }) => {
+const PlaceReviews = ({ reviews, desc, placeId, setReviews, isHosted }) => {
   const user = useSelector(state => state.auth?.user);
   const [modalOpen, setModalOpen] = useState(false);
   const history = useHistory();
@@ -64,9 +64,11 @@ const PlaceReviews = ({ reviews, desc, placeId, setReviews }) => {
               ) : null}
             </div>
           </div>
-          <button type="button" className="write-review" onClick={toggle}>
-            Write a review
-          </button>
+          {isHosted ? null : (
+            <button type="button" className="write-review" onClick={toggle}>
+              Write a review
+            </button>
+          )}
         </div>
         {reviews
           .sort((a, b) => (a.created_at > b.created_at ? -1 : 1))
