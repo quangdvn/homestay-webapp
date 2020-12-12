@@ -8,7 +8,7 @@ import { reqConfig } from '../../../utils/requestConfig';
 import { notifyError, notifySuccess } from '../../../services/alertService';
 import './styles.scss';
 
-const BookingForm = ({ prices, placeId, bookings }) => {
+const BookingForm = ({ prices, placeId, bookings, isHosted }) => {
   const [focusedInput, setFocusedInput] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({
@@ -208,13 +208,13 @@ const BookingForm = ({ prices, placeId, bookings }) => {
         </div>
 
         <button
-          disabled={isBooking || isDisabled()}
+          disabled={isBooking || isHosted || isDisabled()}
           type="submit"
           className={`reserve-button ${
-            isBooking || isDisabled() ? 'disabled' : ''
+            isBooking || isHosted || isDisabled() ? 'disabled' : ''
           }`}
         >
-          {isBooking ? 'Booking...' : 'Reserve'}
+          {isBooking ? 'Booking...' : isHosted ? 'Not reservable' : 'Reserve'}
         </button>
         <span className="not-charge">You won&apos;t be charge yet</span>
         <div className="price-cal">

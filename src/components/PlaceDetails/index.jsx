@@ -148,7 +148,12 @@ const PlaceDetails = () => {
             />
           </div>
           <div className="booking-container">
-            <BookingForm prices={prices} bookings={bookings} placeId={id} />
+            <BookingForm
+              isHosted={hosted.includes(parseInt(id, 10))}
+              prices={prices}
+              bookings={bookings}
+              placeId={id}
+            />
           </div>
         </div>
         <Footer />
