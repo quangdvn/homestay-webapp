@@ -6,8 +6,12 @@ import {
   FIND_HOTEL,
   SWITCH_SUCCESS,
   IS_LOADING,
+  GET_HOTEL,
+  CLEAR_LIST_HOTEL,
   DONE_LOADING,
   ADD_HOSTED,
+  GET_BOOK_MARK,
+  CLEAR_LIST_BOOK_MARK,
 } from '../actions/types';
 
 const initialState = {
@@ -17,6 +21,7 @@ const initialState = {
   error: '',
   isLoading: false,
   listHotel: null,
+  listBookMark: null,
 };
 
 const authReducer = (state = initialState, { type, payload }) => {
@@ -36,6 +41,28 @@ const authReducer = (state = initialState, { type, payload }) => {
         ...state,
         user: payload,
       };
+    case GET_BOOK_MARK:
+      return {
+        ...state,
+        listBookMark: payload,
+      };
+
+    case GET_HOTEL:
+      return {
+        ...state,
+        listHotel: payload,
+      };
+    case CLEAR_LIST_HOTEL:
+      return {
+        ...state,
+        listHotel: null,
+      };
+    case CLEAR_LIST_BOOK_MARK:
+      return {
+        ...state,
+        listBookMark: null,
+      };
+
     case FIND_HOTEL:
       return {
         ...state,

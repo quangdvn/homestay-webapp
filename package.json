@@ -15,6 +15,7 @@
     "prop-types": "^15.7.2",
     "rc-progress": "^3.1.1",
     "react": "^16.13.1",
+    "react-content-loader": "^5.1.4",
     "react-dates": "^21.8.0",
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.2.4",
