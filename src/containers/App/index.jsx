@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ToastAlert } from '../../components/Alert';
-import { getUser } from '../../store/actions/authAction';
+import {
+  getUser,
+  getListBookMark,
+  getHotel,
+} from '../../store/actions/authAction';
 import Home from '../../components/Home';
 import PlaceDetails from '../../components/PlaceDetails';
 import SignIn from '../../components/SignIn';
@@ -10,6 +14,8 @@ import SignUp from '../../components/SignUp';
 import Hosting from '../../components/Hosting';
 import NewHosting from '../../components/NewHosting';
 import Listing from '../../components/Listing';
+import Bookmark from '../../components/Bookmark';
+
 import './styles.scss';
 
 function App() {
@@ -19,6 +25,8 @@ function App() {
   useEffect(() => {
     if (userToken) {
       dispatch(getUser());
+      dispatch(getListBookMark());
+      dispatch(getHotel());
     }
   }, [userToken, dispatch]);
 
@@ -47,6 +55,9 @@ function App() {
         </Route>
         <Route exact path="/listing">
           <Listing />
+        </Route>
+        <Route exact path="/bookmark">
+          <Bookmark />
         </Route>
         <Route exact path="/profile" />
       </Switch>

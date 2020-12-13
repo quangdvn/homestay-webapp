@@ -20,7 +20,7 @@ const Listing = () => {
     <div>
       <Narbar />
       <div style={{ height: 64 }}></div>
-      <TopHotel listHotel={listHotel} title="List Hotel: " />
+      <TopHotel listHotel={listHotel} title="List Hotel: " loading={false} />
       <Footer />
     </div>
   ) : (

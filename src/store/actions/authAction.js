@@ -16,6 +16,8 @@ import {
   SEARCH_SUCCESS,
   SEARCH_ERROR,
   CLEAR_LIST_HOTEL,
+  GET_BOOK_MARK,
+  CLEAR_LIST_BOOK_MARK
 } from './types';
 
 export const getUser = () => async dispatch => {
@@ -39,6 +41,18 @@ export const getHotel = () => async dispatch => {
     );
     dispatch({ type: GET_HOTEL, payload: data.data.places });
   } catch (err) {
+    console.log(err.message);
+    // notifyError(err.response.data.message);
+  }
+};
+export const getListBookMark = () => async dispatch => {
+  try {
+    const { data } = await axios.get(
+      'https://homestayy.herokuapp.com/api/v1/travellers/bookmarks',
+      reqConfig()
+    );
+    dispatch({ type: GET_BOOK_MARK, payload: data.data.bookmarks });
+  } catch (err) {
     notifyError(err.response.data.message);
   }
 };
@@ -52,9 +66,38 @@ export const getListHotelByCity = id => async dispatch => {
     notifyError(err.response.data.message);
   }
 };
+
+export const addBookMark = id => async () => {
+  try {
+    await axios.post(
+      `https://homestayy.herokuapp.com/api/v1/travellers/${id}/bookmarks`,
+      null,
+      reqConfig()
+    );
+    // notifySuccess('Bookmark success!');
+  } catch (err) {
+    notifyError(err.response.data.message);
+  }
+};
+
+export const deleteBookMark = id => async () => {
+  try {
+    await axios.delete(
+      `https://homestayy.herokuapp.com/api/v1/travellers/${id}/bookmarks`,
+      reqConfig()
+    );
+    // notifySuccess('Delete bookmark success!');
+  } catch (err) {
+    notifyError(err.response.data.message);
+  }
+};
 export const clearListHotel = () => dispatch => {
   dispatch({ type: CLEAR_LIST_HOTEL });
 };
+export const clearListBookMark = () => dispatch => {
+  dispatch({ type: CLEAR_LIST_BOOK_MARK });
+};
+
 export const getSearchHotel = reqData => async dispatch => {
   try {
     const { data } = await axios.post(
