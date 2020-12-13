@@ -55,10 +55,14 @@ const BookingForm = ({ prices, placeId, bookings, isHosted }) => {
         },
         reqConfig()
       )
-      .then(res => {
-        history.push('/');
+      .then(() => {
+        history.push({
+          pathname: '/profile',
+          state: {
+            bookingTab: true,
+          },
+        });
         notifySuccess('Booking success!');
-        console.log(res.data);
       })
       .catch(err => {
         notifyError(err.response.data.message);

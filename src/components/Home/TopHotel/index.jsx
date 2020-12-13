@@ -58,6 +58,7 @@ const TopHotel = ({ title, listHotel, loading }) => {
         {loading === false
           ? listHotel.map(hotel => (
               <div
+                key={hotel.id}
                 className="hotel"
                 onMouseEnter={() => {
                   setHover(true);
@@ -137,11 +138,15 @@ const TopHotel = ({ title, listHotel, loading }) => {
                           className="status"
                           style={{ marginLeft: 8, fontSize: 13, marginTop: 5 }}
                         >
-                          {hotel.rating >= 0 && hotel.rating <= 2
-                            ? `Bad(${hotel.rating})`
-                            : hotel.rating >= 3 && hotel.rating <= 4
-                            ? `Average(${hotel.rating})`
-                            : `Good(${hotel.rating})`}
+                          {hotel.rating >= 4
+                            ? `Awesome(${hotel.rating.toFixed(1)})`
+                            : hotel.rating >= 3
+                            ? `Good(${hotel.rating.toFixed(1)})`
+                            : hotel.rating >= 2
+                            ? `Mediocre(${hotel.rating.toFixed(1)})`
+                            : hotel.rating >= 1
+                            ? `Bad(${hotel.rating.toFixed(1)})`
+                            : 'No reviews'}
                         </strong>
                       </div>
                     )}

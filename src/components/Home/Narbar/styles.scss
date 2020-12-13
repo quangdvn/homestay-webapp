@@ -38,13 +38,13 @@
     .sign-in-up-btn {
       @include displayFlex(initial, center);
       .sign-in {
-        padding: 5px;
+        padding: 0.5rem 1rem;
         font-weight: 400;
         color: white;
         font-size: 15px;
       }
       .sign-up {
-        padding: 3px;
+        padding: 0.3rem 1rem;
         background-color: $main-user;
         border-radius: 5px;
         @include text(500);

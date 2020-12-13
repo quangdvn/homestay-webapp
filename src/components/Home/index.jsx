@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import axios from 'axios';
 import SlideIntro from './SlideIntro';
 import HotelSearch from './HotelSearch';
 import ExporeDes from './ExploreDes';
 import TopHotel from './TopHotel';
 import Narbar from './Narbar';
 import Footer from './Footer';
-import axios from 'axios';
-import LoadingIndicator from '../LoadingIndicator';
 import './styles.scss';
+
 const Home = () => {
-  const { isLoading } = useSelector(state => state.auth);
   const [listHotel, setListHotel] = useState([]);
   const [loading, setLoading] = useState(true);
-  useEffect( () => {
+
+  useEffect(() => {
     setLoading(true);
     axios
       .get('https://homestayy.herokuapp.com/api/v1/location/recommended/5.json')
@@ -26,9 +25,8 @@ const Home = () => {
         setLoading(false);
       });
   }, []);
-  return isLoading ? (
-    <LoadingIndicator />
-  ) : (
+
+  return (
     <div className="home-layout">
       <Narbar />
       <div className="intro-section">

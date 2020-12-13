@@ -3,15 +3,17 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, NavLink, Link, useHistory } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
 import { useSelector, useDispatch } from 'react-redux';
-import { logOut, switchToHost } from '../../../store/actions/authAction';
 import { SWITCH_SUCCESS } from '../../../store/actions/types';
 import './styles.scss';
 import {
+  logOut,
+  switchToHost,
   getHotel,
   clearListHotel,
   getListBookMark,
-  clearListBookMark
+  clearListBookMark,
 } from '../../../store/actions/authAction';
+
 const Narbar = () => {
   const location = useLocation();
   const history = useHistory();
@@ -113,16 +115,7 @@ const Narbar = () => {
               </div>
             )}
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              {user.is_host ? (
-                <Link
-                  type="button"
-                  className="dropdown-item"
-                  onClick={handleGetListBookmark}
-                  to="/bookmark"
-                >
-                  Bookmark
-                </Link>
-              ) : (
+              {!user.is_host ? (
                 <button
                   type="button"
                   className="dropdown-item"
@@ -130,7 +123,15 @@ const Narbar = () => {
                 >
                   Become a host
                 </button>
-              )}
+              ) : null}
+              <Link
+                type="button"
+                className="dropdown-item"
+                onClick={handleGetListBookmark}
+                to="/profile"
+              >
+                Profile
+              </Link>
               <Link
                 className="dropdown-item"
                 to="/"

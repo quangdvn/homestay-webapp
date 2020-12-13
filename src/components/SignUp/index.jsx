@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
+import { RingLoader } from 'react-spinners';
 import { signUp } from '../../store/actions/authAction';
 import city from '../../constants/city';
-import { RingLoader } from 'react-spinners';
 import './styles.scss';
+import { SIGN_UP_SUCCESS } from '../../store/actions/types';
 
 const SignUp = () => {
+  const history = useHistory();
   const formik = useFormik({
     initialValues: {
       phone_number: '',
@@ -40,7 +42,10 @@ const SignUp = () => {
   const handleSignUp = async signUpData => {
     console.log(signUpData);
     setLoading(true);
-    await dispatch(signUp(signUpData));
+    const res = await dispatch(signUp(signUpData));
+    if (res === SIGN_UP_SUCCESS) {
+      history.push('/');
+    }
     setLoading(false);
   };
   return (
@@ -130,7 +135,7 @@ const SignUp = () => {
                 )}
               </div>
               <div className="password_confirmation">
-                <label> Confirm password</label>
+                <label>Confirm password</label>
                 <input
                   type="password"
                   name="password_confirmation"

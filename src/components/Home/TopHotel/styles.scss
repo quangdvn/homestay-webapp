@@ -9,12 +9,12 @@
     }
   }
   .list-hotel {
+    width: 100%;
     display: grid;
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 25px;
     .hotel {
       position: relative;
-      width: 225px;
       .react-multi-carousel-list {
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;

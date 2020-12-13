@@ -16,12 +16,13 @@ import NewHosting from '../../components/NewHosting';
 import Listing from '../../components/Listing';
 import PrivateRoute from '../../components/PrivateRoute';
 import Bookmark from '../../components/Bookmark';
-
+import LoadingIndicator from '../../components/LoadingIndicator';
 import './styles.scss';
 
 function App() {
   const userToken = localStorage.getItem('token');
   const token = useSelector(state => state.auth.token);
+  const { isLoading } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,35 +35,42 @@ function App() {
 
   return (
     <Router>
-      {/* <Narbar /> */}
       <ToastAlert />
       <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route exact path="/places/:id/details">
-          <PlaceDetails />
-        </Route>
-        <Route exact path="/sign-in">
-          <SignIn />
-        </Route>
-        <Route exact path="/sign-up">
-          <SignUp />
-        </Route>
-        <Route exact path="/hosting">
-          <Hosting />
-        </Route>
-        <PrivateRoute exact path="/new-hosting" component={NewHosting} />
-        <PrivateRoute exact path="/places/:id/edit" component={NewHosting} />
-        <Route exact path="/listing">
-          <Listing />
-        </Route>
-        <Route exact path="/bookmark">
-          <Bookmark />
-        </Route>
-        <Route exact path="/profile" />
+        {isLoading ? (
+          <LoadingIndicator isHost />
+        ) : (
+          <>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route exact path="/places/:id/details">
+              <PlaceDetails />
+            </Route>
+            <Route exact path="/sign-in">
+              <SignIn />
+            </Route>
+            <Route exact path="/sign-up">
+              <SignUp />
+            </Route>
+            <Route exact path="/hosting">
+              <Hosting />
+            </Route>
+            <PrivateRoute exact path="/new-hosting" component={NewHosting} />
+            <PrivateRoute
+              exact
+              path="/places/:id/edit"
+              component={NewHosting}
+            />
+            <Route exact path="/listing">
+              <Listing />
+            </Route>
+            <Route exact path="/profile">
+              <Bookmark />
+            </Route>
+          </>
+        )}
       </Switch>
-      {/* <Footer /> */}
     </Router>
   );
 }

@@ -73,11 +73,8 @@ const HostNavbar = ({ isFixed }) => {
               Hello, {user.full_name}
             </div>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <Link className="dropdown-item" to="/">
-                View Profile
-              </Link>
-              <Link className="dropdown-item" to="/">
-                Account Settings
+              <Link className="dropdown-item" to="/profile">
+                Profile
               </Link>
               <Link
                 className="dropdown-item"

@@ -15,6 +15,7 @@ import BookingForm from './BookingForm';
 import PhotoCarousel from './PhotoCarousel';
 import LoadingIndicator from '../LoadingIndicator';
 import { notifyError } from '../../services/alertService';
+import { reqConfig } from '../../utils/requestConfig';
 import './styles.scss';
 
 const navItems = [
@@ -26,9 +27,13 @@ const navItems = [
 ];
 
 const PlaceDetails = () => {
+  const { hosted, bookmarks } = useSelector(state => state.auth.user);
+  const { id } = useParams();
+  const history = useHistory();
   const [bookmarked, setBookmark] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loadBookmark, setLoadBookmark] = useState(false);
   const [location, setLocation] = useState({});
   const [desc, setDesc] = useState({});
   const [amenities, setAmenities] = useState([]);
@@ -38,9 +43,12 @@ const PlaceDetails = () => {
   const [rules, setRules] = useState([]);
   const [prices, setPrices] = useState({});
   const toggle = () => setModalOpen(!modalOpen);
-  const { id } = useParams();
-  const history = useHistory();
-  const { hosted } = useSelector(state => state.auth.user);
+
+  useEffect(() => {
+    if (bookmarks) {
+      setBookmark(bookmarks.includes(parseInt(id, 10)));
+    }
+  }, [bookmarks, id]);
 
   useEffect(() => {
     setLoading(true);
@@ -77,17 +85,47 @@ const PlaceDetails = () => {
         setLoading(false);
       })
       .catch(err => {
-        notifyError('Server error');
-        console.log(err.response);
+        notifyError('Something wrong has happened when fetching data.');
+        history.push('/');
+        console.log(err.response.data);
         setLoading(false);
       });
-  }, [id]);
+  }, [id, history]);
 
-  const addBookmark = () => {
+  const handleBookmark = () => {
     if (!localStorage.getItem('token')) {
       history.push('/sign-in');
+      notifyError('You need to sign in before continue.');
+    } else if (!bookmarked) {
+      setLoadBookmark(true);
+      axios
+        .post(
+          `https://homestayy.herokuapp.com/api/v1/travellers/${id}/bookmarks`,
+          null,
+          reqConfig()
+        )
+        .then(() => {
+          setBookmark(true);
+          setLoadBookmark(false);
+        })
+        .catch(err => {
+          notifyError(err.response.data.message);
+        });
     } else {
-      setBookmark(!bookmarked);
+      setLoadBookmark(true);
+      axios
+        .delete(
+          `https://homestayy.herokuapp.com/api/v1/travellers/${id}/bookmarks`,
+          reqConfig()
+        )
+        .then(() => {
+          setBookmark(false);
+          setLoadBookmark(false);
+        })
+        .catch(err => {
+          notifyError(err.response.data.message);
+          setLoadBookmark(false);
+        });
     }
   };
 
@@ -119,8 +157,13 @@ const PlaceDetails = () => {
               {label}
             </Link>
           ))}
-          {hosted.includes(parseInt(id, 10)) ? null : (
-            <button type="button" className="bookmark" onClick={addBookmark}>
+          {!hosted || hosted.includes(parseInt(id, 10)) ? null : (
+            <button
+              type="button"
+              className="bookmark"
+              onClick={handleBookmark}
+              disabled={loadBookmark}
+            >
               {bookmarked ? (
                 <FaStar className="bookmark-icon bookmarked" />
               ) : (
@@ -144,12 +187,12 @@ const PlaceDetails = () => {
               desc={desc}
               placeId={id}
               setReviews={setReviews}
-              isHosted={hosted.includes(parseInt(id, 10))}
+              isHosted={!hosted || hosted.includes(parseInt(id, 10))}
             />
           </div>
           <div className="booking-container">
             <BookingForm
-              isHosted={hosted.includes(parseInt(id, 10))}
+              isHosted={!hosted || hosted.includes(parseInt(id, 10))}
               prices={prices}
               bookings={bookings}
               placeId={id}

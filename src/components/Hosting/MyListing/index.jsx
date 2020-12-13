@@ -7,28 +7,38 @@ import './styles.scss';
 
 const MyListing = () => {
   const [listings, setListings] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get('https://homestayy.herokuapp.com/api/v1/hosts/places', reqConfig())
       .then(({ data }) => {
+        setLoading(false);
         setListings(data.data.places);
       })
-      .catch(err => {
-        console.log(err.response);
+      .catch(() => {
+        setLoading(false);
+        console.log('Something wrong has happened when fetching data.');
       });
   }, []);
 
-  return !listings.length ? (
+  return loading ? (
     <LoadingIndicator isHost />
   ) : (
     <div className="my-listing">
-      <h4 className="mt-5">Your listings ({listings.length})</h4>
-      <div className="my-listing-grid">
-        {listings.map(item => (
-          <ListingItem key={item.id} desc={item} />
-        ))}
-      </div>
+      {!listings.length ? (
+        <div className="empty">You haven&apos;t created any place yet!</div>
+      ) : (
+        <>
+          <h4 className="mt-5">Your listings ({listings.length})</h4>
+          <div className="my-listing-grid">
+            {listings.map(item => (
+              <ListingItem key={item.id} desc={item} />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

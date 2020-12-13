@@ -17,7 +17,7 @@ import {
   SEARCH_ERROR,
   CLEAR_LIST_HOTEL,
   GET_BOOK_MARK,
-  CLEAR_LIST_BOOK_MARK
+  CLEAR_LIST_BOOK_MARK,
 } from './types';
 
 export const getUser = () => async dispatch => {
@@ -129,19 +129,16 @@ export const logIn = logInData => async dispatch => {
   }
 };
 
-export const signUp = signUpData => async dispatch => {
+export const signUp = signUpData => async () => {
   try {
-    const { data } = await axios.post(
+    await axios.post(
       `https://homestayy.herokuapp.com/api/v1/signup.json'`,
       signUpData
     );
-    console.log(data);
-    localStorage.setItem('token', data.token);
-    dispatch({ type: SIGN_UP_SUCCESS, payload: data });
-    notifySuccess('Sign up success! Check your email for account activation');
+    notifySuccess('Sign up success! Check your email for account activation.');
     return SIGN_UP_SUCCESS;
   } catch (err) {
-    notifyError(err.response.data.message);
+    notifyError(err.response.data.errors[0]);
     return SIGN_UP_ERROR;
   }
 };

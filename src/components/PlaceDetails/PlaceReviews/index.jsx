@@ -60,7 +60,7 @@ const PlaceReviews = ({ reviews, desc, placeId, setReviews, isHosted }) => {
                 <ImStarEmpty key={item} className="rating-star" />
               ))}
               {desc.rating ? (
-                <span className="number">{desc.rating}</span>
+                <span className="number">{desc.rating.toFixed(1)}</span>
               ) : null}
             </div>
           </div>
