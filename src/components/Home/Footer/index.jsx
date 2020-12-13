@@ -1,9 +1,11 @@
 /* eslint-disable global-require */
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './styles.scss';
 
 const Footer = () => {
+  const { user } = useSelector(state => state.auth);
   return (
     <footer>
       <div className="logo">
@@ -14,10 +16,9 @@ const Footer = () => {
       <div className="menu-nav">
         <Link to="/">Hotel</Link>
         <Link to="/listing">Listing</Link>
-        <Link to="/agent">Agent</Link>
-        <Link to="/pricing-plan">Pricing</Link>
+        {user.is_host ? <Link to="/hosting">Hosting</Link> : null}
       </div>
-      <div className="copy-right">Copyright @ 2020 RedQ, Inc.</div>
+      <div className="copy-right">Copyright @ 2020 HomeStay Team.</div>
     </footer>
   );
 };

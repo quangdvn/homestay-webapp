@@ -20,7 +20,7 @@ const MyListing = () => {
   }, []);
 
   return !listings.length ? (
-    <LoadingIndicator />
+    <LoadingIndicator isHost />
   ) : (
     <div className="my-listing">
       <h4 className="mt-5">Your listings ({listings.length})</h4>

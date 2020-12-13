@@ -2,10 +2,10 @@ import React from 'react';
 import './styles.scss';
 import { RingLoader } from 'react-spinners';
 
-const LoadingIndicator = () => {
+const LoadingIndicator = ({ isHost }) => {
   return (
     <div className="loading-indicator">
-      <RingLoader color={'#f9495b'} />
+      <RingLoader color={isHost ? '#1b858a' : '#f9495b'} />
     </div>
   );
 };

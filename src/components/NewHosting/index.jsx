@@ -207,7 +207,7 @@ const NewHosting = () => {
   }
 
   return isLoading ? (
-    <LoadingIndicator />
+    <LoadingIndicator isHost />
   ) : (
     <div className="new-hosting">
       <HostNavbar isFixed />

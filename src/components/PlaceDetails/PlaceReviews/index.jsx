@@ -21,14 +21,14 @@ const PlaceReviews = ({ reviews, desc, placeId, setReviews, isHosted }) => {
   };
 
   const addReview = data => {
-    setReviews([{ ...data, user_name: user?.user_name }, ...reviews]);
+    setReviews([{ ...data, user_name: user?.full_name }, ...reviews]);
   };
 
   const replaceReview = (reviewId, data) => {
     setReviews(
       reviews.map(item => {
         if (item.id === reviewId) {
-          return { ...data, user_name: user?.user_name };
+          return { ...data, user_name: user?.full_name };
         }
         return item;
       })
@@ -66,7 +66,9 @@ const PlaceReviews = ({ reviews, desc, placeId, setReviews, isHosted }) => {
           </div>
           {isHosted ? null : (
             <button type="button" className="write-review" onClick={toggle}>
-              Write a review
+              {reviews.filter(item => item.user_id === user?.id).length
+                ? 'Update your review'
+                : 'Write your review'}
             </button>
           )}
         </div>

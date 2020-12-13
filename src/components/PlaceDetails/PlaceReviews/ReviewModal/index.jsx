@@ -26,6 +26,7 @@ const ReviewModal = ({
     rating: userReview ? userReview.rating : 0,
     content: userReview ? userReview.detail : '',
   });
+  const [loading, setLoading] = useState(false);
 
   const isDisabled = () => {
     return !formData.rating || !formData.content;
@@ -43,10 +44,12 @@ const ReviewModal = ({
         reqConfig()
       )
       .then(({ data }) => {
+        setLoading(false);
         notifySuccess('Review added!');
         addReview(data.data);
       })
       .catch(err => {
+        setLoading(false);
         notifyError(err.response.data.message);
       });
   };
@@ -62,10 +65,12 @@ const ReviewModal = ({
         reqConfig()
       )
       .then(({ data }) => {
+        setLoading(false);
         notifySuccess('Review updated!');
         replaceReview(reviewId, data.data);
       })
       .catch(err => {
+        setLoading(false);
         notifyError(err.response.data.message);
       });
   };
@@ -73,6 +78,7 @@ const ReviewModal = ({
   const handleSubmit = event => {
     event.preventDefault();
 
+    setLoading(true);
     if (userReview) {
       editReview(userReview.id);
     } else {
@@ -127,10 +133,16 @@ const ReviewModal = ({
           />
         </FormGroup>
         <Button
-          className={`submit-review ${isDisabled() ? 'disabled' : ''}`}
-          disabled={isDisabled()}
+          className={`submit-review ${
+            loading || isDisabled() ? 'disabled' : ''
+          }`}
+          disabled={loading || isDisabled()}
         >
-          Submit your review
+          {loading
+            ? 'Submitting...'
+            : userReview
+            ? 'Update your review'
+            : 'Submit your review'}
         </Button>
       </Form>
     </Modal>

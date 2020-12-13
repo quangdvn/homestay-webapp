@@ -53,8 +53,8 @@ const HotelSearch = () => {
     <div className="search-hotel">
       <h3>Latest reviews. Lowest prices.</h3>
       <div className="description">
-        compares prices from 200+ booking sites to help you find the lowest
-        price on the right hotel for you.
+        Comparing prices to help you find the lowest price on the right hotel
+        for you.
       </div>
       <form onSubmit={formik.handleSubmit} className="form-search">
         <div className="city">
