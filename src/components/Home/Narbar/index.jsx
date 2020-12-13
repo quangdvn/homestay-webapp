@@ -6,7 +6,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logOut, switchToHost } from '../../../store/actions/authAction';
 import { SWITCH_SUCCESS } from '../../../store/actions/types';
 import './styles.scss';
-import { getHotel, clearListHotel } from '../../../store/actions/authAction';
+import {
+  getHotel,
+  clearListHotel,
+  getListBookMark,
+  clearListBookMark
+} from '../../../store/actions/authAction';
 const Narbar = () => {
   const location = useLocation();
   const history = useHistory();
@@ -36,7 +41,12 @@ const Narbar = () => {
     dispatch(clearListHotel());
     await dispatch(getHotel());
   };
+  const handleGetListBookmark = async () => {
+    dispatch(clearListBookMark());
+    await dispatch(getListBookMark());
+  };
   const { user, isLogin } = useSelector(state => state.auth);
+
   if (user.is_host) {
     menu.push({ name: 'Hosting', url: '/hosting' });
   }
@@ -102,12 +112,17 @@ const Narbar = () => {
                 Hello, {user.full_name}!
               </div>
             )}
-
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <Link className="dropdown-item" to="/">
-                Bookmark
-              </Link>
-              {user.is_host ? null : (
+              {user.is_host ? (
+                <Link
+                  type="button"
+                  className="dropdown-item"
+                  onClick={handleGetListBookmark}
+                  to="/bookmark"
+                >
+                  Bookmark
+                </Link>
+              ) : (
                 <button
                   type="button"
                   className="dropdown-item"

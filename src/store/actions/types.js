@@ -25,4 +25,10 @@ export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
 export const SEARCH_ERROR = 'SEARCH_ERROR';
 
 export const CLEAR_LIST_HOTEL = 'CLEAR_LIST_HOTEL';
+
 export const DONE_LOADING = 'DONE_LOADING';
+
+export const GET_BOOK_MARK = 'GET_BOOK_MARK';
+
+export const CLEAR_LIST_BOOK_MARK = 'CLEAR_LIST_BOOK_MARK';
+
