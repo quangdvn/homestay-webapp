@@ -45,11 +45,13 @@ const PlaceReviews = ({
   useEffect(() => {
     let sum = 0;
     reviews.forEach(item => (sum += item.rating));
-    setDesc({
-      ...desc,
-      reviewCount: reviews.length,
-      rating: sum / reviews.length,
-    });
+    if (reviews.length) {
+      setDesc({
+        ...desc,
+        reviewCount: reviews.length,
+        rating: sum / reviews.length,
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(reviews)]);
 
