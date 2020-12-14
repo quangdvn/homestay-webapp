@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Element } from 'react-scroll';
@@ -7,7 +7,14 @@ import Review from './Review';
 import ReviewModal from './ReviewModal';
 import './styles.scss';
 
-const PlaceReviews = ({ reviews, desc, placeId, setReviews, isHosted }) => {
+const PlaceReviews = ({
+  reviews,
+  desc,
+  placeId,
+  setReviews,
+  setDesc,
+  isHosted,
+}) => {
   const user = useSelector(state => state.auth?.user);
   const [modalOpen, setModalOpen] = useState(false);
   const history = useHistory();
@@ -34,6 +41,16 @@ const PlaceReviews = ({ reviews, desc, placeId, setReviews, isHosted }) => {
       })
     );
   };
+
+  useEffect(() => {
+    let sum = 0;
+    reviews.forEach(item => (sum += item.rating));
+    setDesc({
+      ...desc,
+      reviewCount: reviews.length,
+      rating: sum / reviews.length,
+    });
+  }, [JSON.stringify(reviews)]);
 
   return (
     <>

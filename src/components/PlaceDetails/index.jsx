@@ -191,6 +191,7 @@ const PlaceDetails = () => {
               desc={desc}
               placeId={id}
               setReviews={setReviews}
+              setDesc={setDesc}
               isHosted={!hosted || hosted.includes(parseInt(id, 10))}
             />
           </div>
