@@ -12,6 +12,8 @@ import {
   ADD_HOSTED,
   GET_BOOK_MARK,
   CLEAR_LIST_BOOK_MARK,
+  ADD_BOOKMARK,
+  REMOVE_BOOKMARK,
 } from '../actions/types';
 
 const initialState = {
@@ -46,7 +48,6 @@ const authReducer = (state = initialState, { type, payload }) => {
         ...state,
         listBookMark: payload,
       };
-
     case GET_HOTEL:
       return {
         ...state,
@@ -62,7 +63,6 @@ const authReducer = (state = initialState, { type, payload }) => {
         ...state,
         listBookMark: null,
       };
-
     case FIND_HOTEL:
       return {
         ...state,
@@ -100,6 +100,22 @@ const authReducer = (state = initialState, { type, payload }) => {
         user: {
           ...state.user,
           hosted: [...state.user.hosted, payload],
+        },
+      };
+    case ADD_BOOKMARK:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          bookmarks: [...state.user.bookmarks, payload],
+        },
+      };
+    case REMOVE_BOOKMARK:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          bookmarks: state.user.bookmarks.filter(item => item !== payload),
         },
       };
     default:

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { Link } from 'react-scroll';
@@ -16,6 +16,7 @@ import PhotoCarousel from './PhotoCarousel';
 import LoadingIndicator from '../LoadingIndicator';
 import { notifyError } from '../../services/alertService';
 import { reqConfig } from '../../utils/requestConfig';
+import { ADD_BOOKMARK, REMOVE_BOOKMARK } from '../../store/actions/types';
 import './styles.scss';
 
 const navItems = [
@@ -30,6 +31,7 @@ const PlaceDetails = () => {
   const { hosted, bookmarks } = useSelector(state => state.auth.user);
   const { id } = useParams();
   const history = useHistory();
+  const dispatch = useDispatch();
   const [bookmarked, setBookmark] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -46,9 +48,10 @@ const PlaceDetails = () => {
 
   useEffect(() => {
     if (bookmarks) {
+      console.log(bookmarks);
       setBookmark(bookmarks.includes(parseInt(id, 10)));
     }
-  }, [bookmarks, id]);
+  }, [bookmarks, bookmarks ? bookmarks.length : null, id]);
 
   useEffect(() => {
     setLoading(true);
@@ -105,7 +108,7 @@ const PlaceDetails = () => {
           reqConfig()
         )
         .then(() => {
-          setBookmark(true);
+          dispatch({ type: ADD_BOOKMARK, payload: parseInt(id, 10) });
           setLoadBookmark(false);
         })
         .catch(err => {
@@ -119,10 +122,11 @@ const PlaceDetails = () => {
           reqConfig()
         )
         .then(() => {
-          setBookmark(false);
+          dispatch({ type: REMOVE_BOOKMARK, payload: parseInt(id, 10) });
           setLoadBookmark(false);
         })
         .catch(err => {
+          console.log(err);
           notifyError(err.response.data.message);
           setLoadBookmark(false);
         });
@@ -169,7 +173,7 @@ const PlaceDetails = () => {
               ) : (
                 <FaRegStar className="bookmark-icon" />
               )}
-              <span>Bookmark</span>
+              <span>{bookmarked ? 'Bookmarked' : 'Bookmark'}</span>
             </button>
           )}
         </nav>

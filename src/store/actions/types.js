@@ -33,3 +33,7 @@ export const ADD_HOSTED = 'ADD_HOSTED';
 export const GET_BOOK_MARK = 'GET_BOOK_MARK';
 
 export const CLEAR_LIST_BOOK_MARK = 'CLEAR_LIST_BOOK_MARK';
+
+export const ADD_BOOKMARK = 'ADD_BOOKMARK';
+
+export const REMOVE_BOOKMARK = 'REMOVE_BOOKMARK';
