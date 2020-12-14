@@ -48,9 +48,9 @@ const PlaceDetails = () => {
 
   useEffect(() => {
     if (bookmarks) {
-      console.log(bookmarks);
       setBookmark(bookmarks.includes(parseInt(id, 10)));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookmarks, bookmarks ? bookmarks.length : null, id]);
 
   useEffect(() => {
